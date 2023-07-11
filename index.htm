@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+
+<!--    ____   _____   ____      _____                 __                    -->
+<!--   / ___) |  ___) |  _ \    / ____)               (__)             _     -->
+<!--  | |     | |___  | | \ \  | (___     ____   ___   __    ____    _| |_   -->
+<!--  | |     |  ___) | |  ) )  \___ \   / ___) |  _) |  |  |  _ \  |_   _)  -->
+<!--  | |___  | |     | |_/ /   ____) ) | |___  | /   |  |  | |_) )   | |    -->
+<!--   \____) |_|     |____/   |_____/   \____) |/    |__|  |  __/    | |    -->
+<!--                                                        | |       | |    -->
+<!--                                                        |_|       | |_   -->
+<!--   Website:  www.cfdscript.com                                    \ __\  -->
+
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="Description" CONTENT="An open-source browser-based software to solve partial differential equations (PDE) using the Finite Element Method (FEM)">
+  <title>CFDScript</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f2f2f2;
+    }
+
+    .header {
+      background-color: #333;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 800px;
+      max-height: 1600px;
+      margin: 10px auto;
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      font-size: 32px;
+      margin-top: 0;
+    }
+
+    h2 {
+      font-size: 24px;
+    }
+
+    #plot {
+      width: 80%;
+      height: 80%;
+    }
+
+    #logo-container {
+      display: flex;
+      justify-content: center;
+      align-items: center; /* Add this line to vertically center the text */
+    }
+
+    #logo-container img {
+      width: 200px;
+      height: 70px;
+      margin-right: 10px; /* Add margin to create space between the logo and text */
+    }
+  </style>
+
+  <!-- Include the Math.js library for mathematical operations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/5.0.0/math.min.js"></script>
+  <!-- Include the Plotly.js library for plotting -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/1.33.1/plotly.min.js"></script>
+</head>
+
+<body>
+
+  <div class="container">  
+    <div id="title"><h1>CFDScript</h1></br><p>An open-source browser-based software to solve partial differential equations (PDE) using the Finite Element Method (FEM)</p></div>
+  </div>
+	
+  <!--	
+  <div class="container">
+    <div id="logo-container">
+      <a href="https://www.cfdscript.com/"><img src="./logo.png" alt="Logo"></a>
+      <span>An open-source browser-based software to solve partial differential equations (PDE) using the Finite Element Method (FEM)</span>
+    </div>
+  </div>
+  -->
+	
+  <div class="container">  
+    <div id="plot"></div> <!-- Container element where the plot will be rendered -->
+  </div>
+
+  <script type="module">
+    // Include the cfdscript library
+    import { CFDScript } from './scripts/CFDScript.js';
+    import { plot2DSolution } from './scripts/printRes.js';
+	  
+    // The functions will be executed as soon as the page finishes loading
+    window.addEventListener('DOMContentLoaded', (event) => {
+      // Call the cfdscript function and retrieve the solution
+      var { x, nx, ny, axpt, aypt } = CFDScript();
+      // Call the plot2DSolution for visualising the solution
+      plot2DSolution(x, nx, ny, axpt, aypt);
+    });
+  </script>
+</body>
+
+</html>
