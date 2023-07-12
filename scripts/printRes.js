@@ -12,18 +12,18 @@ import { CFDScript } from './CFDScript.js';
 
 export function plot2DSolution(x, nx, ny, axpt, aypt) {   
   // Reshape the axpt and aypt arrays to match the grid dimensions
-  var reshapedAxpt = math.reshape(Array.from(axpt), [nx, ny]);
-  var reshapedAypt = math.reshape(Array.from(aypt), [nx, ny]);
+  let reshapedAxpt = math.reshape(Array.from(axpt), [nx, ny]);
+  let reshapedAypt = math.reshape(Array.from(aypt), [nx, ny]);
 
   // Reshape the solution array to match the grid dimensions
-  var reshapedX = math.reshape(Array.from(x), [nx, ny]);
+  let reshapedX = math.reshape(Array.from(x), [nx, ny]);
 
   // Debugger; 
   console.log(reshapedX[0].length);
   console.log(reshapedX);
 
   // Create the contour plot data
-  var data = [{
+  let data = [{
     z: reshapedX,
     type: 'contour',
     contours: {
@@ -34,7 +34,7 @@ export function plot2DSolution(x, nx, ny, axpt, aypt) {
   }];
 
   // Set the layout for the contour plot
-  var layout = {
+  let layout = {
     title: 'Solution (Contour Plot)',
     width: 500,
     height: 500,

@@ -11,9 +11,9 @@
 // Basis functions
 export function basisFun2DQuad(x, y) {
   
-  var ph = [];
-  var phic = [];
-  var phie = [];
+  let ph = [];
+  let phic = [];
+  let phie = [];
 
   function l1(c){
     return 2 * c ** 2 - 3 * c + 1;

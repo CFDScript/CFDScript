@@ -11,20 +11,20 @@
 // Gauss elimination
 export function gauss(A, x) {
 
-  var i;
-  var k;
-  var j;
+  let i;
+  let k;
+  let j;
 
   // Make a single matrix by appending x to A
   for (i = 0; i < A.length; i++) {
     A[i].push(x[i]);
   }
-  var n = A.length;
+  let n = A.length;
 
   // Search for the maximum element in each column
   for (i = 0; i < n; i++) {
-    var maxEl = Math.abs(A[i][i]);
-    var maxRow = i;
+    let maxEl = Math.abs(A[i][i]);
+    let maxRow = i;
     for (k = i + 1; k < n; k++) {
       if (Math.abs(A[k][i]) > maxEl) {
         maxEl = Math.abs(A[k][i]);
@@ -34,14 +34,14 @@ export function gauss(A, x) {
 
     // Swap the maximum row with the current row (column by column)
     for (k = i; k < n + 1; k++) {
-      var tmp = A[maxRow][k];
+      let tmp = A[maxRow][k];
       A[maxRow][k] = A[i][k];
       A[i][k] = tmp;
     }
 
     // Make all elements below the current row zero
     for (k = i + 1; k < n; k++) {
-      var c = -A[k][i] / A[i][i];
+      let c = -A[k][i] / A[i][i];
       for (j = i; j < n + 1; j++) {
         if (i === j) {
           A[k][j] = 0;
@@ -53,7 +53,7 @@ export function gauss(A, x) {
   }
 
   // Solve the equations using back substitution
-  var x = array_fill(0, n, 0);
+  x = array_fill(0, n, 0);
   for (i = n - 1; i >= 0; i--) {
     x[i] = A[i][n] / A[i][i];
     for (k = i - 1; k >= 0; k--) {
@@ -65,7 +65,7 @@ export function gauss(A, x) {
 }
 
 function array_fill(i, n, v) {
-  var a = [];
+  let a = [];
   for (; i < n; i++) {
     a.push(v);
   }

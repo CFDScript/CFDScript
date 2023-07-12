@@ -12,12 +12,12 @@
 export function createCoord2D(nex, ney, xlast, ylast) {
   
   // Initialize arrays and variables
-  var axpt = []; // Array to store x-coordinates of nodes
-  var aypt = []; // Array to store y-coordinates of nodes
+  let axpt = []; // Array to store x-coordinates of nodes
+  let aypt = []; // Array to store y-coordinates of nodes
   const xfirst = 0; // Starting x-coordinate
   const yfirst = 0; // Starting y-coordinate
-  var nnx = 2 * nex + 1; // Total number of nodes along x-axis
-  var nny = 2 * ney + 1; // Total number of nodes along y-axis
+  let nnx = 2 * nex + 1; // Total number of nodes along x-axis
+  let nny = 2 * ney + 1; // Total number of nodes along y-axis
   const deltax = (xlast - xfirst) / nex; // Spacing between nodes along x-axis
   const deltay = (ylast - yfirst) / ney; // Spacing between nodes along y-axis
   

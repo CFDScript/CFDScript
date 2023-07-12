@@ -14,20 +14,16 @@ import { basisFun2DQuad } from './basisFun.js';
 export function createLaplace2DMat(nex, ney, xlast, ylast) {
 
   // Definitions
-  var x = [];
-  var res = [];
-  var jac = [];
-  var axpt = [];
-  var aypt = [];
-  var nnx;
-  var nny;
+  let x = [];
+  let res = [];
+  let jac = [];
 
   // Generate xy coordinates using createCoord2D function
-  var { axpt, aypt, nnx, nny } = createCoord2D(nex, ney, xlast, ylast);
+  let { axpt, aypt, nnx, nny } = createCoord2D(nex, ney, xlast, ylast);
 
   // Nodal numbering
-  var nel = 0;
-  var nop = [];
+  let nel = 0;
+  let nop = [];
 
   // Initialize nop array with zeros
   for (let i = 0; i < nex * ney; i++) {
@@ -53,25 +49,22 @@ export function createLaplace2DMat(nex, ney, xlast, ylast) {
   // Initialize variables for matrix assembly
   const ne = nex * ney;
   const np = nnx * nny;
-  var ntop = [];
-  var ncod = [];
-  var bc = [];
-  var ngl = [];
-  var gp = [];
-  var wgp = [];
-  var ph = [];
-  var phic = [];
-  var phie = [];
-  var phx = [];
-  var phy = [];
-  var y;
-  var x1;
-  var x2;
-  var y1;
-  var y2;
-  var dett;
-  var m1;
-  var n1;
+  let ntop = [];
+  let ncod = [];
+  let bc = [];
+  let ngl = [];
+  let gp = [];
+  let wgp = [];
+  let phx = [];
+  let phy = [];
+  let y;
+  let x1;
+  let x2;
+  let y1;
+  let y2;
+  let dett;
+  let m1;
+  let n1;
 
   // Initialize jac and res arrays
   for (let i = 0; i < np; i++) {
