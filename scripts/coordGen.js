@@ -8,7 +8,7 @@
 //                                                        |_|       | |_   //
 //   Website:  www.cfdscript.com                                    \ __\  //
 
-// Generate two-dimensional structured mesh
+// Generate a two-dimensional structured mesh
 export function createCoord2D(nex, ney, xlast, ylast) {
   
   // Initialize arrays and variables

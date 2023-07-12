@@ -18,10 +18,6 @@ export function plot2DSolution(x, nx, ny, axpt, aypt) {
   // Reshape the solution array to match the grid dimensions
   let reshapedX = math.reshape(Array.from(x), [nx, ny]);
 
-  // Debugger; 
-  console.log(reshapedX[0].length);
-  console.log(reshapedX);
-
   // Create the contour plot data
   let data = [{
     z: reshapedX,

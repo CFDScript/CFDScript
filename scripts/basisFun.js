@@ -8,7 +8,7 @@
 //                                                        |_|       | |_   //
 //   Website:  www.cfdscript.com                                    \ __\  //
 
-// Basis functions
+// Quadratic basis functions for rectangular elements
 export function basisFun2DQuad(x, y) {
   
   let ph = [];

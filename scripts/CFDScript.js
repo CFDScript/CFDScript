@@ -8,9 +8,7 @@
 //                                                        |_|       | |_   //
 //   Website:  www.cfdscript.com                                    \ __\  //
 
-// Import the createLaplace2DMat function from './laplace2DSolver.js'
 import { createLaplace2DMat } from './laplace2DSolver.js';
-// Import the gauss function from './auxFun.js'
 import { gauss } from './auxFun.js';
 
 export function CFDScript() {
