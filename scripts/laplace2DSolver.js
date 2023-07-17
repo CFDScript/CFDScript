@@ -85,20 +85,20 @@ export function createLaplace2DMat(nex, ney, xlast, ylast) {
   //  ntop[i] = 1;
   //}
 
-  // Define ntop for elements along y=ylast
-  //for (let i = nex - 1; i < ne; i += nex) {
-  //  ntop[i] = 1;
-  //}
-
   // Define ntop for elements along x=xfirst
-  //for (let i = 0; i < ne-ney; i += nex) {
-  //  ntop [i] = 1;
+  for (let i = 0; i < ne - nex; i += nex) {
+    ntop [i] = 1;
+  }
+
+  // Define ntop for elements along y=ylast
+  //for (let i = ne - nex; i < ne; i++) {
+  //  ntop[i] = 1;
   //}
   
   // Define ntop for elements along x=xlast
-  //for (let i = ney - 1; i < ne; i += ney) {
-  //  ntop[i] = 1;
-  //}
+  for (let i = nex - 1; i < ne; i += nex) {
+    ntop[i] = 1;
+  }
 
   // Matrix assembly
   for (let i = 0; i < ne; i++) {
@@ -119,7 +119,7 @@ export function createLaplace2DMat(nex, ney, xlast, ylast) {
     for (let j = 0; j < 3; j++) {
       for (let k = 0; k < 3; k++) {
 
-        // Isoparametric mapping and derivatives using basisFun2DQuad function
+        // Initialise variables for isoparametric mapping
         let { ph, phic, phie } = basisFun2DQuad(gp[j], gp[k]);
         x = 0;
         y = 0;
@@ -128,7 +128,7 @@ export function createLaplace2DMat(nex, ney, xlast, ylast) {
         y1 = 0;
         y2 = 0;
 
-        // Compute x and y coordinates and derivatives
+        // Isoparametric mapping
         for (let n = 0; n < 9; n++) {
           x += axpt[ngl[n]] * ph[n];
           y += aypt[ngl[n]] * ph[n];
@@ -188,22 +188,22 @@ export function createLaplace2DMat(nex, ney, xlast, ylast) {
   }
 
   // Define ncod and bc for nodes on x=xfirst
-  //for (let i = 0; i < np - nny + 1; i += nny) {
+  //for (let i = 0; i < np - nnx + 1; i += nnx) {
   //  ncod[i] = 1;
   //  bc[i] = 1;
   //}
 
   // Define ncod and bc for nodes on y=ylast
-  //for (let i = nny - 1; i < np; i += nny) {
-  //  ncod[i] = 1;
-  //  bc[i] = 1;
-  //}
-
-  // Define ncod and bc for nodes on x=xlast
-  for (let i = nnx - 1; i < np; i += nnx) {
+  for (let i = np - nnx; i < np; i++) {
     ncod[i] = 1;
     bc[i] = 1;
   }
+
+  // Define ncod and bc for nodes on x=xlast
+  //for (let i = nnx - 1; i < np; i += nnx) {
+  //  ncod[i] = 1;
+  //  bc[i] = 1;
+  //}
 
   // Impose Dirichlet boundary conditions
   for (let i = 0; i < np; i++) {
