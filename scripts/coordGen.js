@@ -20,7 +20,7 @@ export function createCoord2D(nex, ney, xlast, ylast) {
   let nny = 2 * ney + 1; // Total number of nodes along y-axis
   const deltax = (xlast - xfirst) / nex; // Spacing between nodes along x-axis
   const deltay = (ylast - yfirst) / ney; // Spacing between nodes along y-axis
-  
+
   // Calculate x-y coordinates of nodes
   axpt[0] = xfirst;
   aypt[0] = yfirst;

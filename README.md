@@ -1,6 +1,6 @@
 # CFDScript
 <a href="https://www.cfdscript.com/"><img src="./images/logo.png" align="left" hspace="10" vspace="6" width="200" height="70"></a>
-An open-source browser-based software to solve partial differential equations (PDE) using the Finite Element Method (FEM). ***This project is under heavy development at this stage. Don't consider using it for the moment.***
+An open-source JavaScript library to solve partial differential equations (PDE) using the Finite Element Method (FEM). ***This project is under heavy development at this stage. Don't consider using it for the moment.***
 <br></br>
 
 <!-- ## Start here 

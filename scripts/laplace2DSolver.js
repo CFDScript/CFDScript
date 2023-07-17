@@ -81,24 +81,24 @@ export function createLaplace2DMat(nex, ney, xlast, ylast) {
   }
 
   // Define ntop for elements along y=yfirst
-  //for (let i = 0; i < nex; i++) {
-  //  ntop[i] = 1;
-  //}
+  for (let i = 0; i < ne - ney; i += ney) {
+    ntop[i] = 1;
+  } 
 
   // Define ntop for elements along x=xfirst
-  for (let i = 0; i < ne - nex; i += nex) {
-    ntop [i] = 1;
-  }
+  //for (let i = 0; i < ney; i++) {
+  //  ntop [i] = 1;
+  //} 
 
   // Define ntop for elements along y=ylast
-  //for (let i = ne - nex; i < ne; i++) {
+  //for (let i = ney - 1; i < ne; i += ney) {
   //  ntop[i] = 1;
-  //}
+  //} 
   
   // Define ntop for elements along x=xlast
-  for (let i = nex - 1; i < ne; i += nex) {
+  for (let i = ne - ney; i < ne; i++) {
     ntop[i] = 1;
-  }
+  } 
 
   // Matrix assembly
   for (let i = 0; i < ne; i++) {
@@ -182,25 +182,25 @@ export function createLaplace2DMat(nex, ney, xlast, ylast) {
  }
 
   // Define ncod and bc for nodes on y=yfirst
-  for (let i = 0; i < nnx; i++) {
-    ncod[i] = 1;
-    bc[i] = 1;
-  }
-
-  // Define ncod and bc for nodes on x=xfirst
-  //for (let i = 0; i < np - nnx + 1; i += nnx) {
+  //for (let i = 0; i < np - nny + 1; i += nny) {
   //  ncod[i] = 1;
   //  bc[i] = 1;
   //}
 
-  // Define ncod and bc for nodes on y=ylast
-  for (let i = np - nnx; i < np; i++) {
+  // Define ncod and bc for nodes on x=xfirst
+  for (let i = 0; i < nny; i++) {
     ncod[i] = 1;
     bc[i] = 1;
   }
 
+  // Define ncod and bc for nodes on y=ylast
+  for (let i = nny - 1; i < np; i += nny) {
+    ncod[i] = 1;
+    bc[i] = 1;
+  } 
+
   // Define ncod and bc for nodes on x=xlast
-  //for (let i = nnx - 1; i < np; i += nnx) {
+  //for (let i = np - nny; i < np; i++) {
   //  ncod[i] = 1;
   //  bc[i] = 1;
   //}

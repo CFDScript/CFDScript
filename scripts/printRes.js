@@ -18,20 +18,43 @@ export function plot2DSolution(x, nx, ny, axpt, aypt) {
   // Reshape the solution array to match the grid dimensions
   let reshapedX = math.reshape(Array.from(x), [nx, ny]);
 
+  // Transpose the reshapedX array to get column-wise data
+  let transposedReshapedX = math.transpose(reshapedX);
+
+  // Create x array for the contour plot
+  let reshapedXForPlot = [];
+  for (let i = 0; i < nx * ny; i += ny) {
+    let xValue = axpt[i];
+    reshapedXForPlot.push(xValue);
+  }
+  
   // Create the contour plot data
   let data = [{
-    z: reshapedX,
+    z: transposedReshapedX,
     type: 'contour',
     contours: {
       coloring: 'heatmap'
     },
-    x: reshapedAypt[0], //(needs correction)
+    x: reshapedXForPlot,
     y: reshapedAypt[0]
   }];
+
+  //Debugger
+  //console.log(x)
+  //console.log(reshapedXForPlot)
+  //console.log(reshapedAypt[0])
+
+  let maxReshapedXForPlot = Math.max(...reshapedXForPlot);
+  let maxReshapedAypt = Math.max(...reshapedAypt[0]);
+  
+  let plotWidth = 500 * maxReshapedXForPlot;
+  let plotHeight = 500 * maxReshapedAypt;
 
   // Set the layout for the contour plot
   let layout = {
     title: 'Solution (Contour Plot)',
+    //width: plotWidth,
+    //height: plotHeight,
     width: 500,
     height: 500,
     xaxis: { title: 'x' },
