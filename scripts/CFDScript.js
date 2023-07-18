@@ -8,7 +8,7 @@
 //                                                        |_|       | |_   //
 //   Website:  www.cfdscript.com                                    \ __\  //
 
-import { createLaplace2DMat } from './laplace2DSolver.js';
+import { createLaplaceMat2D } from './createMat.js';
 import { gauss } from './auxFun.js';
 
 export function CFDScript() {
@@ -21,7 +21,7 @@ export function CFDScript() {
   const ylast = 1; // Last y-coordinate
   
   // Assembly matrices
-  let { jac, res, nnx, nny, axpt, aypt } = createLaplace2DMat(nex, ney, xlast, ylast); // Call createLaplaceMat to assemble the matrices
+  let { jac, res, nnx, nny, axpt, aypt } = createLaplaceMat2D(nex, ney, xlast, ylast); // Call createLaplaceMat to assemble the matrices
   let nx = nnx; // Assign the value of nnx to nx
   let ny = nny; // Assign the value of nny to ny
   

@@ -10,7 +10,7 @@
 
 import { CFDScript } from './CFDScript.js';
 
-export function plot2DSolution(x, nx, ny, axpt, aypt) {   
+export function plotSol2D(x, nx, ny, axpt, aypt) {   
   // Reshape the axpt and aypt arrays to match the grid dimensions
   let reshapedAxpt = math.reshape(Array.from(axpt), [nx, ny]);
   let reshapedAypt = math.reshape(Array.from(aypt), [nx, ny]);

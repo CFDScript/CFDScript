@@ -8,10 +8,10 @@
 //                                                        |_|       | |_   //
 //   Website:  www.cfdscript.com                                    \ __\  //
 
-import { createCoord2D, nodNum } from './coordGen.js';
-import { basisFun2DQuad } from './basisFun.js';
+import { createCoord2D, nodNum2D } from './createCoord.js';
+import { basisFunQuad2D } from './basisFun.js';
 
-export function createLaplace2DMat(nex, ney, xlast, ylast) {
+export function createLaplaceMat2D(nex, ney, xlast, ylast) {
 
   // Definitions
   let x = [];
@@ -22,7 +22,7 @@ export function createLaplace2DMat(nex, ney, xlast, ylast) {
   let { axpt, aypt, nnx, nny } = createCoord2D(nex, ney, xlast, ylast);
 
   // Generate nop array
-  let nop = nodNum(nex, ney, nnx, nny);
+  let nop = nodNum2D(nex, ney, nnx, nny);
 
   // Initialize variables for matrix assembly
   const ne = nex * ney;
@@ -98,7 +98,7 @@ export function createLaplace2DMat(nex, ney, xlast, ylast) {
       for (let k = 0; k < 3; k++) {
 
         // Initialise variables for isoparametric mapping
-        let { ph, phic, phie } = basisFun2DQuad(gp[j], gp[k]);
+        let { ph, phic, phie } = basisFunQuad2D(gp[j], gp[k]);
         x = 0;
         y = 0;
         x1 = 0;
@@ -139,7 +139,7 @@ export function createLaplace2DMat(nex, ney, xlast, ylast) {
     // Check for elements with ntop[nel]=1 to impose Neumann boundary condition
     if (ntop[i] == 1) {
       for (let n = 0; n < 3; n++) {
-        let { ph, phic, phie } = basisFun2DQuad(gp[n], 1);
+        let { ph, phic, phie } = basisFunQuad2D(gp[n], 1);
         x = 0;
         x1 = 0;
         for (let k = 0; k < 9; k++) {

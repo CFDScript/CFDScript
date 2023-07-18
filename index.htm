@@ -78,14 +78,14 @@
   <script type="module">
     // Include the cfdscript library (for running JavaScript in local HTML files see here: https://stackoverflow.com/questions/58067499/runing-javascript-in-local-html-files-in-firefox)
     import { CFDScript } from './scripts/CFDScript.js';
-    import { plot2DSolution } from './scripts/printRes.js';
+    import { plotSol2D } from './scripts/plotSol.js';
 	  
     // The functions will be executed as soon as the page finishes loading
     window.addEventListener('DOMContentLoaded', (event) => {
       // Call the cfdscript function and retrieve the solution
       let { x, nx, ny, axpt, aypt } = CFDScript();
-      // Call the plot2DSolution for visualising the solution
-      plot2DSolution(x, nx, ny, axpt, aypt);
+      // Call the plotSol2D for visualising the solution
+      plotSol2D(x, nx, ny, axpt, aypt);
     });
   </script>
 </body>

@@ -61,8 +61,8 @@ export function createCoord1D(nex, xlast) {
   return { axpt, nnx };
 }
 
-// Generate nop array (nodal numbering)
-export function nodNum(nex, ney, nnx, nny) {
+// Generate nop array for two-dimensional structured mesh
+export function nodNum2D(nex, ney, nnx, nny) {
 
   // Nodal numbering
   let nel = 0;
