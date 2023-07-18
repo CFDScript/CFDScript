@@ -8,7 +8,7 @@
 //                                                        |_|       | |_   //
 //   Website:  www.cfdscript.com                                    \ __\  //
 
-// Generate a two-dimensional structured mesh
+// Generate two-dimensional structured mesh
 export function createCoord2D(nex, ney, xlast, ylast) {
   
   // Initialize arrays and variables
@@ -39,5 +39,56 @@ export function createCoord2D(nex, ney, xlast, ylast) {
   }
   
   // Return the generated coordinates and mesh information
-  return {axpt, aypt, nnx, nny};
+  return { axpt, aypt, nnx, nny };
+}
+
+// Generate one-dimensional mesh
+export function createCoord1D(nex, xlast) {
+
+  // Initialize arrays and variables
+  let axpt = []; // Array to store x-coordinates of nodes
+  const xfirst = 0; // Starting x-coordinate
+  let nnx = 2 * nex + 1; // Total number of nodes along x-axis
+  const deltax = (xlast - xfirst) / nex; // Spacing between nodes along x-axis
+
+    // Calculate x coordinates of nodes
+    axpt[0] = xfirst;
+    for (let i = 1; i < nnx; i++) {
+      axpt[i] = axpt[i-1] + deltax;
+    }
+
+  // Return the generated coordinates and mesh information
+  return { axpt, nnx };
+}
+
+// Generate nop array (nodal numbering)
+export function nodNum(nex, ney, nnx, nny) {
+
+  // Nodal numbering
+  let nel = 0;
+  let nop = [];
+
+  // Initialize nop array with zeros
+  for (let i = 0; i < nex * ney; i++) {
+    nop.push([]);
+    for (let j = 0; j < 9; j++) {
+      nop[i][j] = 0;
+    }
+  }
+
+  // Assign node numbers to elements
+  for (let i = 1; i <= nex; i++) {
+    for (let j = 1; j <= ney; j++) {
+      for (let k = 1; k <= 3; k++) {
+        let l = 3 * k - 2;
+        nop[nel][l - 1] = nny * (2 * i + k - 3) + 2 * j - 1;
+        nop[nel][l] = nop[nel][l - 1] + 1;
+        nop[nel][l + 1] = nop[nel][l - 1] + 2;
+      }
+      nel = nel + 1;
+    }
+  }
+
+  // Return the generated nop array
+  return nop;
 }

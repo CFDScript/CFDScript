@@ -39,14 +39,9 @@ export function plot2DSolution(x, nx, ny, axpt, aypt) {
     y: reshapedAypt[0]
   }];
 
-  //Debugger
-  //console.log(x)
-  //console.log(reshapedXForPlot)
-  //console.log(reshapedAypt[0])
-
+  // Plot resizing
   let maxReshapedXForPlot = Math.max(...reshapedXForPlot);
   let maxReshapedAypt = Math.max(...reshapedAypt[0]);
-  
   let plotWidth = 500 * maxReshapedXForPlot;
   let plotHeight = 500 * maxReshapedAypt;
 

@@ -68,5 +68,5 @@ export function basisFun2DQuad(x, y) {
   phie[8] = l3(x) * dl3(y);
   
   // Return the evaluated basis functions and derivatives
-  return {ph, phic, phie};
+  return { ph, phic, phie };
 }

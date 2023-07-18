@@ -8,7 +8,7 @@
 //                                                        |_|       | |_   //
 //   Website:  www.cfdscript.com                                    \ __\  //
 
-import { createCoord2D } from './coordGen.js';
+import { createCoord2D, nodNum } from './coordGen.js';
 import { basisFun2DQuad } from './basisFun.js';
 
 export function createLaplace2DMat(nex, ney, xlast, ylast) {
@@ -21,30 +21,8 @@ export function createLaplace2DMat(nex, ney, xlast, ylast) {
   // Generate xy coordinates using createCoord2D function
   let { axpt, aypt, nnx, nny } = createCoord2D(nex, ney, xlast, ylast);
 
-  // Nodal numbering
-  let nel = 0;
-  let nop = [];
-
-  // Initialize nop array with zeros
-  for (let i = 0; i < nex * ney; i++) {
-    nop.push([]);
-    for (let j = 0; j < 9; j++) {
-      nop[i][j] = 0;
-    }
-  }
-
-  // Assign node numbers to elements
-  for (let i = 1; i <= nex; i++) {
-    for (let j = 1; j <= ney; j++) {
-      for (let k = 1; k <= 3; k++) {
-        let l = 3 * k - 2;
-        nop[nel][l - 1] = nny * (2 * i + k - 3) + 2 * j - 1;
-        nop[nel][l] = nop[nel][l - 1] + 1;
-        nop[nel][l + 1] = nop[nel][l - 1] + 2;
-      }
-      nel = nel + 1;
-    }
-  }
+  // Generate nop array
+  let nop = nodNum(nex, ney, nnx, nny);
 
   // Initialize variables for matrix assembly
   const ne = nex * ney;
@@ -158,7 +136,7 @@ export function createLaplace2DMat(nex, ney, xlast, ylast) {
       }
     }
 
-    // Check for elements with ntop[nell]=1 to impose Neumann boundary condition
+    // Check for elements with ntop[nel]=1 to impose Neumann boundary condition
     if (ntop[i] == 1) {
       for (let n = 0; n < 3; n++) {
         let { ph, phic, phie } = basisFun2DQuad(gp[n], 1);

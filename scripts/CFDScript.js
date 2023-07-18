@@ -17,7 +17,7 @@ export function CFDScript() {
   let x = []; // Initialize x as an empty array
   const nex = 5; // Number of elements in x-direction
   const ney = 5; // Number of elements in y-direction
-  const xlast = 2; // Last x-coordinate
+  const xlast = 1; // Last x-coordinate
   const ylast = 1; // Last y-coordinate
   
   // Assembly matrices
