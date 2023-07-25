@@ -13,12 +13,7 @@ import { basisFunQuad2D } from './basisFun.js';
 
 export function createLaplaceMat2D(nex, ney, xlast, ylast) {
 
-  // Definitions
-  let x = [];
-  let res = [];
-  let jac = [];
-
-  // Generate xy coordinates using createCoord2D function
+  // Generate x-y coordinates using createCoord2D function
   let { axpt, aypt, nnx, nny } = createCoord2D(nex, ney, xlast, ylast);
 
   // Generate nop array
@@ -27,20 +22,26 @@ export function createLaplaceMat2D(nex, ney, xlast, ylast) {
   // Initialize variables for matrix assembly
   const ne = nex * ney;
   const np = nnx * nny;
-  let ntop = [];
-  let ncod = [];
+  let ntop = []; // Neumann boundary condition flag (elements at the top side of the domain)
+  let nbottom = []; // Neumann boundary condition flag (elements at the bottom side of the domain)
+  let nleft = []; // Neumann boundary condition flag (elements at the left side of the domain)
+  let nright = []; // Neumann boundary condition flag (elements at the right side of the domain)
+  let ncod = []; // Dirichlet boundary condition flag
   let bc = [];
   let ngl = [];
   let gp = [];
   let wgp = [];
-  let phx = [];
-  let phy = [];
+  let phx = []; // The x-derivative of the basis function
+  let phy = []; // The y-derivative of the basis function
+  let res = [];
+  let jac = [];
+  let x;
   let y;
   let x1;
   let x2;
   let y1;
   let y2;
-  let dett;
+  let dett; // The jacobian of the isoparametric mapping
   let m1;
   let n1;
 
@@ -56,26 +57,41 @@ export function createLaplaceMat2D(nex, ney, xlast, ylast) {
   // Neumann boundary conditions
   for (let i = 0; i < ne; i++) {
     ntop[i] = 0;
+    nbottom[i] = 0;
+    nleft[i] = 0;
+    nright[i] = 0;
   }
 
   // Define ntop for elements along y=yfirst
   for (let i = 0; i < ne - ney; i += ney) {
-    ntop[i] = 1;
+  //  ntop[i] = 1;
+  //  nbottom[i] = 1;
+  //  nleft[i] = 1;
+  //  nright[i] = 1;
   } 
 
   // Define ntop for elements along x=xfirst
-  //for (let i = 0; i < ney; i++) {
-  //  ntop [i] = 1;
-  //} 
+  for (let i = 0; i < ney; i++) {
+  //  ntop[i] = 1;
+  //  nbottom[i] = 1;
+  //  nleft[i] = 1;
+  //  nright[i] = 1;
+  } 
 
   // Define ntop for elements along y=ylast
-  //for (let i = ney - 1; i < ne; i += ney) {
-  //  ntop[i] = 1;
-  //} 
+  for (let i = ney - 1; i < ne; i += ney) {
+    ntop[i] = 1;
+  //  nbottom[i] = 1;
+  //  nleft[i] = 1;
+  //  nright[i] = 1;
+  } 
   
   // Define ntop for elements along x=xlast
   for (let i = ne - ney; i < ne; i++) {
-    ntop[i] = 1;
+  //  ntop[i] = 1;
+  //  nbottom[i] = 1;
+  //  nleft[i] = 1;
+  //  nright[i] = 1;
   } 
 
   // Matrix assembly
@@ -119,8 +135,8 @@ export function createLaplaceMat2D(nex, ney, xlast, ylast) {
 
         // Compute x-derivative and y-derivative of basis functions
         for (let n = 0; n < 9; n++) {
-          phx[n] = (y2 * phic[n] - y1 * phie[n]) / dett;
-          phy[n] = (x1 * phie[n] - x2 * phic[n]) / dett;
+          phx[n] = (y2 * phic[n] - y1 * phie[n]) / dett;  // The x-derivative of the n basis function
+          phy[n] = (x1 * phie[n] - x2 * phic[n]) / dett;  // The y-derivative of the n basis function
         }
 
         // Computation of Galerkin's residuals and Jacobian matrix
@@ -136,7 +152,7 @@ export function createLaplaceMat2D(nex, ney, xlast, ylast) {
       }
     }
 
-    // Check for elements with ntop[nel]=1 to impose Neumann boundary condition
+    // Check for elements with ntop[nel]=1 to impose Neumann boundary condition (elements at the top side of the domain)
     if (ntop[i] == 1) {
       for (let n = 0; n < 3; n++) {
         let { ph, phic, phie } = basisFunQuad2D(gp[n], 1);
@@ -160,10 +176,10 @@ export function createLaplaceMat2D(nex, ney, xlast, ylast) {
  }
 
   // Define ncod and bc for nodes on y=yfirst
-  //for (let i = 0; i < np - nny + 1; i += nny) {
-  //  ncod[i] = 1;
-  //  bc[i] = 1;
-  //}
+  for (let i = 0; i < np - nny + 1; i += nny) {
+    ncod[i] = 1;
+    bc[i] = 1;
+  }
 
   // Define ncod and bc for nodes on x=xfirst
   for (let i = 0; i < nny; i++) {
@@ -172,16 +188,16 @@ export function createLaplaceMat2D(nex, ney, xlast, ylast) {
   }
 
   // Define ncod and bc for nodes on y=ylast
-  for (let i = nny - 1; i < np; i += nny) {
-    ncod[i] = 1;
-    bc[i] = 1;
-  } 
-
-  // Define ncod and bc for nodes on x=xlast
-  //for (let i = np - nny; i < np; i++) {
+  //for (let i = nny - 1; i < np; i += nny) {
   //  ncod[i] = 1;
   //  bc[i] = 1;
-  //}
+  //} 
+
+  // Define ncod and bc for nodes on x=xlast
+  for (let i = np - nny; i < np; i++) {
+    ncod[i] = 1;
+    bc[i] = 1;
+  }
 
   // Impose Dirichlet boundary conditions
   for (let i = 0; i < np; i++) {

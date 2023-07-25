@@ -12,8 +12,8 @@
 export function createCoord2D(nex, ney, xlast, ylast) {
   
   // Initialize arrays and variables
-  let axpt = []; // Array to store x-coordinates of nodes
-  let aypt = []; // Array to store y-coordinates of nodes
+  let axpt = []; // Array to store x-coordinates (global) of nodes
+  let aypt = []; // Array to store y-coordinates (global) of nodes
   const xfirst = 0; // Starting x-coordinate
   const yfirst = 0; // Starting y-coordinate
   let nnx = 2 * nex + 1; // Total number of nodes along x-axis
@@ -21,7 +21,7 @@ export function createCoord2D(nex, ney, xlast, ylast) {
   const deltax = (xlast - xfirst) / nex; // Spacing between nodes along x-axis
   const deltay = (ylast - yfirst) / ney; // Spacing between nodes along y-axis
 
-  // Calculate x-y coordinates of nodes
+  // Calculate x-y global coordinates of nodes
   axpt[0] = xfirst;
   aypt[0] = yfirst;
   for (let i = 1; i < nny; i++) {
@@ -46,7 +46,7 @@ export function createCoord2D(nex, ney, xlast, ylast) {
 export function createCoord1D(nex, xlast) {
 
   // Initialize arrays and variables
-  let axpt = []; // Array to store x-coordinates of nodes
+  let axpt = []; // Array to store x-coordinates (global) of nodes
   const xfirst = 0; // Starting x-coordinate
   let nnx = 2 * nex + 1; // Total number of nodes along x-axis
   const deltax = (xlast - xfirst) / nex; // Spacing between nodes along x-axis
