@@ -20,8 +20,8 @@ export function createLaplaceMat2D(nex, ney, xlast, ylast) {
   let nop = nodNum2D(nex, ney, nnx, nny);
 
   // Initialize variables for matrix assembly
-  const ne = nex * ney;
-  const np = nnx * nny;
+  const ne = nex * ney; // Total number of elements
+  const np = nnx * nny; // Total number of nodes
   let ntop = []; // Neumann boundary condition flag (elements at the top side of the domain)
   let nbottom = []; // Neumann boundary condition flag (elements at the bottom side of the domain)
   let nleft = []; // Neumann boundary condition flag (elements at the left side of the domain)
@@ -152,17 +152,48 @@ export function createLaplaceMat2D(nex, ney, xlast, ylast) {
       }
     }
 
-    // Check for elements with ntop[nel]=1 to impose Neumann boundary condition (elements at the top side of the domain)
-    if (ntop[i] == 1) {
+    // Check for elements to impose Neumann boundary conditions
+    if (ntop[i] == 1 || nbottom[i] == 1 || nleft[i] == 1 || nright[i] == 1) {
       for (let n = 0; n < 3; n++) {
-        let { ph, phic, phie } = basisFunQuad2D(gp[n], 1);
+        let gp1, gp2, firstNode, finalNode, nodeIncr;
+        // Set gp1 and gp2 based on boundary conditions
+        if (ntop[i] == 1) {
+          // Set gp1 and gp2 for elements at the top side of the domain
+          gp1 = gp[n];
+          gp2 = 1;
+          firstNode = 2;
+          finalNode = 9; // final node minus one
+          nodeIncr = 3;
+        } else if (nbottom[i] == 1) {
+          // Set gp1 and gp2 for elements at the bottom side of the dom  ain
+          gp1 = gp[n];
+          gp2 = 0;
+          firstNode = 0;
+          finalNode = 7;
+          nodeIncr = 3;
+        } else if (nleft[i] == 1) {
+          // Set gp1 and gp2 for elements at the left side of the domain
+          gp1 = 0;
+          gp2 = gp[n];
+          firstNode = 0;
+          finalNode = 3;
+          nodeIncr = 1;
+        } else if (nright[i] == 1) {
+          // Set gp1 and gp2 for elements at the right side of the domain
+          gp1 = 1;
+          gp2 = gp[n];
+          firstNode = 6;
+          finalNode = 9;
+          nodeIncr = 1;
+        }
+        let { ph, phic, phie } = basisFunQuad2D(gp1, gp2);
         x = 0;
         x1 = 0;
         for (let k = 0; k < 9; k++) {
           x += axpt[ngl[k]] * ph[k];
           x1 += axpt[ngl[k]] * phic[k];
         }
-        for (let m1 = 2; m1 < 9; m1 += 3) {
+        for (let m1 = firstNode; m1 < finalNode; m1 += nodeIncr) {
           res[m1] += -wgp[n] * x1 * ph[m1];
         }
       }

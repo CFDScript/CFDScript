@@ -14,7 +14,7 @@ import { gauss } from './auxFun.js';
 export function CFDScript() {
 
   // Definitions
-  let x = []; // Initialize x as an empty array
+  let u = []; // Initialize x as an empty array
   const nex = 5; // Number of elements in x-direction
   const ney = 5; // Number of elements in y-direction
   const xlast = 1; // Last x-coordinate
@@ -26,13 +26,13 @@ export function CFDScript() {
   let ny = nny; // Assign the value of nny to ny
   
   // System solving
-  x = math.lusolve(jac, res); // Solve the system of linear equations using LU decomposition
-  // Alternatively, you can use the gauss function to solve the system: x = gauss(jac, res);
+  u = math.lusolve(jac, res); // Solve the system of linear equations using LU decomposition
+  // Alternatively, you can use the gauss function to solve the system: u = gauss(jac, res);
 
   // Debugger; 
   //console.log("cfdscript");
   //console.log(x); // Log the solution to the console
 
   // Return the solution matrix
-  return { x, nx, ny, axpt, aypt };
+  return { u, nx, ny, axpt, aypt };
 }

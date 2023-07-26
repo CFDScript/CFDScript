@@ -10,16 +10,16 @@
 
 import { CFDScript } from './CFDScript.js';
 
-export function plotSol2D(x, nx, ny, axpt, aypt) {   
+export function plotSol2D(u, nx, ny, axpt, aypt) {   
   // Reshape the axpt and aypt arrays to match the grid dimensions
   let reshapedAxpt = math.reshape(Array.from(axpt), [nx, ny]);
   let reshapedAypt = math.reshape(Array.from(aypt), [nx, ny]);
 
   // Reshape the solution array to match the grid dimensions
-  let reshapedX = math.reshape(Array.from(x), [nx, ny]);
+  let reshapedU = math.reshape(Array.from(u), [nx, ny]);
 
   // Transpose the reshapedX array to get column-wise data
-  let transposedReshapedX = math.transpose(reshapedX);
+  let transposedReshapedU = math.transpose(reshapedU);
 
   // Create x array for the contour plot
   let reshapedXForPlot = [];
@@ -30,7 +30,7 @@ export function plotSol2D(x, nx, ny, axpt, aypt) {
   
   // Create the contour plot data
   let data = [{
-    z: transposedReshapedX,
+    z: transposedReshapedU,
     type: 'contour',
     contours: {
       coloring: 'heatmap'

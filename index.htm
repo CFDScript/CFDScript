@@ -83,9 +83,9 @@
     // The functions will be executed as soon as the page finishes loading
     window.addEventListener('DOMContentLoaded', (event) => {
       // Call the cfdscript function and retrieve the solution
-      let { x, nx, ny, axpt, aypt } = CFDScript();
+      let { u, nx, ny, axpt, aypt } = CFDScript();
       // Call the plotSol2D for visualising the solution
-      plotSol2D(x, nx, ny, axpt, aypt);
+      plotSol2D(u, nx, ny, axpt, aypt);
     });
   </script>
 </body>
