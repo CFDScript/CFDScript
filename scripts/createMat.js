@@ -27,20 +27,20 @@ export function createLaplaceMat2D(nex, ney, xlast, ylast) {
   let nleft = []; // Neumann boundary condition flag (elements at the left side of the domain)
   let nright = []; // Neumann boundary condition flag (elements at the right side of the domain)
   let ncod = []; // Dirichlet boundary condition flag
-  let bc = [];
-  let ngl = [];
-  let gp = [];
-  let wgp = [];
+  let bc = []; // Dirichlet boundary condition value
+  let ngl = []; // Local nodal numbering
+  let gp = []; // Gauss points
+  let wgp = []; // Gauss weights
   let phx = []; // The x-derivative of the basis function
   let phy = []; // The y-derivative of the basis function
-  let res = [];
-  let jac = [];
-  let x;
-  let y;
-  let x1;
-  let x2;
-  let y1;
-  let y2;
+  let res = []; // Galerkin residuals
+  let jac = []; // Jacobian matrix
+  let x; // x-coordinate
+  let y; // y-coordinate
+  let x1; // ksi-derivative of x
+  let x2; // eta-derivative of x
+  let y1; // ksi-derivative of y
+  let y2; // eta-derivative of y
   let dett; // The jacobian of the isoparametric mapping
   let m1;
   let n1;
@@ -153,33 +153,42 @@ export function createLaplaceMat2D(nex, ney, xlast, ylast) {
     }
 
     // Check for elements to impose Neumann boundary conditions
+    //
+    // Representation of the nodes in the case of quadratic rectangular elements
+    //  
+    //  2__5__8
+    //  |     |
+    //  1  4  7
+    //  |__ __|
+    //  0  3  6
+    //
     if (ntop[i] == 1 || nbottom[i] == 1 || nleft[i] == 1 || nright[i] == 1) {
       for (let n = 0; n < 3; n++) {
         let gp1, gp2, firstNode, finalNode, nodeIncr;
         // Set gp1 and gp2 based on boundary conditions
         if (ntop[i] == 1) {
-          // Set gp1 and gp2 for elements at the top side of the domain
+          // Set gp1 and gp2 for elements at the top side of the domain (nodes 2, 5, 8)
           gp1 = gp[n];
           gp2 = 1;
           firstNode = 2;
           finalNode = 9; // final node minus one
           nodeIncr = 3;
         } else if (nbottom[i] == 1) {
-          // Set gp1 and gp2 for elements at the bottom side of the dom  ain
+          // Set gp1 and gp2 for elements at the bottom side of the domain (nodes 0, 3, 6)
           gp1 = gp[n];
           gp2 = 0;
           firstNode = 0;
           finalNode = 7;
           nodeIncr = 3;
         } else if (nleft[i] == 1) {
-          // Set gp1 and gp2 for elements at the left side of the domain
+          // Set gp1 and gp2 for elements at the left side of the domain (nodes 0, 1, 2)
           gp1 = 0;
           gp2 = gp[n];
           firstNode = 0;
           finalNode = 3;
           nodeIncr = 1;
         } else if (nright[i] == 1) {
-          // Set gp1 and gp2 for elements at the right side of the domain
+          // Set gp1 and gp2 for elements at the right side of the domain (nodes 6, 7, 8)
           gp1 = 1;
           gp2 = gp[n];
           firstNode = 6;

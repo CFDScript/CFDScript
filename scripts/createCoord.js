@@ -12,8 +12,8 @@
 export function createCoord2D(nex, ney, xlast, ylast) {
   
   // Initialize arrays and variables
-  let axpt = []; // Array to store x-coordinates (global) of nodes
-  let aypt = []; // Array to store y-coordinates (global) of nodes
+  let axpt = []; // Array to store x-coordinates of nodes (local numbering)
+  let aypt = []; // Array to store y-coordinates of nodes (local numbering)
   const xfirst = 0; // Starting x-coordinate
   const yfirst = 0; // Starting y-coordinate
   let nnx = 2 * nex + 1; // Total number of nodes along x-axis
