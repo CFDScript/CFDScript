@@ -1,7 +1,7 @@
 CFDScript
 ========
 
-CFDScript is a web-based application that allows users to write and run scripts for solving partial differential equations (PDE) using the Finite Element Method (FEM).
+CFDScript is a JavaScript library that allows users solve partial differential equations (PDE) using the Finite Element Method (FEM).
 
 This product includes software developed by Nikolaos Chamakos (https://github.com/nikoscham/CFDScript).
 
