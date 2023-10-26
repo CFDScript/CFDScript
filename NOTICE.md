@@ -14,3 +14,5 @@ This product also uses the following libraries:
 NOTICE: If you distribute this software or any derivative works, you must display the following notice to the end users:
 
 This product includes software developed by Nikolaos Chamakos (https://github.com/nikoscham/CFDScript) and the following libraries: mathjs, plotly.js and triangle-wasm.
+
+This software is provided "as is" without any warranties or guarantees of any kind. The user assumes all risks associated with its use.
