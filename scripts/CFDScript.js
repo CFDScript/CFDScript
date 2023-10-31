@@ -19,9 +19,23 @@ export function CFDScript() {
   const ney = 5; // Number of elements in y-direction
   const xlast = 1; // Last x-coordinate
   const ylast = 1; // Last y-coordinate
+  const boundaryConditions = {
+    neumannTop: true,
+    neumannBottom: false,
+    neumannLeft: false,
+    neumannRight: false,
+    dirichletTop: false,
+    dirichletBottom: true,
+    dirichletLeft: true,
+    dirichletRight: true,
+    dirichletValueTop: 0.0,
+    dirichletValueBottom: 1.0,
+    dirichletValueLeft: 1.0,
+    dirichletValueRight: 1.0,
+  };
   
   // Assembly matrices
-  let { jac, res, nnx, nny, axpt, aypt } = createLaplaceMat2D(nex, ney, xlast, ylast); // Call createLaplaceMat to assemble the matrices
+  let { jac, res, nnx, nny, axpt, aypt } = createLaplaceMat2D(nex, ney, xlast, ylast, boundaryConditions); // Call createLaplaceMat to assemble the matrices
   let nx = nnx; // Assign the value of nnx to nx
   let ny = nny; // Assign the value of nny to ny
   

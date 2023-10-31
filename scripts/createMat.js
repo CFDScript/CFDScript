@@ -12,7 +12,7 @@ import { createCoord2D, nodNum2D } from './createCoord.js';
 import { basisFunQuad2D } from './basisFun.js';
 
 // This function creates the matrix and the residual vector for the Finite Element Method in two dimensions
-export function createLaplaceMat2D(nex, ney, xlast, ylast) {
+export function createLaplaceMat2D(nex, ney, xlast, ylast, boundaryConditions) {
 
   // Generate x-y coordinates using createCoord2D function
   let { axpt, aypt, nnx, nny } = createCoord2D(nex, ney, xlast, ylast);
@@ -52,19 +52,43 @@ export function createLaplaceMat2D(nex, ney, xlast, ylast) {
       jac[i][j] = 0;
     }
   }
+  
+  // Extract boundary conditions from the configuration object
+  const {
+    neumannTop,
+    neumannBottom,
+    neumannLeft,
+    neumannRight,
+    dirichletTop,
+    dirichletBottom,
+    dirichletLeft,
+    dirichletRight,
+    dirichletValueTop,
+    dirichletValueBottom,
+    dirichletValueLeft,
+    dirichletValueRight,
+  } = boundaryConditions;
 
   // Impose Neumann boundary conditions
   for (let i = 0; i < ne - ney; i += ney) { // Define ntop for elements along y=yfirst (bottom side of the domain)
-  //  nbottom[i] = 1;
+     if (neumannBottom) {
+       nbottom[i] = 1;
+	 }
   }
   for (let i = 0; i < ney; i++) { // Define ntop for elements along x=xfirst (left side of the domain)
-  //  nleft[i] = 1;
+     if (neumannLeft) {
+       nleft[i] = 1;
+	 }
   }
   for (let i = ney - 1; i < ne; i += ney) { // Define ntop for elements along y=ylast (top side of the domain)
-    ntop[i] = 1;
+     if (neumannTop) {
+       ntop[i] = 1;
+	 }
   }
   for (let i = ne - ney; i < ne; i++) { // Define ntop for elements along x=xlast (right side of the domain)
-  //  nright[i] = 1;
+     if (neumannRight) {
+       nright[i] = 1;
+	 }
   }
 
   // // Impose Neumann boundary conditions (alternative -easier to read- method)
@@ -196,20 +220,28 @@ export function createLaplaceMat2D(nex, ney, xlast, ylast) {
 
   // Impose Dirichlet boundary conditions
   for (let i = 0; i < np - nny + 1; i += nny) { // Define ncod and bc for nodes on y=yfirst (bottom side of the domain)
-    ncod[i] = 1;
-    bc[i] = 1;
+    if (dirichletBottom) {
+      ncod[i] = 1;
+      bc[i] = dirichletValueBottom;
+    }
   }
   for (let i = 0; i < nny; i++) { // Define ncod and bc for nodes on x=xfirst (left side of the domain)
-    ncod[i] = 1;
-    bc[i] = 1;
+    if (dirichletLeft) {
+      ncod[i] = 1;
+      bc[i] = dirichletValueLeft;
+    }
   }
-  //for (let i = nny - 1; i < np; i += nny) { // Define ncod and bc for nodes on y=ylast (top side of the domain)
-  //  ncod[i] = 1;
-  //  bc[i] = 1;
-  //} 
+  for (let i = nny - 1; i < np; i += nny) { // Define ncod and bc for nodes on y=ylast (top side of the domain)
+    if (dirichletTop) {
+      ncod[i] = 1;
+      bc[i] = dirichletValueTop;
+    }
+  } 
   for (let i = np - nny; i < np; i++) { // Define ncod and bc for nodes on x=xlast (right side of the domain)
-    ncod[i] = 1;
-    bc[i] = 1;
+    if (dirichletRight) {
+      ncod[i] = 1;
+      bc[i] = dirichletValueRight;
+    }
   }
 
   // // Impose Dirichlet boundary conditions (alternative -easier to read- method)

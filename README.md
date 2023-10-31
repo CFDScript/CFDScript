@@ -1,6 +1,6 @@
 # CFDScript
 <!-- <a href="https://www.cfdscript.com/"><img src="./images/logo.png" align="left" hspace="10" vspace="6" width="200" height="70"></a>-->
-A JavaScript library to solve partial differential equations (PDE) using the Finite Element Method (FEM).
+A JavaScript library to solve Partial Differential Equations (PDE) using the Finite Element Method (FEM).
 <br></br>
 
 <!-- ## Start here 
