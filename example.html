@@ -65,15 +65,36 @@
 <body>
 
   <div class="container">  
-    <div id="title"><h1>CFDScript</h1></br><p>An open-source browser-based software to solve partial differential equations (PDE) using the Finite Element Method (FEM). 
-    See the source code <a href="https://github.com/nikoscham/CFDScript" target="_blank">repository.</a></p></div>
+    <div id="title"><h1>CFDScript examples</h1></div>
   </div>
 
   <div class="container">
-    <h2>Examples</h2>
-    <h3>Solving a 2D Laplace equation</h3>
+    <h2>2D Laplace equation</h2>
     <div id="plot"></div> <!-- Container element where the example plots will be rendered -->
   </div>
+
+  <script>
+    // Definitions
+    let u = []; // Initialize x as an empty array
+    const nex = 5; // Number of elements in x-direction
+    const ney = 5; // Number of elements in y-direction
+    const xlast = 1; // Last x-coordinate
+    const ylast = 1; // Last y-coordinate
+    const boundaryConditions = {
+      neumannTop: true,
+      neumannBottom: false,
+      neumannLeft: false,
+      neumannRight: false,
+      dirichletTop: false,
+      dirichletBottom: true,
+      dirichletLeft: true,
+      dirichletRight: true,
+      dirichletValueTop: 0.0,
+      dirichletValueBottom: 1.0,
+      dirichletValueLeft: 1.0,
+      dirichletValueRight: 1.0,
+    };
+  </script>
 
   <script type="module">
     // Include the cfdscript library (for running JavaScript in local HTML files see here: https://stackoverflow.com/questions/58067499/runing-javascript-in-local-html-files-in-firefox)
@@ -83,7 +104,7 @@
     // The functions will be executed as soon as the page finishes loading
     window.addEventListener('DOMContentLoaded', (event) => {
       // Call the cfdscript function and retrieve the solution
-      let { u, nx, ny, axpt, aypt } = CFDScript();
+      let { u, nx, ny, axpt, aypt } = CFDScript(nex, ney, xlast, ylast, boundaryConditions);
       // Call the plotSol2D for visualising the solution
       plotSol2D(u, nx, ny, axpt, aypt);
     });
