@@ -14,13 +14,14 @@
   <head>
     <title>CFDScript: a JavaScript library for solving Partial Differential Equations</title>
     <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
+    
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="keywords" content="free, finite elements, fem, galerkin">
     <meta name="viewport" content="width=device-width">
+    
     <style type="text/css">
-      body { font-family: helvetica, sans-serif; font-size: 90%; }
-      h1, h2, h3, h4, h5, h6 { background: none; font-weight: normal; margin: 0;
-      padding-top: 0.4em; padding-bottom: 0.2em; width: auto; }
+      body { margin: auto; padding: 25px; font-family: helvetica, sans-serif; font-size: 90%; }
+      h1, h2, h3, h4, h5, h6 { background: none; font-weight: normal; margin: 0; padding-top: 0.4em; padding-bottom: 0.2em; width: auto; }
       h1 { font-size: 150%; margin-bottom: 0.4em; line-height: 1.2em; }
       h1.top{ color: #555; border-bottom: 1px solid #aaa; }
       #banner { float: right; width: 180px; padding-left: 1.5em; padding-bottom: 1.5em; }
@@ -31,87 +32,96 @@
       #menu li a { color: #333; font-weight: bold; text-decoration: none; }
       #menu li a:hover { color: #555; }
       img.title { height: 1em; }
-      pre {
-        background-color: #f2f2f2;
-        width: fit-content; /* Set width to fit content */
-        margin: 0;
-        padding: 10;
-        overflow-x: auto; /* Add horizontal scrollbar if needed */
-      }
+      pre { background-color: #f2f2f2; width: fit-content; margin: 0; padding: 10; overflow-x: auto; }
     </style>
   </head>
 
   <body>
     <h1 class="top">CFDScript&nbsp;<img class="title"
-      src="./images/favicon.ico" alt=""></h1>
+      src="./images/favicon.ico" alt="">
+    </h1>
+    
     <div id="banner">
       <img src="./images/example1.png" alt="">
     </div>
+    
     <h1>A JavaScript library for solving Partial Differential Equations (PDE) using the Finite Element Method (FEM)</h1>
 
     <ul id="menu">
-      <li><a href="#">Download</a></li>
-      <li><a href="#">Documentation</a></li>
-      <li><a href="#">Licensing</a></li>
-      <li><a href="#">Links</a></li>
+      <li><a href="#download">Download</a></li>
+      <li><a href="#documentation">Documentation</a></li>
+      <li><a href="#licensing">Licensing</a></li>
+      <li><a href="#links">Links</a></li>
     </ul>
 
-    <p>CFDScript is a</p>
-
-    <h2><a name="Download"></a>Download</h2>
     <p>
-      You can download CFDScript from the Git repository: <a href="https://github.com/nikoscham/CFDScript" target="_blank">https://github.com/nikoscham/CFDScript</a>.
+      CFDScript is a JavaScript library for solving Partial Differential Equations (PDE) using the Finite Element Method (FEM). It allows you to create and run browser-based simulations of physics and engineering problems. CFDScript also provides visualization tools to plot the results of your simulations.
+    </p>
+    
+    <h2 id="download"><a name="Download"></a>Download</h2>
+    
+    <p>
+      CFDScript is still under development and new features and improvements are constantly being added. You can download the latest version of CFDScript from the Git repository: <a href="https://github.com/nikoscham/CFDScript" target="_blank">https://github.com/nikoscham/CFDScript</a>.
     </p>
 
-    <h2><a name="Documentation"></a>Documentation</h2>
+    <h2 id="documentation"><a name="Documentation"></a>Documentation</h2>
 
     <h3>Usage Example</h3>
+    
     <p>
-      Here some example code demonstrating how to use the library to solve a 2D Laplace equation.  
+      Here some example code demonstrating how to use the library to solve a 2D Laplace equation. The following scripts can be embedded to your HTML page. Initially we define the problem parameters:
+    </p>
+    
     <pre>
-// Definitions
-let u = []; // Initialize x as an empty array
+// Script1: Problem parameters definition
+let u = []; // Initialize solution array
 const nex = 5; // Number of elements in x-direction
 const ney = 5; // Number of elements in y-direction
-const xlast = 1; // Last x-coordinate
-const ylast = 1; // Last y-coordinate
+const xlast = 1; // Max x-coordinate
+const ylast = 1; // Max y-coordinate
 const boundaryConditions = {
-  neumannTop: true,
-  neumannBottom: false,
-  neumannLeft: false,
-  neumannRight: false,
-  dirichletTop: false,
-  dirichletBottom: true,
-  dirichletLeft: true,
-  dirichletRight: true,
-  dirichletValueTop: 0.0,
-  dirichletValueBottom: 1.0,
-  dirichletValueLeft: 1.0,
-  dirichletValueRight: 1.0,
+  neumannTop: true, // Set a Neumann boundary condition at the top of the domain
+  neumannBottom: false, // Set a Neumann boundary condition at the bottom of the domain
+  neumannLeft: false, // Set a Neumann boundary condition at the left side of the domain
+  neumannRight: false, // Set a Neumann boundary condition at the right side of the domain
+  dirichletTop: false, // Set a Dirichlet boundary condition at the top of the domain
+  dirichletBottom: true, // Set a Dirichlet boundary condition at the bottom of the domain
+  dirichletLeft: true, // Set a Dirichlet boundary condition at the left side of the domain
+  dirichletRight: true, // Set a Dirichlet boundary condition at the right side of the domain
+  dirichletValueTop: 0.0, // Dirichlet boundary condition at the top of the domain
+  dirichletValueBottom: 1.0, // Dirichlet boundary condition at the bottom of the domain
+  dirichletValueLeft: 1.0, // Dirichlet boundary condition at the left side of the domain
+  dirichletValueRight: 1.0, // Dirichlet boundary condition at the right side of the domain
 };
     </pre>
-    </br>
+    
+    <p>
+      Then, we call the CFDScript library to solve the 2D Laplace equation.
+    </p>
+    
     <pre>
+// Script2: 2D Laplace solution
 import { CFDScript } from './scripts/CFDScript.js';
-import { plotSol2D } from './scripts/plotSol.js';
-
-// The functions will be executed as soon as the page finishes loading
 window.addEventListener('DOMContentLoaded', (event) => {
-  // Call the cfdscript function and retrieve the solution
+  // Call the CFDScript library and retrieve the solution
   let { u, nx, ny, axpt, aypt } = CFDScript(nex, ney, xlast, ylast, boundaryConditions);
 });
     </pre>
+    
+    <p>
+      The visualization of the results can be performed by using a Graphing Library such as Plotly.js. See the <a href="https://www.cfdscript.com/example.html" target="_blank">example page</a> for a full application.
     </p>
+    
     <p>
       Please report all issues here: <a href="https://github.com/nikoscham/CFDScript/issues" target="_blank">https://github.com/nikoscham/CFDScript/issues</a>.
     </p>
 
-    <h2><a name="Licensing"></a>Licensing</h2>
+    <h2 id="licensing"><a name="Licensing"></a>Licensing</h2>
     <p>
       CFDScript is copyright 2023 by <a href="https://github.com/nikoscham" target="_blank">Nikolaos Chamakos</a> and is distributed under the terms of the <a href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">Creative Commons Attribution-NonCommercial 4.0 International License</a>.
     </p>
 
-    <h2><a name="Links"></a>Links</h2>
+    <h2 id="links"><a name="Links"></a>Links</h2>
     <p>
       <li>CFDScript uses the external libraries <a href="https://mathjs.org/" target="_blank">Math.js</a> and <a href="https://plotly.com/javascript/" target="_blank">Plotly.js</a>
     </p>
