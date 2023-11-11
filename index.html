@@ -16,8 +16,8 @@
     <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
     
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="keywords" content="free, finite elements, fem, galerkin">
-    <meta name="viewport" content="width=device-width">
+    <meta name="keywords" content="finite elements, fem, galerkin">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <style type="text/css">
       body { margin: auto; padding: 25px; font-family: helvetica, sans-serif; font-size: 90%; }
@@ -43,6 +43,7 @@
     
     <div id="banner">
       <img src="./images/example1.png" alt="">
+      <img src="./images/example2.png" alt="">
     </div>
     
     <h1>A JavaScript library for solving Partial Differential Equations (PDE) using the Finite Element Method (FEM)</h1>
@@ -51,7 +52,6 @@
       <li><a href="#download">Download</a></li>
       <li><a href="#documentation">Documentation</a></li>
       <li><a href="#licensing">Licensing</a></li>
-      <li><a href="#links">Links</a></li>
     </ul>
 
     <p>
@@ -69,7 +69,7 @@
     <h3>Usage Example</h3>
     
     <p>
-      Here some example code demonstrating how to use the library to solve a 2D Laplace equation. The following scripts can be embedded to your HTML page. Initially we define the problem parameters:
+      Here some example code demonstrating how to use the library to solve a 2D Laplace equation in a rectangular domain. Initially the user must import the <a href="https://mathjs.org/" target="_blank">Math.js</a> library that is required for solving the system of equations. Then, the following scripts should be embedded to the HTML page.
     </p>
     
     <pre>
@@ -96,7 +96,7 @@ const boundaryConditions = {
     </pre>
     
     <p>
-      Then, we call the CFDScript library to solve the 2D Laplace equation.
+      Finally, we import the CFDScript library to solve the 2D Laplace equation.
     </p>
     
     <pre>
@@ -109,7 +109,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
     </pre>
     
     <p>
-      The visualization of the results can be performed by using a Graphing Library such as Plotly.js. See the <a href="https://www.cfdscript.com/example.html" target="_blank">example page</a> for a full application.
+      The visualization of the results can be performed by using a graphing library such as <a href="https://plotly.com/javascript/" target="_blank">Plotly.js</a>. See the <a href="https://www.cfdscript.com/example.html" target="_blank">example page</a> for a full application.
     </p>
     
     <p>
@@ -120,11 +120,6 @@ window.addEventListener('DOMContentLoaded', (event) => {
     <p>
       CFDScript is copyright 2023 by <a href="https://github.com/nikoscham" target="_blank">Nikolaos Chamakos</a> and is distributed under the terms of the <a href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">Creative Commons Attribution-NonCommercial 4.0 International License</a>.
     </p>
-
-    <h2 id="links"><a name="Links"></a>Links</h2>
-    <p>
-      <li>CFDScript uses the external libraries <a href="https://mathjs.org/" target="_blank">Math.js</a> and <a href="https://plotly.com/javascript/" target="_blank">Plotly.js</a>
-    </p>
-      
+ 
   </body>
 </html>
