@@ -21,35 +21,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f2f2f2;
-    }
+    body { margin: auto; padding: 25px; font-family: helvetica, sans-serif; font-size: 90%; background-color: #f2f2f2;}
 
     .container {
       max-width: 800px;
       max-height: 1600px;
       margin: 10px auto;
-      padding: 20px;
+      padding: 25px;
       background-color: #fff;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
 
-    h1 {
-      font-size: 32px;
-      margin-top: 0;
-    }
-
-    h2 {
-      font-size: 24px;
-      margin-top: 0;
-    }
-    
-    h3 {
-      font-size: 18px;
-    }
+    h1, h2, h3, h4, h5, h6 { background: none; font-weight: normal; margin: 0; padding-top: 0.4em; padding-bottom: 0.2em; width: auto; }
 
     #plot {
       width: 100%;
@@ -77,11 +60,11 @@
 
   <script>
     // Definitions
-    let u = []; // Initialize x as an empty array
+    let u = []; // Initialize solution array
     const nex = 5; // Number of elements in x-direction
     const ney = 5; // Number of elements in y-direction
-    const xlast = 1; // Last x-coordinate
-    const ylast = 1; // Last y-coordinate
+    const xlast = 1; // Max x-coordinate
+    const ylast = 1; // Max y-coordinate
     const boundaryConditions = {
       neumannTop: true,
       neumannBottom: false,
@@ -91,7 +74,7 @@
       dirichletBottom: true,
       dirichletLeft: true,
       dirichletRight: true,
-      dirichletValueTop: 0.0,
+      dirichletValueTop: 1.0,
       dirichletValueBottom: 1.0,
       dirichletValueLeft: 1.0,
       dirichletValueRight: 1.0,
