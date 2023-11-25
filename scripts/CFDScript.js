@@ -8,7 +8,7 @@
 //                                                        |_|       | |_   //
 //   Website:  www.cfdscript.com                                    \ __\  //
 
-import { createLaplaceMat2D } from './createMat.js';
+import { createLaplaceMat2D } from './createLaplaceMat.js';
 import { gauss } from './auxFun.js';
 
 export function CFDScript(nex, ney, xlast, ylast, boundaryConditions) {
