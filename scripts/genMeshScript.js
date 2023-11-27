@@ -9,7 +9,7 @@
 //   Website:  www.cfdscript.com                                    \ __\  //
 
 // Generate two-dimensional structured mesh
-export function createCoord2D(nex, ney, xlast, ylast) {
+export function genStructMesh2D(nex, ney, xlast, ylast) {
   
   // Initialize arrays and variables
   let axpt = []; // Array to store x-coordinates of nodes (local numbering)
@@ -43,7 +43,7 @@ export function createCoord2D(nex, ney, xlast, ylast) {
 }
 
 // Generate one-dimensional mesh
-export function createCoord1D(nex, xlast) {
+export function genMesh1D(nex, xlast) {
 
   // Initialize arrays and variables
   let axpt = []; // Array to store x-coordinates (global) of nodes
@@ -62,7 +62,7 @@ export function createCoord1D(nex, xlast) {
 }
 
 // Generate nop array for two-dimensional structured mesh
-export function nodNum2D(nex, ney, nnx, nny) {
+export function nodNumStruct2D(nex, ney, nnx, nny) {
 
   // Nodal numbering
   let nel = 0;
