@@ -60,11 +60,11 @@
 
   <script>
     // Definitions
-    let u = []; // Initialize solution array
+    let u = []; // Initialize the solution vector
     const nex = 6; // Number of elements in x-direction
     const ney = 6; // Number of elements in y-direction
-    const xlast = 2; // Max x-coordinate
-    const ylast = 1; // Max y-coordinate
+    const xlast = 2; // Max x-coordinate of the domain
+    const ylast = 1; // Max y-coordinate of the domain
     const boundaryConditions = {
       neumannTop: false, // Set a Neumann boundary condition at the top of the domain
       neumannBottom: false, // Set a Neumann boundary condition at the bottom of the domain
@@ -78,15 +78,15 @@
       dirichletBottom: true, // Set a Dirichlet boundary condition at the bottom of the domain
       dirichletLeft: false, // Set a Dirichlet boundary condition at the left side of the domain
       dirichletRight: false, // Set a Dirichlet boundary condition at the right side of the domain
-      dirichletValueTop: 200.0, // Dirichlet boundary condition at the top of the domain
-      dirichletValueBottom: 20.0, // Dirichlet boundary condition at the bottom of the domain
-      dirichletValueLeft: 0.0, // Dirichlet boundary condition at the left side of the domain
-      dirichletValueRight: 0.0, // Dirichlet boundary condition at the right side of the domain
+      dirichletValueTop: 200.0, // Temperature value at the top of the domain (in case of a Dirichlet boundary condition)
+      dirichletValueBottom: 20.0, // Temperature value at the bottom of the domain (in case of a Dirichlet boundary condition)
+      dirichletValueLeft: 0.0, // Temperature value at the left side of the domain (in case of a Dirichlet boundary condition)
+      dirichletValueRight: 0.0, // Temperature value at the right side of the domain (in case of a Dirichlet boundary condition)
     };
   </script>
 
   <script type="module">
-    // Include the cfdscript library (for running JavaScript in local HTML files see here: https://stackoverflow.com/questions/58067499/runing-javascript-in-local-html-files-in-firefox)
+    // Import the CFDscript library (for running JavaScript in local HTML files see here: https://stackoverflow.com/questions/58067499/runing-javascript-in-local-html-files-in-firefox)
     import { CFDScript } from './scripts/CFDScript.js';
     import { plotSol2D } from './scripts/plotSolScript.js';
     import { checkSolidHeatBoundaryConditions, CFDScriptVersion } from './scripts/auxFunScript.js';
