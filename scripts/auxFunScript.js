@@ -105,9 +105,9 @@ export function checkSolidHeatBoundaryConditions(boundaryConditions) {
   }
 
   if (multipleCount > 0) {
-    console.log(`More than one boundary condition is applied on the following side(s): ${moreThanOneBoundaryCondition}`);
+    console.log(`checkSolidHeatBoundaryConditions: More than one boundary condition is applied on the following side(s): ${moreThanOneBoundaryCondition}`);
   } else {
-    console.log('Only one boundary condition is applied on each side');
+    console.log('checkSolidHeatBoundaryConditions: Only one boundary condition is applied on each side');
   }
 }
 

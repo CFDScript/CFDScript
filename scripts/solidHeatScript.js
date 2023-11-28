@@ -63,6 +63,7 @@ export function createSolidHeatMat2D(nex, ney, xlast, ylast, boundaryConditions)
     robinBottom,
     robinLeft,
     robinRight,
+    robinHeatTranfCoeff,
     dirichletTop,
     dirichletBottom,
     dirichletLeft,

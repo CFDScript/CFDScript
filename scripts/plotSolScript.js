@@ -41,7 +41,7 @@ export function plotSol2D(u, nx, ny, axpt, aypt) {
   }];
 
   // Plot resizing
-  let maxWindowWidth = 800 // Maximum Width of the plot (it depends on the available space on the webpage)
+  let maxWindowWidth = 400 // Maximum Width of the plot (it depends on the available space on the webpage)
   let maxReshapedXForPlot = Math.max(...reshapedXForPlot);
   let maxReshapedAypt = Math.max(...reshapedAypt[0]);
   let zoomParameter = maxWindowWidth/maxReshapedXForPlot;
@@ -52,7 +52,7 @@ export function plotSol2D(u, nx, ny, axpt, aypt) {
 
   // Set the layout for the contour plot
   let layout = {
-    title: 'Solution (Contour Plot)',
+    title: 'Solution vector',
     width: plotWidth,
     height: plotHeight,
     // Set constant plot width and height (for testing only)

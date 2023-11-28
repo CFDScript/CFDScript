@@ -63,7 +63,7 @@
     let u = []; // Initialize the solution vector
     const nex = 6; // Number of elements in x-direction
     const ney = 6; // Number of elements in y-direction
-    const xlast = 2; // Max x-coordinate of the domain
+    const xlast = 1; // Max x-coordinate of the domain
     const ylast = 1; // Max y-coordinate of the domain
     const boundaryConditions = {
       neumannTop: false, // Set a Neumann boundary condition at the top of the domain
@@ -74,6 +74,7 @@
       robinBottom: false, // Set a Robin boundary condition at the bottom of the domain
       robinLeft: false, // Set a Robin boundary condition at the left side of the domain
       robinRight: false, // Set a Robin boundary condition at the right side of the domain
+      robinHeatTranfCoeff: 5, // Heat transfer coefficient (in case of a Robin boundary condition)
       dirichletTop: true, // Set a Dirichlet boundary condition at the top of the domain
       dirichletBottom: true, // Set a Dirichlet boundary condition at the bottom of the domain
       dirichletLeft: false, // Set a Dirichlet boundary condition at the left side of the domain
