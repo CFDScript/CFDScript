@@ -13,33 +13,22 @@
 <html>
 
 <head>
-  <title>CFDScript example</title>
+  <title>CFDScript: Heat transfer on a 2D solid example</title>
   <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
 
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="keywords" content="finite elements, fem, galerkin">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    body { margin: auto; padding: 25px; font-family: helvetica, sans-serif; font-size: 90%; background-color: #f2f2f2;}
-
-    .container {
-      max-width: 800px;
-      max-height: 1600px;
-      margin: 10px auto;
-      padding: 25px;
-      background-color: #fff;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    <style type="text/css">
+      body { margin: auto; padding: 25px; font-family: helvetica, sans-serif; font-size: 90%; }
+      h1, h2, h3, h4, h5, h6 { background: none; font-weight: normal; margin: 0; padding-top: 0.4em; padding-bottom: 0.2em; width: auto; }
+      h1 { font-size: 150%; margin-bottom: 0.4em; line-height: 1.2em; }
+      h1.top{ color: #555; border-bottom: 1px solid #aaa; }
+      p { margin: 1em 0; } 
+      img.title { height: 1em; }
     }
-
-    h1, h2, h3, h4, h5, h6 { background: none; font-weight: normal; margin: 0; padding-top: 0.4em; padding-bottom: 0.2em; width: auto; }
-
-    #plot {
-      width: 100%;
-      height: 100%;
-    }
-
-  </style>
+    </style>
 
   <!-- Include the Math.js library for mathematical operations -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/5.0.0/math.min.js"></script>
@@ -49,14 +38,16 @@
 
 <body>
 
-  <div class="container">  
-    <div id="title"><h1>CFDScript examples</h1></div>
-  </div>
+  <h1 class="top">CFDScript&nbsp;<img class="title"
+    src="./images/favicon.ico" alt="">
+  </h1>
 
-  <div class="container">
-    <h2>Heat transfer on a 2D solid</h2>
-    <div id="plot"></div> <!-- Container element where the example plots will be rendered -->
-  </div>
+  <h3>Heat transfer on a 2D solid example</h3>
+
+  <p>
+    In the following example we solve a heat transfer problem on a 2D rectangular domain.
+  </p>
+  <div id="plot"></div> <!-- Container element where the example plots will be rendered -->
 
   <script>
     // Definitions
