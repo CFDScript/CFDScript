@@ -41,7 +41,7 @@ export function plotSol2D(u, nx, ny, axpt, aypt) {
   }];
 
   // Plot resizing
-  let maxWindowWidth = 400 // Maximum Width of the plot (it depends on the available space on the webpage)
+  let maxWindowWidth = 700 // Maximum Width of the plot (it depends on the available space on the webpage)
   let maxReshapedXForPlot = Math.max(...reshapedXForPlot);
   let maxReshapedAypt = Math.max(...reshapedAypt[0]);
   let zoomParameter = maxWindowWidth/maxReshapedXForPlot;

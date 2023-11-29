@@ -23,10 +23,10 @@ export function createSolidHeatMat2D(nex, ney, xlast, ylast, boundaryConditions)
   // Initialize variables for matrix assembly
   const ne = nex * ney; // Total number of elements
   const np = nnx * nny; // Total number of nodes
-  let ntop = new Array(ne).fill(0); // Neumann boundary condition flag (elements at the top side of the domain)
-  let nbottom = new Array(ne).fill(0); // Neumann boundary condition flag (elements at the bottom side of the domain)
-  let nleft = new Array(ne).fill(0); // Neumann boundary condition flag (elements at the left side of the domain)
-  let nright = new Array(ne).fill(0); // Neumann boundary condition flag (elements at the right side of the domain)
+  let ntop = new Array(ne).fill(0); // Robin boundary condition flag (elements at the top side of the domain)
+  let nbottom = new Array(ne).fill(0); // Robin boundary condition flag (elements at the bottom side of the domain)
+  let nleft = new Array(ne).fill(0); // Robin boundary condition flag (elements at the left side of the domain)
+  let nright = new Array(ne).fill(0); // Robin boundary condition flag (elements at the right side of the domain)
   let ncod = new Array(np).fill(0); // Dirichlet boundary condition flag
   let bc = new Array(np).fill(0); // Dirichlet boundary condition value
   let ngl = []; // Local nodal numbering
@@ -55,15 +55,12 @@ export function createSolidHeatMat2D(nex, ney, xlast, ylast, boundaryConditions)
   
   // Extract boundary conditions from the configuration object
   const {
-    neumannTop,
-    neumannBottom,
-    neumannLeft,
-    neumannRight,
     robinTop,
     robinBottom,
     robinLeft,
     robinRight,
     robinHeatTranfCoeff,
+    robinExtTemp,
     dirichletTop,
     dirichletBottom,
     dirichletLeft,
@@ -74,29 +71,29 @@ export function createSolidHeatMat2D(nex, ney, xlast, ylast, boundaryConditions)
     dirichletValueRight,
   } = boundaryConditions;
 
-  // Impose Neumann boundary conditions
+  // Impose Robin boundary conditions
   for (let i = 0; i < ne - ney; i += ney) { // Define ntop for elements along y=yfirst (bottom side of the domain)
-     if (neumannBottom) {
+     if (robinBottom) {
        nbottom[i] = 1;
 	 }
   }
   for (let i = 0; i < ney; i++) { // Define ntop for elements along x=xfirst (left side of the domain)
-     if (neumannLeft) {
+     if (robinLeft) {
        nleft[i] = 1;
 	 }
   }
   for (let i = ney - 1; i < ne; i += ney) { // Define ntop for elements along y=ylast (top side of the domain)
-     if (neumannTop) {
+     if (robinTop) {
        ntop[i] = 1;
 	 }
   }
   for (let i = ne - ney; i < ne; i++) { // Define ntop for elements along x=xlast (right side of the domain)
-     if (neumannRight) {
+     if (robinRight) {
        nright[i] = 1;
 	 }
   }
 
-  // // Impose Neumann boundary conditions (alternative -easier to read- method)
+  // // Impose Robin boundary conditions (alternative -easier-to-read- method)
   // for (let i = 0; i < ne; i++) {
   //   if (aypt[nop[i][8]] == ylast) { // Check if element is at the top side of the domain (y = ylast)
   //     ntop[i] = +1;
@@ -165,7 +162,7 @@ export function createSolidHeatMat2D(nex, ney, xlast, ylast, boundaryConditions)
       }
     }
 
-    // Check for elements to impose Neumann boundary conditions
+    // Check for elements to impose Robin boundary conditions
     /*
     Representation of the nodes in the case of quadratic rectangular elements
     
@@ -177,19 +174,19 @@ export function createSolidHeatMat2D(nex, ney, xlast, ylast, boundaryConditions)
 
     */
     if (ntop[i] == 1 || nbottom[i] == 1 || nleft[i] == 1 || nright[i] == 1) {
-      for (let n = 0; n < 3; n++) {
+      for (let l = 0; l < 3; l++) {
         let gp1, gp2, firstNode, finalNode, nodeIncr;
         // Set gp1 and gp2 based on boundary conditions
         if (ntop[i] == 1) {
           // Set gp1 and gp2 for elements at the top side of the domain (nodes 2, 5, 8)
-          gp1 = gp[n];
+          gp1 = gp[l];
           gp2 = 1;
           firstNode = 2;
           finalNode = 9; // final node minus one
           nodeIncr = 3;
         } else if (nbottom[i] == 1) {
           // Set gp1 and gp2 for elements at the bottom side of the domain (nodes 0, 3, 6)
-          gp1 = gp[n];
+          gp1 = gp[l];
           gp2 = 0;
           firstNode = 0;
           finalNode = 7;
@@ -197,14 +194,14 @@ export function createSolidHeatMat2D(nex, ney, xlast, ylast, boundaryConditions)
         } else if (nleft[i] == 1) {
           // Set gp1 and gp2 for elements at the left side of the domain (nodes 0, 1, 2)
           gp1 = 0;
-          gp2 = gp[n];
+          gp2 = gp[l];
           firstNode = 0;
           finalNode = 3;
           nodeIncr = 1;
         } else if (nright[i] == 1) {
           // Set gp1 and gp2 for elements at the right side of the domain (nodes 6, 7, 8)
           gp1 = 1;
-          gp2 = gp[n];
+          gp2 = gp[l];
           firstNode = 6;
           finalNode = 9;
           nodeIncr = 1;
@@ -216,8 +213,13 @@ export function createSolidHeatMat2D(nex, ney, xlast, ylast, boundaryConditions)
           x += axpt[ngl[k]] * ph[k]; // Interpolate the x-coordinate at the Gauss point
           x1 += axpt[ngl[k]] * phic[k]; // Interpolate the ksi-derivative of x at the Gauss point
         }
-        for (let m1 = firstNode; m1 < finalNode; m1 += nodeIncr) {
-          res[m1] += -wgp[n] * x1 * ph[m1]; // Add the Neumann boundary term to the residual vector
+        for (let m = firstNode; m < finalNode; m += nodeIncr) {
+          let m1 = ngl[m];
+          res[m1] += -wgp[l] * x1 * ph[m] * robinHeatTranfCoeff * robinExtTemp; // Add the Robin boundary term to the residual vector
+          for (let n = firstNode; n < finalNode; n += nodeIncr) {
+            let n1 = ngl[n];
+            jac[m1][n1] += -wgp[l] * x1 * ph[m] * ph[n] * robinHeatTranfCoeff; // Add the Robin boundary term to the Jacobian matrix
+          }
         }
       }
     }
@@ -249,7 +251,7 @@ export function createSolidHeatMat2D(nex, ney, xlast, ylast, boundaryConditions)
     }
   }
 
-  // // Impose Dirichlet boundary conditions (alternative -easier to read- method)
+  // // Impose Dirichlet boundary conditions (alternative -easier-to-read- method)
   // for (let i = 0; i < np; i++) {
   //   if (aypt[i] == yfirst) { // Check if node is at the bottom side of the domain
   //     ncod[i] = 1;

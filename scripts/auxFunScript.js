@@ -73,7 +73,7 @@ function array_fill(i, n, v) {
 }
 
 // Check the solid heat boundary conditions
-export function checkSolidHeatBoundaryConditions(boundaryConditions) {
+export function chkSolidHeatBoundCond(boundaryConditions) {
   const boundaryConditionCounts = {
     top: 0,
     bottom: 0,
@@ -105,13 +105,13 @@ export function checkSolidHeatBoundaryConditions(boundaryConditions) {
   }
 
   if (multipleCount > 0) {
-    console.log(`checkSolidHeatBoundaryConditions: More than one boundary condition is applied on the following side(s): ${moreThanOneBoundaryCondition}`);
+    console.log(`chkSolidHeatBoundCond: More than one boundary condition is applied on the following side(s): ${moreThanOneBoundaryCondition}`);
   } else {
-    console.log('checkSolidHeatBoundaryConditions: Only one boundary condition is applied on each side');
+    console.log('chkSolidHeatBoundCond: Only one boundary condition is applied on each side');
   }
 }
 
 // Print CFDScript version
 export function CFDScriptVersion() {
-  console.log("CFDscript v0.1");
+  console.log("CFDscript alpha");
 }

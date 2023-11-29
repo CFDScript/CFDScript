@@ -27,7 +27,6 @@
       h1.top{ color: #555; border-bottom: 1px solid #aaa; }
       p { margin: 1em 0; } 
       img.title { height: 1em; }
-    }
     </style>
 
   <!-- Include the Math.js library for mathematical operations -->
@@ -51,29 +50,25 @@
 
   <script>
     // Definitions
-    let u = []; // Initialize the solution vector
-    const nex = 6; // Number of elements in x-direction
-    const ney = 6; // Number of elements in y-direction
-    const xlast = 1; // Max x-coordinate of the domain
-    const ylast = 1; // Max y-coordinate of the domain
+    const nex = 8; // Number of elements in x-direction
+    const ney = 4; // Number of elements in y-direction
+    const xlast = 4; // Max x-coordinate of the domain
+    const ylast = 2; // Max y-coordinate of the domain
     const boundaryConditions = {
-      neumannTop: false, // Set a Neumann boundary condition at the top of the domain
-      neumannBottom: false, // Set a Neumann boundary condition at the bottom of the domain
-      neumannLeft: true, // Set a Neumann boundary condition at the left side of the domain
-      neumannRight: true, // Set a Neumann boundary condition at the right side of the domain
-      robinTop: false, // Set a Robin boundary condition at the top of the domain
+      robinTop: true, // Set a Robin boundary condition at the top of the domain
       robinBottom: false, // Set a Robin boundary condition at the bottom of the domain
       robinLeft: false, // Set a Robin boundary condition at the left side of the domain
       robinRight: false, // Set a Robin boundary condition at the right side of the domain
-      robinHeatTranfCoeff: 5, // Heat transfer coefficient (in case of a Robin boundary condition)
-      dirichletTop: true, // Set a Dirichlet boundary condition at the top of the domain
+      robinHeatTranfCoeff: 1, // Heat transfer coefficient (in case of a Robin boundary condition)
+      robinExtTemp: 20, // External temperature (in case of a Robin boundary condition)
+      dirichletTop: false, // Set a Dirichlet boundary condition at the top of the domain
       dirichletBottom: true, // Set a Dirichlet boundary condition at the bottom of the domain
       dirichletLeft: false, // Set a Dirichlet boundary condition at the left side of the domain
-      dirichletRight: false, // Set a Dirichlet boundary condition at the right side of the domain
-      dirichletValueTop: 200.0, // Temperature value at the top of the domain (in case of a Dirichlet boundary condition)
-      dirichletValueBottom: 20.0, // Temperature value at the bottom of the domain (in case of a Dirichlet boundary condition)
+      dirichletRight: true, // Set a Dirichlet boundary condition at the right side of the domain
+      dirichletValueTop: 0.0, // Temperature value at the top of the domain (in case of a Dirichlet boundary condition)
+      dirichletValueBottom: 200.0, // Temperature value at the bottom of the domain (in case of a Dirichlet boundary condition)
       dirichletValueLeft: 0.0, // Temperature value at the left side of the domain (in case of a Dirichlet boundary condition)
-      dirichletValueRight: 0.0, // Temperature value at the right side of the domain (in case of a Dirichlet boundary condition)
+      dirichletValueRight: 200.0, // Temperature value at the right side of the domain (in case of a Dirichlet boundary condition)
     };
   </script>
 
@@ -81,16 +76,16 @@
     // Import the CFDscript library (for running JavaScript in local HTML files see here: https://stackoverflow.com/questions/58067499/runing-javascript-in-local-html-files-in-firefox)
     import { CFDScript } from './scripts/CFDScript.js';
     import { plotSol2D } from './scripts/plotSolScript.js';
-    import { checkSolidHeatBoundaryConditions, CFDScriptVersion } from './scripts/auxFunScript.js';
+    import { chkSolidHeatBoundCond, CFDScriptVersion } from './scripts/auxFunScript.js';
 	  
     // The functions will be executed as soon as the page finishes loading
     window.addEventListener('DOMContentLoaded', (event) => {
       // Print CFDScript version
       CFDScriptVersion()
       // Check boundary conditions
-      checkSolidHeatBoundaryConditions(boundaryConditions);
+      chkSolidHeatBoundCond(boundaryConditions);
       // Assembly matrices and solve the system of equations
-      let { u, nx, ny, axpt, aypt } = CFDScript(nex, ney, xlast, ylast, boundaryConditions);
+      let { u, nx, ny, axpt, aypt } = CFDScript(nex, ney, xlast, ylast, 'solidHeatScript', boundaryConditions);
       // Solution visualisation
       plotSol2D(u, nx, ny, axpt, aypt);
     });
