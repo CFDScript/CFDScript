@@ -81,10 +81,6 @@ export function chkSolidHeatBoundCond(boundaryConditions) {
     right: 0
   };
 
-  if (boundaryConditions.neumannTop) boundaryConditionCounts.top++;
-  if (boundaryConditions.neumannBottom) boundaryConditionCounts.bottom++;
-  if (boundaryConditions.neumannLeft) boundaryConditionCounts.left++;
-  if (boundaryConditions.neumannRight) boundaryConditionCounts.right++;
   if (boundaryConditions.robinTop) boundaryConditionCounts.top++;
   if (boundaryConditions.robinBottom) boundaryConditionCounts.bottom++;
   if (boundaryConditions.robinLeft) boundaryConditionCounts.left++;
