@@ -52,7 +52,7 @@ export function createSolidHeatMat2D(nex, ney, xlast, ylast, boundaryConditions)
       jac[i][j] = 0;
     }
   }
-  
+
   // Extract boundary conditions from the configuration object
   const {
     robinTop,
@@ -165,7 +165,7 @@ export function createSolidHeatMat2D(nex, ney, xlast, ylast, boundaryConditions)
     // Check for elements to impose Robin boundary conditions
     /*
     Representation of the nodes in the case of quadratic rectangular elements
-    
+
       2__5__8
       |     |
       1  4  7
