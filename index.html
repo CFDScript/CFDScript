@@ -16,7 +16,7 @@
     <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
     
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="keywords" content="finite elements, fem, galerkin">
+    <meta name="keywords" content="finite elements, fem, galerkin, cfd, computational mechanics, javascript">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <style type="text/css">
@@ -67,17 +67,16 @@
 
     <h2 id="documentation"><a name="Documentation"></a>Documentation</h2>
 
-    <h3>Usage Example</h3>
+    <h3>Usage example (Heat transfer on a 2D solid)</h3>
 
     <p>
-      Here, we demonstrate how to utilize the CFDScript library to address a stationary heat transfer problem on a 2D rectangular domain. The scripts provided below should be incorporated into your HTML page. The initial step involves importing the <a href="https://mathjs.org/" target="_blank">Math.js</a> and <a href="https://plotly.com/javascript/" target="_blank">Plotly.js</a> libraries, essential for solving the system of equations and visualizing the solution. Subsequently, the code defines various problem parameters, including the number of elements, domain boundaries, and boundary conditions. The boundary conditions can be specified as Dirichlet or Robin types. In particular the Dirichlet condition sets a constant temperature value whereas the Robin condition governs a convective heat transfer scenario, enabling users to define a custom heat transfer coefficient and an external temperature. In cases where the boundary condition is not explicitly defined, it is considered as a Neumann (zero-flux) type.
+      Here, we demonstrate how to utilize the CFDScript library to address a stationary heat transfer problem on a 2D rectangular domain. The scripts provided below should be incorporated into your HTML page. The initial step involves importing the <a href="https://mathjs.org/" target="_blank">Math.js</a> and <a href="https://plotly.com/javascript/" target="_blank">Plotly.js</a> libraries, essential for solving the system of equations and visualizing the solution. Subsequently, the code defines various problem parameters, including the number of elements, domain boundaries, and boundary conditions. The boundary conditions can be specified as Dirichlet or Robin types. In particular, the Dirichlet condition sets a constant temperature value whereas the Robin condition governs a convective heat transfer scenario, enabling users to define a custom heat transfer coefficient and an external temperature. In cases where the boundary condition is not explicitly defined, it is considered as a Neumann (zero-flux) type.
     </p>
     <pre class="prettyprint">
 &lt;script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/5.0.0/math.min.js">&lt;/script&gt;
 &lt;script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.27.0/plotly.min.js">&lt;/script&gt;
 
 &lt;script&gt;
-// Definitions
   const nex = 8; // Number of elements in x-direction
   const ney = 4; // Number of elements in y-direction
   const xlast = 4; // Max x-coordinate (m) of the domain
@@ -109,16 +108,11 @@ import { CFDScript } from './scripts/CFDScript.js';
 import { plotSol2D } from './scripts/plotSolScript.js';
 import { chkSolidHeatBoundCond, CFDScriptVersion } from './scripts/auxFunScript.js';
 
-// The functions will be executed as soon as the page finishes loading
 window.addEventListener('DOMContentLoaded', (event) => {
-  // Print CFDScript version
-  CFDScriptVersion()
-  // Check boundary conditions
-  chkSolidHeatBoundCond(boundaryConditions);
-  // Assembly matrices and solve the system of equations
-  let { u, nx, ny, axpt, aypt } = CFDScript(nex, ney, xlast, ylast, 'solidHeatScript', boundaryConditions)
-  // Solution visualisation
-  plotSol2D(u, nx, ny, axpt, aypt);
+  CFDScriptVersion() // Print CFDScript version
+  chkSolidHeatBoundCond(boundaryConditions); // Check boundary conditions
+  let { u, nx, ny, axpt, aypt } = CFDScript(nex, ney, xlast, ylast, 'solidHeatScript', boundaryConditions) // Assembly matrices and solve the system of equations
+  plotSol2D(u, nx, ny, axpt, aypt); // Visualise the solution
 });
 &lt;/script&gt;</pre>
 <p>
@@ -128,7 +122,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
 &lt;div id="plot">&lt;/div&gt</pre>
     
     <p>
-      See the <a href="https://www.cfdscript.com/example.html" target="_blank">example page</a> for a working demonstration of the above code. Please report all issues here: <a href="https://github.com/nikoscham/CFDScript/issues" target="_blank">https://github.com/nikoscham/CFDScript/issues</a>.
+      Visit the <a href="https://www.cfdscript.com/exampleHeatTrasnfer.html" target="_blank">example page</a> for a detailed mathematical description of the heat transfer problem, along with a demonstration of the provided code. Please report all issues here: <a href="https://github.com/nikoscham/CFDScript/issues" target="_blank">https://github.com/nikoscham/CFDScript/issues</a>.
     </p>
     <h2 id="licensing"><a name="Licensing"></a>Licensing</h2>
     <p>

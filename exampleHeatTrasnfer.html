@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+
+<!--    ____   _____   ____      _____                 __                    -->
+<!--   / ___) |  ___) |  _ \    / ____)               (__)             _     -->
+<!--  | |     | |___  | | \ \  | (___     ____   ___   __    ____    _| |_   -->
+<!--  | |     |  ___) | |  ) )  \___ \   / ___) |  _) |  |  |  _ \  |_   _)  -->
+<!--  | |___  | |     | |_/ /   ____) ) | |___  | /   |  |  | |_) )   | |    -->
+<!--   \____) |_|     |____/   |_____/   \____) |/    |__|  |  __/    | |    -->
+<!--                                                        | |       | |    -->
+<!--                                                        |_|       | |_   -->
+<!--   Website:  www.cfdscript.com                                    \ __\  -->
+
+<html>
+
+  <head>
+    <title>CFDScript: Heat transfer on a 2D solid example</title>
+    <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="keywords" content="finite elements, fem, galerkin, cfd, computational mechanics, javascript">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+      <style type="text/css">
+        body { margin: auto; padding: 25px; font-family: helvetica, sans-serif; font-size: 90%; }
+        h1, h2, h3, h4, h5, h6 { background: none; font-weight: normal; margin: 0; padding-top: 0.4em; padding-bottom: 0.2em; width: auto; }
+        h1 { font-size: 150%; margin-bottom: 0.4em; line-height: 1.2em; }
+        h1.top{ color: #555; border-bottom: 1px solid #aaa; }
+        p { margin: 1em 0; } 
+        img.title { height: 1em; }
+      </style>
+
+    <!-- Include the Math.js library for mathematical operations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/5.0.0/math.min.js"></script>
+    <!-- Include the Plotly.js library for plotting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.27.0/plotly.min.js"></script>
+    <!-- Include the MathJax for writing equations -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  </head>
+
+  <body>
+
+    <h1 class="top">CFDScript&nbsp;<img class="title"
+      src="./images/favicon.ico" alt="">
+    </h1>
+
+    <h3>Heat transfer on a 2D solid example</h3>
+
+    <p>
+      In the following example we solve a heat transfer problem on a 2D rectangular domain.
+    </p>
+    <div id="plot"></div> <!-- Container element where the example plots will be rendered -->
+
+    <script>
+      const nex = 8; // Number of elements in x-direction
+      const ney = 4; // Number of elements in y-direction
+      const xlast = 4; // Max x-coordinate (m) of the domain
+      const ylast = 2; // Max y-coordinate (m) of the domain
+      const boundaryConditions = {
+        robinTop: true, // Set a Robin boundary condition at the top of the domain
+        robinBottom: false, // Set a Robin boundary condition at the bottom of the domain
+        robinLeft: false, // Set a Robin boundary condition at the left side of the domain
+        robinRight: false, // Set a Robin boundary condition at the right side of the domain
+        robinHeatTranfCoeff: 1, // Heat transfer coefficient (m<sup>-1</sup>) (in case of a Robin boundary condition)
+        robinExtTemp: 20, // External temperature (&deg;C) (in case of a Robin boundary condition)
+        dirichletTop: false, // Set a Dirichlet boundary condition at the top of the domain
+        dirichletBottom: true, // Set a Dirichlet boundary condition at the bottom of the domain
+        dirichletLeft: false, // Set a Dirichlet boundary condition at the left side of the domain
+        dirichletRight: true, // Set a Dirichlet boundary condition at the right side of the domain
+        dirichletValueTop: 0.0, // Temperature value (&deg;C) at the top of the domain (in case of a Dirichlet boundary condition)
+        dirichletValueBottom: 200.0, // Temperature value (&deg;C) at the bottom of the domain (in case of a Dirichlet boundary condition)
+        dirichletValueLeft: 0.0, // Temperature value (&deg;C) at the left side of the domain (in case of a Dirichlet boundary condition)
+        dirichletValueRight: 200.0, // Temperature value (&deg;C) at the right side of the domain (in case of a Dirichlet boundary condition)
+      };
+    </script>
+
+    <script type="module">
+      // Import the CFDscript library (for running JavaScript in local HTML files see here: https://stackoverflow.com/questions/58067499/runing-javascript-in-local-html-files-in-firefox)
+      import { CFDScript } from './scripts/CFDScript.js';
+      import { plotSol2D } from './scripts/plotSolScript.js';
+      import { chkSolidHeatBoundCond, CFDScriptVersion } from './scripts/auxFunScript.js';
+      
+      // The functions will be executed as soon as the page finishes loading
+      window.addEventListener('DOMContentLoaded', (event) => {
+        CFDScriptVersion() // Print CFDScript version
+        chkSolidHeatBoundCond(boundaryConditions); // Check boundary conditions   
+        let { u, nx, ny, axpt, aypt } = CFDScript(nex, ney, xlast, ylast, 'solidHeatScript', boundaryConditions); // Assembly matrices and solve the system of equations
+        plotSol2D(u, nx, ny, axpt, aypt); // Visualise the solution
+      })
+    </script>
+  </body>
+
+</html>
