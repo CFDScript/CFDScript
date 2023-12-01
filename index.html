@@ -56,13 +56,16 @@
     </ul>
 
     <p>
-      CFDScript is a JavaScript library for solving Partial Differential Equations (PDE) using the Finite Element Method (FEM). It allows you to create and run browser-based simulations of physics and engineering problems. CFDScript also provides visualization tools to plot the results of your simulations.
+      CFDScript is a JavaScript library for solving Partial Differential Equations (PDE) using the Finite Element Method (FEM). 
+      It allows you to create and run browser-based simulations of physics and engineering problems. 
+      CFDScript also provides visualization tools to plot the results of your simulations.
     </p>
     
     <h2 id="download"><a name="Download"></a>Download</h2>
 
     <p>
-      CFDScript is still under development and new features and improvements are constantly being added. You can download the latest version of CFDScript from the Git repository: <a href="https://github.com/nikoscham/CFDScript" target="_blank">https://github.com/nikoscham/CFDScript</a>.
+      CFDScript is still under development and new features and improvements are constantly being added. 
+      You can download the latest version of CFDScript from the Git repository: <a href="https://github.com/nikoscham/CFDScript" target="_blank">https://github.com/nikoscham/CFDScript</a>.
     </p>
 
     <h2 id="documentation"><a name="Documentation"></a>Documentation</h2>
@@ -70,7 +73,12 @@
     <h3>Usage example (Heat transfer on a 2D solid)</h3>
 
     <p>
-      Here, we demonstrate how to utilize the CFDScript library to address a stationary heat transfer problem on a 2D rectangular domain. The scripts provided below should be incorporated into your HTML page. The initial step involves importing the <a href="https://mathjs.org/" target="_blank">Math.js</a> and <a href="https://plotly.com/javascript/" target="_blank">Plotly.js</a> libraries, essential for solving the system of equations and visualizing the solution. Subsequently, the code defines various problem parameters, including the number of elements, domain boundaries, and boundary conditions. The boundary conditions can be specified as Dirichlet or Robin types. In particular, the Dirichlet condition sets a constant temperature value whereas the Robin condition governs a convective heat transfer scenario, enabling users to define a custom heat transfer coefficient and an external temperature. In cases where the boundary condition is not explicitly defined, it is considered as a Neumann (zero-flux) type.
+      Here, we demonstrate how to utilize the CFDScript library to address a stationary heat transfer problem on a 2D rectangular domain. 
+      The scripts provided below should be incorporated into your HTML page. The initial step involves importing the <a href="https://mathjs.org/" target="_blank">Math.js</a> and <a href="https://plotly.com/javascript/" target="_blank">Plotly.js</a> libraries, essential for solving the system of equations and visualizing the solution. 
+      Subsequently, the code defines various problem parameters, including the number of elements, domain boundaries, and boundary conditions. 
+      The boundary conditions can be specified as Dirichlet or Robin types. 
+      In particular, the Dirichlet condition sets a constant temperature value whereas the Robin condition governs a convective heat transfer scenario, enabling users to define a custom heat transfer coefficient and an external temperature. 
+      In cases where the boundary condition is not explicitly defined, it is considered as a Neumann (zero-flux) type.
     </p>
     <pre class="prettyprint">
 &lt;script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/5.0.0/math.min.js">&lt;/script&gt;
@@ -99,7 +107,8 @@
   };
 &lt;/script&gt;</pre>
     <p>
-      Next, we import the CFDScript library. We will use the solidHeatScript solver, which is a module of the CFDScript library that implements the Finite Element Method for heat conduction problems. The solver takes the number of elements, the domain dimensions, and the boundary conditions as inputs, and returns the grid points and the solution vector as outputs. We then visualize the solution in a contour plot.
+      Next, we import the CFDScript library. We will use the solidHeatScript solver, which is a module of the CFDScript library that implements the Finite Element Method for heat conduction problems. 
+      The solver takes the number of elements, the domain dimensions, and the boundary conditions as inputs, and returns the grid points and the solution vector as outputs. We then visualize the solution in a contour plot.
     </p>
     <pre class="prettyprint">
 &lt;script type="module"&gt;

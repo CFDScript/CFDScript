@@ -27,6 +27,10 @@
         h1.top{ color: #555; border-bottom: 1px solid #aaa; }
         p { margin: 1em 0; } 
         img.title { height: 1em; }
+        #menu { list-style: none; margin: 1em 0; padding: 0; }
+        #menu li { display: inline-block; margin-right: 1em; }
+        #menu li a { color: #333; font-weight: bold; text-decoration: none; }
+        #menu li a:hover { color: #555; }
       </style>
 
     <!-- Include the Math.js library for mathematical operations -->
@@ -47,9 +51,23 @@
     <h3>Heat transfer on a 2D solid example</h3>
 
     <p>
-      In the following example we solve a heat transfer problem on a 2D rectangular domain.
+      In the following example, we address a stationary heat transfer problem within a 2D rectangular domain. 
+      The steady heat conduction is described by the Laplace equation: \(\nabla^{2}T(x,y) = 0\), where \(T\) signifies the temperature values. 
+      The following schematic illustrates the problem domain and outlines the associated boundary conditions.
+      The constant temperature boundary conditions are implemented as Dirichlet types in the finite element code. 
+      The symmetry boundary condition is implemented as a Neumann zero-flux type (\( \frac{dT}{dx}=0\) ), while the convective cooling boundary condition is of the Robin type.
+      Specifically, the latter is expressed as \( \frac{dT}{dx}=-h(T-T_0)\), where \(h\) is the heat transfer coefficient (\(h\) = 1 m<sup>-1</sup>) and \(T_0\) is the external temperature (\(T_0\) = 20 &deg;C).
+    </p>
+    <img src="./images/exampleHeatTrasnfer.png" width="300">
+    <p>
+      In the following plot we visualize the solution of the heat transfer problem. 
+      In our analysis we have used 24 (8 in the x- and 4 in the y-direction) two-dimensional quadratic elements.
     </p>
     <div id="plot"></div> <!-- Container element where the example plots will be rendered -->
+
+    <ul id="menu">
+      <li><a href="https://www.cfdscript.com/index.html">Return to home</a></li>
+    </ul>
 
     <script>
       const nex = 8; // Number of elements in x-direction
@@ -88,6 +106,7 @@
         plotSol2D(u, nx, ny, axpt, aypt); // Visualise the solution
       })
     </script>
+
   </body>
 
 </html>
