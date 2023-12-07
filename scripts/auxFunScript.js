@@ -9,7 +9,7 @@
 //   Website:  www.cfdscript.com                                    \ __\  //
 
 // Gauss elimination
-export function gauss(A, x) {
+export function gaussElim(A, x) {
 
   let i;
   let k;
@@ -70,4 +70,44 @@ function array_fill(i, n, v) {
     a.push(v);
   }
   return a;
+}
+
+// Check the solid heat boundary conditions
+export function chkSolidHeatBoundCond(boundaryConditions) {
+  const boundaryConditionCounts = {
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0
+  };
+
+  if (boundaryConditions.robinTop) boundaryConditionCounts.top++;
+  if (boundaryConditions.robinBottom) boundaryConditionCounts.bottom++;
+  if (boundaryConditions.robinLeft) boundaryConditionCounts.left++;
+  if (boundaryConditions.robinRight) boundaryConditionCounts.right++;
+  if (boundaryConditions.dirichletTop) boundaryConditionCounts.top++;
+  if (boundaryConditions.dirichletBottom) boundaryConditionCounts.bottom++;
+  if (boundaryConditions.dirichletLeft) boundaryConditionCounts.left++;
+  if (boundaryConditions.dirichletRight) boundaryConditionCounts.right++;
+
+  let moreThanOneBoundaryCondition = '';
+  let multipleCount = 0;
+  
+  for (const side in boundaryConditionCounts) {
+    if (boundaryConditionCounts[side] > 1) {
+      moreThanOneBoundaryCondition += `${side} `;
+      multipleCount++;
+    }
+  }
+
+  if (multipleCount > 0) {
+    console.log(`chkSolidHeatBoundCond: More than one boundary condition is applied on the following side(s): ${moreThanOneBoundaryCondition}`);
+  } else {
+    console.log('chkSolidHeatBoundCond: Only one boundary condition is applied on each side');
+  }
+}
+
+// Print CFDScript version
+export function CFDScriptVersion() {
+  console.log("CFDscript alpha");
 }

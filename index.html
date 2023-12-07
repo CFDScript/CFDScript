@@ -16,7 +16,7 @@
     <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
     
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="keywords" content="finite elements, fem, galerkin">
+    <meta name="keywords" content="finite elements, fem, galerkin, cfd, computational mechanics, javascript">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <style type="text/css">
@@ -36,6 +36,8 @@
     </style>
   </head>
 
+  <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+
   <body>
     <h1 class="top">CFDScript&nbsp;<img class="title"
       src="./images/favicon.ico" alt="">
@@ -43,8 +45,6 @@
     
     <div id="banner">
       <img src="./images/example1.png" alt="">
-      <img src="./images/example2.png" alt="">
-      <img src="./images/example3.png" alt="">
     </div>
     
     <h1>A JavaScript library for solving Partial Differential Equations (PDE) using the Finite Element Method (FEM)</h1>
@@ -56,67 +56,83 @@
     </ul>
 
     <p>
-      CFDScript is a JavaScript library for solving Partial Differential Equations (PDE) using the Finite Element Method (FEM). It allows you to create and run browser-based simulations of physics and engineering problems. CFDScript also provides visualization tools to plot the results of your simulations.
+      CFDScript is a JavaScript library for solving Partial Differential Equations (PDE) using the Finite Element Method (FEM). 
+      It allows you to create and run browser-based simulations of physics and engineering problems. 
+      CFDScript also provides visualization tools to plot the results of your simulations.
     </p>
     
     <h2 id="download"><a name="Download"></a>Download</h2>
-    
+
     <p>
-      CFDScript is still under development and new features and improvements are constantly being added. You can download the latest version of CFDScript from the Git repository: <a href="https://github.com/nikoscham/CFDScript" target="_blank">https://github.com/nikoscham/CFDScript</a>.
+      CFDScript is still under development and new features and improvements are constantly being added. 
+      You can download the latest version of CFDScript from the Git repository: <a href="https://github.com/nikoscham/CFDScript" target="_blank">https://github.com/nikoscham/CFDScript</a>.
     </p>
 
     <h2 id="documentation"><a name="Documentation"></a>Documentation</h2>
 
-    <h3>Usage Example</h3>
-    
-    <p>
-      Here some example code demonstrating how to use the library to solve a 2D Laplace equation in a rectangular domain. Initially the user must import the <a href="https://mathjs.org/" target="_blank">Math.js</a> library that is required for solving the system of equations. Then, the following scripts should be embedded to the HTML page.
-    </p>
-    
-    <pre>
-// Script1: Problem parameters definition
-let u = []; // Initialize solution array
-const nex = 5; // Number of elements in x-direction
-const ney = 5; // Number of elements in y-direction
-const xlast = 1; // Max x-coordinate
-const ylast = 1; // Max y-coordinate
-const boundaryConditions = {
-  neumannTop: true, // Set a Neumann boundary condition at the top of the domain
-  neumannBottom: false, // Set a Neumann boundary condition at the bottom of the domain
-  neumannLeft: false, // Set a Neumann boundary condition at the left side of the domain
-  neumannRight: false, // Set a Neumann boundary condition at the right side of the domain
-  dirichletTop: false, // Set a Dirichlet boundary condition at the top of the domain
-  dirichletBottom: true, // Set a Dirichlet boundary condition at the bottom of the domain
-  dirichletLeft: true, // Set a Dirichlet boundary condition at the left side of the domain
-  dirichletRight: true, // Set a Dirichlet boundary condition at the right side of the domain
-  dirichletValueTop: 1.0, // Dirichlet boundary condition at the top of the domain
-  dirichletValueBottom: 1.0, // Dirichlet boundary condition at the bottom of the domain
-  dirichletValueLeft: 1.0, // Dirichlet boundary condition at the left side of the domain
-  dirichletValueRight: 1.0, // Dirichlet boundary condition at the right side of the domain
-};
-    </pre>
-    
-    <p>
-      Finally, we import the CFDScript library to solve the 2D Laplace equation.
-    </p>
-    
-    <pre>
-// Script2: 2D Laplace solution
-import { CFDScript } from './scripts/CFDScript.js';
-window.addEventListener('DOMContentLoaded', (event) => {
-  // Call the CFDScript library and retrieve the solution
-  let { u, nx, ny, axpt, aypt } = CFDScript(nex, ney, xlast, ylast, boundaryConditions);
-});
-    </pre>
-    
-    <p>
-      The visualization of the results can be performed by using a graphing library such as <a href="https://plotly.com/javascript/" target="_blank">Plotly.js</a>. See the <a href="https://www.cfdscript.com/example.html" target="_blank">example page</a> for a full application.
-    </p>
-    
-    <p>
-      Please report all issues here: <a href="https://github.com/nikoscham/CFDScript/issues" target="_blank">https://github.com/nikoscham/CFDScript/issues</a>.
-    </p>
+    <h3>Usage example (Heat transfer on a 2D solid)</h3>
 
+    <p>
+      Here, we demonstrate how to utilize the CFDScript library to address a stationary heat transfer problem on a 2D rectangular domain. 
+      The scripts provided below should be incorporated into your HTML page. The initial step involves importing the <a href="https://mathjs.org/" target="_blank">Math.js</a> and <a href="https://plotly.com/javascript/" target="_blank">Plotly.js</a> libraries, essential for solving the system of equations and visualizing the solution. 
+      Subsequently, the code defines various problem parameters, including the number of elements, domain boundaries, and boundary conditions. 
+      The boundary conditions can be specified as Dirichlet or Robin types. 
+      In particular, the Dirichlet condition sets a constant temperature value whereas the Robin condition governs a convective heat transfer scenario, enabling users to define a custom heat transfer coefficient and an external temperature. 
+      In cases where the boundary condition is not explicitly defined, it is considered as a Neumann (zero-flux) type.
+    </p>
+    <pre class="prettyprint">
+&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/5.0.0/math.min.js">&lt;/script&gt;
+&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.27.0/plotly.min.js">&lt;/script&gt;
+
+&lt;script&gt;
+  const nex = 8; // Number of elements in x-direction
+  const ney = 4; // Number of elements in y-direction
+  const xlast = 4; // Max x-coordinate (m) of the domain
+  const ylast = 2; // Max y-coordinate (m) of the domain
+  const boundaryConditions = {
+    robinTop: true, // Set a Robin boundary condition at the top of the domain
+    robinBottom: false, // Set a Robin boundary condition at the bottom of the domain
+    robinLeft: false, // Set a Robin boundary condition at the left side of the domain
+    robinRight: false, // Set a Robin boundary condition at the right side of the domain
+    robinHeatTranfCoeff: 1, // Heat transfer coefficient (m<sup>-1</sup>) (in case of a Robin boundary condition)
+    robinExtTemp: 20, // External temperature (&deg;C) (in case of a Robin boundary condition)
+    dirichletTop: false, // Set a Dirichlet boundary condition at the top of the domain
+    dirichletBottom: true, // Set a Dirichlet boundary condition at the bottom of the domain
+    dirichletLeft: false, // Set a Dirichlet boundary condition at the left side of the domain
+    dirichletRight: true, // Set a Dirichlet boundary condition at the right side of the domain
+    dirichletValueTop: 0.0, // Temperature value (&deg;C) at the top of the domain (in case of a Dirichlet boundary condition)
+    dirichletValueBottom: 200.0, // Temperature value (&deg;C) at the bottom of the domain (in case of a Dirichlet boundary condition)
+    dirichletValueLeft: 0.0, // Temperature value (&deg;C) at the left side of the domain (in case of a Dirichlet boundary condition)
+    dirichletValueRight: 200.0, // Temperature value (&deg;C) at the right side of the domain (in case of a Dirichlet boundary condition)
+  };
+&lt;/script&gt;</pre>
+    <p>
+      Next, we import the CFDScript library. We will use the solidHeatScript solver, which is a module of the CFDScript library that implements the Finite Element Method for heat conduction problems. 
+      The solver takes the number of elements, the domain dimensions, and the boundary conditions as inputs, and returns the grid points and the solution vector as outputs. We then visualize the solution in a contour plot.
+    </p>
+    <pre class="prettyprint">
+&lt;script type="module"&gt;
+// Import the CFDscript library
+import { CFDScript } from './scripts/CFDScript.js';
+import { plotSol2D } from './scripts/plotSolScript.js';
+import { chkSolidHeatBoundCond, CFDScriptVersion } from './scripts/auxFunScript.js';
+
+window.addEventListener('DOMContentLoaded', (event) => {
+  CFDScriptVersion() // Print CFDScript version
+  chkSolidHeatBoundCond(boundaryConditions); // Check boundary conditions
+  let { u, nx, ny, axpt, aypt } = CFDScript(nex, ney, xlast, ylast, 'solidHeatScript', boundaryConditions) // Assembly matrices and solve the system of equations
+  plotSol2D(u, nx, ny, axpt, aypt); // Visualise the solution
+});
+&lt;/script&gt;</pre>
+<p>
+  Finally, an HTML container element is required on the page to display the plotted results.
+</p>
+<pre class="prettyprint">
+&lt;div id="plot">&lt;/div&gt</pre>
+    
+    <p>
+      Visit the <a href="https://www.cfdscript.com/exampleHeatTrasnfer.html" target="_blank">example page</a> for a detailed mathematical description of the heat transfer problem, along with a demonstration of the provided code. Please report all issues here: <a href="https://github.com/nikoscham/CFDScript/issues" target="_blank">https://github.com/nikoscham/CFDScript/issues</a>.
+    </p>
     <h2 id="licensing"><a name="Licensing"></a>Licensing</h2>
     <p>
       CFDScript is distributed under the terms of the <a href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">Creative Commons Attribution-NonCommercial 4.0 International License</a>. Copyright 2023 CFDScript.

@@ -10,6 +10,7 @@
 
 import { CFDScript } from './CFDScript.js';
 
+// Contour plot of the two-dimensional solution vector
 export function plotSol2D(u, nx, ny, axpt, aypt) {   
   // Reshape the axpt and aypt arrays to match the grid dimensions
   let reshapedAxpt = math.reshape(Array.from(axpt), [nx, ny]);
@@ -40,18 +41,23 @@ export function plotSol2D(u, nx, ny, axpt, aypt) {
   }];
 
   // Plot resizing
+  let maxWindowWidth = 700 // Maximum Width of the plot (it depends on the available space on the webpage)
   let maxReshapedXForPlot = Math.max(...reshapedXForPlot);
   let maxReshapedAypt = Math.max(...reshapedAypt[0]);
-  let plotWidth = 500 * maxReshapedXForPlot;
-  let plotHeight = 500 * maxReshapedAypt;
+  let zoomParameter = maxWindowWidth/maxReshapedXForPlot;
+  let plotWidth = zoomParameter * maxReshapedXForPlot;
+  let plotHeight = zoomParameter * maxReshapedAypt;
+  // Debugger; 
+  //console.log("plotWidth", plotWidth);  
 
   // Set the layout for the contour plot
   let layout = {
-    title: 'Solution (Contour Plot)',
-    //width: plotWidth,
-    //height: plotHeight,
-    width: 500,
-    height: 500,
+    title: 'Solution vector',
+    width: plotWidth,
+    height: plotHeight,
+    // Set constant plot width and height (for testing only)
+    //width: 500,
+    //height: 500,
     xaxis: { title: 'x' },
     yaxis: { title: 'y' }
   };
