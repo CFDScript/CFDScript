@@ -4,4 +4,4 @@ This work is licensed under the Creative Commons Attribution-NonCommercial 4.0 I
 
 **Copyright**
 
-Copyright 2023 Nikolaos Chamakos
+Copyright 2023 CFDScript
