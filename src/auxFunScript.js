@@ -8,7 +8,12 @@
 //                                                        |_|       | |_   //
 //   Website:  www.cfdscript.com                                    \ __\  //
 
-// Gauss elimination
+/**
+ * Solve a system of linear equations using the Gaussian elimination method
+ * @param {Array} A The coefficient matrix
+ * @param {Array} x The constant vector
+ * @returns {Array} - The solution vector
+ */
 export function gaussElim(A, x) {
 
   let i;
@@ -64,6 +69,7 @@ export function gaussElim(A, x) {
   return x;
 }
 
+// Create and return an array filled with a specified value
 function array_fill(i, n, v) {
   let a = [];
   for (; i < n; i++) {
@@ -72,7 +78,10 @@ function array_fill(i, n, v) {
   return a;
 }
 
-// Check the solid heat boundary conditions
+/**
+ * Check if only one boundary conditions is applied to each side of the domain for the solidHeatScript solver
+ * @param {Object} boundaryConditions - An object representing the applied boundary conditions
+ */
 export function chkSolidHeatBoundCond(boundaryConditions) {
   const boundaryConditionCounts = {
     top: 0,
@@ -92,7 +101,7 @@ export function chkSolidHeatBoundCond(boundaryConditions) {
 
   let moreThanOneBoundaryCondition = '';
   let multipleCount = 0;
-  
+
   for (const side in boundaryConditionCounts) {
     if (boundaryConditionCounts[side] > 1) {
       moreThanOneBoundaryCondition += `${side} `;
@@ -107,7 +116,9 @@ export function chkSolidHeatBoundCond(boundaryConditions) {
   }
 }
 
-// Print CFDScript version
+/**
+ * Print the CFDScript version
+ */
 export function CFDScriptVersion() {
   console.log("CFDscript alpha");
 }
