@@ -11,7 +11,15 @@
 import { genStructMesh2D, nodNumStruct2D } from './genMeshScript.js';
 import { basisFunQuad2D } from './basisFunScript.js';
 
-// Generate the matrix and the residual vector for the Finite Element Method in two dimensions
+/**
+ * Generate the matrix and the residual vector for the Finite Element Method in two dimensions
+ * @param {*} nex - Number of elements along the x-axis
+ * @param {*} ney - Number of elements along the y-axis
+ * @param {*} xlast - Last x-coordinate of the domain
+ * @param {*} ylast - Last y-coordinate of the domain
+ * @param {*} boundaryConditions - Object containing boundary conditions
+ * @returns 
+ */
 export function createSolidHeatMat2D(nex, ney, xlast, ylast, boundaryConditions) {
 
   // Generate x-y coordinates using genStructMesh2D function

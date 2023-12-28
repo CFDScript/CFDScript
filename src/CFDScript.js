@@ -11,6 +11,16 @@
 import { createSolidHeatMat2D } from './solidHeatScript.js';
 import { gaussElim } from './auxFunScript.js';
 
+/**
+ * 
+ * @param {*} nex - Number of elements along the x-axis
+ * @param {*} ney - Number of elements along the y-axis
+ * @param {*} xlast - Last x-coordinate of the domain
+ * @param {*} ylast - Last y-coordinate of the domain
+ * @param {*} solverScript - Parameter specifying the type of solver
+ * @param {*} boundaryConditions - Object containing boundary conditions
+ * @returns 
+ */
 export function CFDScript(nex, ney, xlast, ylast, solverScript, boundaryConditions) {
   let jac = []; // Jacobian matrix
   let res = []; // Galerkin residuals

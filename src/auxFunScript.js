@@ -10,9 +10,9 @@
 
 /**
  * Solve a system of linear equations using the Gaussian elimination method
- * @param {Array} A The coefficient matrix
- * @param {Array} x The constant vector
- * @returns {Array} - The solution vector
+ * @param {*} A - The coefficient matrix
+ * @param {*} x - The constant vector
+ * @returns 
  */
 export function gaussElim(A, x) {
 
@@ -69,7 +69,13 @@ export function gaussElim(A, x) {
   return x;
 }
 
-// Create and return an array filled with a specified value
+/**
+ * Create and return an array filled with a specified value
+ * @param {*} i 
+ * @param {*} n 
+ * @param {*} v 
+ * @returns 
+ */
 function array_fill(i, n, v) {
   let a = [];
   for (; i < n; i++) {

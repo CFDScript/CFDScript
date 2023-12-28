@@ -10,7 +10,14 @@
 
 import { CFDScript } from './CFDScript.js';
 
-// Contour plot of the two-dimensional solution vector
+/**
+ * Create contour plot of the two-dimensional solution vector
+ * @param {*} u - Solution vector
+ * @param {*} nx - Number of nodes along the x-axis
+ * @param {*} ny - Number of nodes along the y-axis
+ * @param {*} axpt - Array of x-coordinates of nodes
+ * @param {*} aypt - Array of y-coordinates of nodes
+ */
 export function plotSol2D(u, nx, ny, axpt, aypt) {   
   // Reshape the axpt and aypt arrays to match the grid dimensions
   let reshapedAxpt = math.reshape(Array.from(axpt), [nx, ny]);

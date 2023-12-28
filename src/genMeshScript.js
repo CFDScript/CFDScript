@@ -8,7 +8,14 @@
 //                                                        |_|       | |_   //
 //   Website:  www.cfdscript.com                                    \ __\  //
 
-// Generate two-dimensional structured mesh
+/**
+ * Generate two-dimensional structured mesh
+ * @param {*} nex - Number of elements along the x-axis
+ * @param {*} ney - Number of elements along the y-axis
+ * @param {*} xlast - Last x-coordinate of the mesh
+ * @param {*} ylast - Last y-coordinate of the mesh
+ * @returns 
+ */
 export function genStructMesh2D(nex, ney, xlast, ylast) {
   
   // Initialize arrays and variables
@@ -42,7 +49,12 @@ export function genStructMesh2D(nex, ney, xlast, ylast) {
   return { axpt, aypt, nnx, nny };
 }
 
-// Generate one-dimensional mesh
+/**
+ * Generate one-dimensional mesh
+ * @param {*} nex - Number of elements along the x-axis
+ * @param {*} xlast - Last x-coordinate of the mesh
+ * @returns 
+ */
 export function genMesh1D(nex, xlast) {
 
   // Initialize arrays and variables
@@ -61,7 +73,14 @@ export function genMesh1D(nex, xlast) {
   return { axpt, nnx };
 }
 
-// Generate nop array for two-dimensional structured mesh
+/**
+ * Generate nop array for two-dimensional structured mesh
+ * @param {*} nex - Number of elements along the x-axis
+ * @param {*} ney - Number of elements along the y-axis
+ * @param {*} nnx - Total number of nodes along the x-axis
+ * @param {*} nny - Total number of nodes along the y-axis
+ * @returns 
+ */
 export function nodNumStruct2D(nex, ney, nnx, nny) {
 
   // Nodal numbering
