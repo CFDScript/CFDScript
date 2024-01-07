@@ -71,9 +71,9 @@ export function gaussElim(A, x) {
 
 /**
  * Create and return an array filled with a specified value
- * @param {*} i 
- * @param {*} n 
- * @param {*} v 
+ * @param {*} i - The starting index
+ * @param {*} n - The length of the array
+ * @param {*} v - The value to fill the array with
  * @returns 
  */
 function array_fill(i, n, v) {

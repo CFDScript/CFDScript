@@ -12,7 +12,7 @@ import { createSolidHeatMat2D } from './solidHeatScript.js';
 import { gaussElim } from './auxFunScript.js';
 
 /**
- * 
+ * Solver for Partial Differential Equations (PDE) using the Finite Element Method (FEM)
  * @param {*} nex - Number of elements along the x-axis
  * @param {*} ney - Number of elements along the y-axis
  * @param {*} xlast - Last x-coordinate of the domain
@@ -29,7 +29,7 @@ export function CFDScript(nex, ney, xlast, ylast, solverScript, boundaryConditio
   let axpt = []; // Array to store x-coordinates of nodes (local numbering)
   let aypt = []; // Array to store y-coordinates of nodes (local numbering)
   let u = []; // Solution vector
-  
+
   // Assembly matrices
   if (solverScript === 'solidHeatScript') {
     console.log(solverScript, "solver");
@@ -37,10 +37,11 @@ export function CFDScript(nex, ney, xlast, ylast, solverScript, boundaryConditio
   }
   let nx = nnx; // Assign the value of nnx to nx
   let ny = nny; // Assign the value of nny to ny
-  
+
   // System solving
   u = math.lusolve(jac, res); // Solve the system of linear equations using LU decomposition
-  // Alternatively, you can use the gauss function to solve the system: u = gaussElim(jac, res);
+  // Alternatively, you can use the Gaussian Elimination method to solve the system of equations: 
+  //u = gaussElim(jac, res);
 
   // Debugger;
   //console.log(x); // Log the solution to the console

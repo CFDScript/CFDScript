@@ -10,12 +10,12 @@
 
 /**
  * Return the quadratic basis functions for rectangular elements
- * @param {*} x 
- * @param {*} y 
+ * @param {*} x - First coordinate (ksi) in natural coordinates
+ * @param {*} y - Second coordinate (eta) in natural coordinates
  * @returns
  */
 export function basisFunQuad2D(x, y) {
-  
+
   let ph = [];
   let phic = [];
   let phie = [];

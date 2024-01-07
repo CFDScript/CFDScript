@@ -35,7 +35,7 @@ export function plotSol2D(u, nx, ny, axpt, aypt) {
     let xValue = axpt[i];
     reshapedXForPlot.push(xValue);
   }
-  
+
   // Create the contour plot data
   let data = [{
     z: transposedReshapedU,

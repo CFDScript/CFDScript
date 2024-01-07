@@ -17,7 +17,7 @@
  * @returns 
  */
 export function genStructMesh2D(nex, ney, xlast, ylast) {
-  
+
   // Initialize arrays and variables
   let axpt = []; // Array to store x-coordinates of nodes (local numbering)
   let aypt = []; // Array to store y-coordinates of nodes (local numbering)
@@ -44,7 +44,7 @@ export function genStructMesh2D(nex, ney, xlast, ylast) {
       aypt[nnode+j] = aypt[nnode] + j * deltay / 2;
     }
   }
-  
+
   // Return the generated coordinates and mesh information
   return { axpt, aypt, nnx, nny };
 }
