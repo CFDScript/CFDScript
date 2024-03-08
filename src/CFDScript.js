@@ -12,7 +12,7 @@ import { createSolidHeatMat2D } from './solidHeatScript.js';
 import { gaussElim } from './auxFunScript.js';
 
 /**
- * Solver for Partial Differential Equations (PDE) using the Finite Element Method (FEM)
+ * Partial Differential Equations (PDE) solver using the Finite Element Method (FEM)
  * @param {*} nex - Number of elements along the x-axis
  * @param {*} ney - Number of elements along the y-axis
  * @param {*} xlast - Last x-coordinate of the domain

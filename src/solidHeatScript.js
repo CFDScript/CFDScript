@@ -181,6 +181,7 @@ export function createSolidHeatMat2D(nex, ney, xlast, ylast, boundaryConditions)
       0  3  6
 
     */
+   
     if (ntop[i] == 1 || nbottom[i] == 1 || nleft[i] == 1 || nright[i] == 1) {
       for (let l = 0; l < 3; l++) {
         let gp1, gp2, firstNode, finalNode, nodeIncr;

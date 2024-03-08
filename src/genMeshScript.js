@@ -9,6 +9,30 @@
 //   Website:  www.cfdscript.com                                    \ __\  //
 
 /**
+ * Generate one-dimensional mesh
+ * @param {*} nex - Number of elements along the x-axis
+ * @param {*} xlast - Last x-coordinate of the mesh
+ * @returns 
+ */
+export function genMesh1D(nex, xlast) {
+
+  // Initialize arrays and variables
+  let axpt = []; // Array to store x-coordinates (global) of nodes
+  const xfirst = 0; // Starting x-coordinate
+  let nnx = 2 * nex + 1; // Total number of nodes along x-axis
+  const deltax = (xlast - xfirst) / nex; // Spacing between nodes along x-axis
+
+    // Calculate x coordinates of nodes
+    axpt[0] = xfirst;
+    for (let i = 1; i < nnx; i++) {
+      axpt[i] = axpt[i-1] + deltax;
+    }
+
+  // Return the generated coordinates and mesh information
+  return { axpt, nnx };
+}
+
+/**
  * Generate two-dimensional structured mesh
  * @param {*} nex - Number of elements along the x-axis
  * @param {*} ney - Number of elements along the y-axis
@@ -47,30 +71,6 @@ export function genStructMesh2D(nex, ney, xlast, ylast) {
 
   // Return the generated coordinates and mesh information
   return { axpt, aypt, nnx, nny };
-}
-
-/**
- * Generate one-dimensional mesh
- * @param {*} nex - Number of elements along the x-axis
- * @param {*} xlast - Last x-coordinate of the mesh
- * @returns 
- */
-export function genMesh1D(nex, xlast) {
-
-  // Initialize arrays and variables
-  let axpt = []; // Array to store x-coordinates (global) of nodes
-  const xfirst = 0; // Starting x-coordinate
-  let nnx = 2 * nex + 1; // Total number of nodes along x-axis
-  const deltax = (xlast - xfirst) / nex; // Spacing between nodes along x-axis
-
-    // Calculate x coordinates of nodes
-    axpt[0] = xfirst;
-    for (let i = 1; i < nnx; i++) {
-      axpt[i] = axpt[i-1] + deltax;
-    }
-
-  // Return the generated coordinates and mesh information
-  return { axpt, nnx };
 }
 
 /**

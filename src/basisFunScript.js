@@ -9,6 +9,27 @@
 //   Website:  www.cfdscript.com                                    \ __\  //
 
 /**
+ * Return the linear basis functions for one-dimensional elements
+ * @param {*} x 
+ */
+export function basisFunLin1D(x) {
+
+  let ph = [];
+  let phd = [];
+
+  // Evaluate basis function
+  ph[0]= 1 - x
+  ph[1]= x
+
+  // Evaluate the derivative of basis function
+  phd[0]= -1
+  phd[1]= 1
+
+  // Return the evaluated basis function and derivatives
+  return { ph, phd };
+}
+
+/**
  * Return the quadratic basis functions for rectangular elements
  * @param {*} x - First coordinate (ksi) in natural coordinates
  * @param {*} y - Second coordinate (eta) in natural coordinates
