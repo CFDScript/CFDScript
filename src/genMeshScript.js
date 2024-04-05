@@ -111,3 +111,14 @@ export function nodNumStruct2D(nex, ney, nnx, nny) {
   // Return the generated nop array
   return nop;
 }
+
+/**
+ * Generate two-dimensional elliptic mesh
+ * @param {*} nex - Number of elements along the x-axis
+ * @param {*} ney - Number of elements along the y-axis
+ * @param {*} xlast - Total number of nodes along the x-axis
+ * @param {*} ylast - Total number of nodes along the y-axis
+ */
+export function genElliMesh2D(nex, ney, xlast, ylast) {
+
+}

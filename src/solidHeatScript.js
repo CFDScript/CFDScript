@@ -13,14 +13,19 @@ import { basisFunQuad2D } from './basisFunScript.js';
 
 /**
  * Generate the matrix and the residual vector for the Finite Element Method in two dimensions
- * @param {*} nex - Number of elements along the x-axis
- * @param {*} ney - Number of elements along the y-axis
- * @param {*} xlast - Last x-coordinate of the domain
- * @param {*} ylast - Last y-coordinate of the domain
+ * @param {*} compuMesh - Object containing computational mesh details
  * @param {*} boundaryConditions - Object containing boundary conditions
  * @returns 
  */
-export function createSolidHeatMat2D(nex, ney, xlast, ylast, boundaryConditions) {
+export function createSolidHeatMat2D(compuMesh, boundaryConditions) {
+
+  // Extract mesh details from the configuration object
+  const {
+      nex, // Number of elements in x-direction
+      ney, // Number of elements in y-direction
+      xlast, // Max x-coordinate (m) of the domain
+      ylast, // Max y-coordinate (m) of the domain
+  } = compuMesh;
 
   // Generate x-y coordinates using genStructMesh2D function
   let { axpt, aypt, nnx, nny } = genStructMesh2D(nex, ney, xlast, ylast);
@@ -79,7 +84,7 @@ export function createSolidHeatMat2D(nex, ney, xlast, ylast, boundaryConditions)
     dirichletValueRight,
   } = boundaryConditions;
 
-  // Impose Robin boundary conditions
+  // Check for elements to impose Robin boundary conditions
   for (let i = 0; i < ne - ney; i += ney) { // Define ntop for elements along y=yfirst (bottom side of the domain)
      if (robinBottom) {
        nbottom[i] = 1;
@@ -101,7 +106,7 @@ export function createSolidHeatMat2D(nex, ney, xlast, ylast, boundaryConditions)
 	 }
   }
 
-  // // Impose Robin boundary conditions (alternative -easier-to-read- method)
+  // Check for elements to impose Robin boundary conditions (alternative -easier-to-read- method)
   // for (let i = 0; i < ne; i++) {
   //   if (aypt[nop[i][8]] == ylast) { // Check if element is at the top side of the domain (y = ylast)
   //     ntop[i] = +1;
@@ -170,7 +175,7 @@ export function createSolidHeatMat2D(nex, ney, xlast, ylast, boundaryConditions)
       }
     }
 
-    // Check for elements to impose Robin boundary conditions
+    // Impose Robin boundary conditions
     /*
     Representation of the nodes in the case of quadratic rectangular elements
 
@@ -234,7 +239,7 @@ export function createSolidHeatMat2D(nex, ney, xlast, ylast, boundaryConditions)
     }
   }
 
-  // Impose Dirichlet boundary conditions
+  // Check for elements to impose Dirichlet boundary conditions
   for (let i = 0; i < np - nny + 1; i += nny) { // Define ncod and bc for nodes on y=yfirst (bottom side of the domain)
     if (dirichletBottom) {
       ncod[i] = 1;
@@ -260,7 +265,7 @@ export function createSolidHeatMat2D(nex, ney, xlast, ylast, boundaryConditions)
     }
   }
 
-  // // Impose Dirichlet boundary conditions (alternative -easier-to-read- method)
+  // Check for elements to impose Dirichlet boundary conditions (alternative -easier-to-read- method)
   // for (let i = 0; i < np; i++) {
   //   if (aypt[i] == yfirst) { // Check if node is at the bottom side of the domain
   //     ncod[i] = 1;
