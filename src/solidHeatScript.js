@@ -14,10 +14,10 @@ import { basisFunQuad2D } from './basisFunScript.js';
 /**
  * Generate the matrix and the residual vector for the Finite Element Method in two dimensions
  * @param {*} compuMesh - Object containing computational mesh details
- * @param {*} boundaryConditions - Object containing boundary conditions
+ * @param {*} boundCond - Object containing boundary conditions
  * @returns 
  */
-export function createSolidHeatMat2D(compuMesh, boundaryConditions) {
+export function createSolidHeatMat2D(compuMesh, boundCond) {
 
   // Extract mesh details from the configuration object
   const {
@@ -82,7 +82,7 @@ export function createSolidHeatMat2D(compuMesh, boundaryConditions) {
     dirichletValueBottom,
     dirichletValueLeft,
     dirichletValueRight,
-  } = boundaryConditions;
+  } = boundCond;
 
   // Check for elements to impose Robin boundary conditions
   for (let i = 0; i < ne - ney; i += ney) { // Define ntop for elements along y=yfirst (bottom side of the domain)

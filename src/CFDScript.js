@@ -15,10 +15,10 @@ import { gaussElim } from './auxFunScript.js';
  * Partial Differential Equations (PDE) solver using the Finite Element Method (FEM)
  * @param {*} solverScript - Parameter specifying the type of solver
  * @param {*} compuMesh - Object containing computational mesh details
- * @param {*} boundaryConditions - Object containing boundary conditions
+ * @param {*} boundCond - Object containing boundary conditions
  * @returns 
  */
-export function CFDScript(solverScript, compuMesh, boundaryConditions) {
+export function CFDScript(solverScript, compuMesh, boundCond) {
   let jac = []; // Jacobian matrix
   let res = []; // Galerkin residuals
   let nnx; // Total number of nodes along x-axis
@@ -31,7 +31,7 @@ export function CFDScript(solverScript, compuMesh, boundaryConditions) {
   console.time('assemblyMatrices');
   if (solverScript === 'solidHeatScript') {
     console.log(solverScript, "solver");
-    ({ jac, res, nnx, nny, axpt, aypt } = createSolidHeatMat2D(compuMesh, boundaryConditions));
+    ({ jac, res, nnx, nny, axpt, aypt } = createSolidHeatMat2D(compuMesh, boundCond));
   }
   console.timeEnd('assemblyMatrices');
   let nx = nnx; // Assign the value of nnx to nx
