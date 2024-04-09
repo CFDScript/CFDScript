@@ -30,7 +30,7 @@ export function CFDScript(solverScript, compuMesh, boundCond) {
   // Assembly matrices
   console.time('assemblyMatrices');
   if (solverScript === 'solidHeatScript') {
-    console.log(solverScript, "solver");
+    console.log("Solver:", solverScript);
     ({ jac, res, nnx, nny, axpt, aypt } = createSolidHeatMat2D(compuMesh, boundCond));
   }
   console.timeEnd('assemblyMatrices');

@@ -40,8 +40,8 @@ export function createSolidHeatMat2D(compuMesh, boundCond) {
   let nbottom = new Array(ne).fill(0); // Robin boundary condition flag (elements at the bottom side of the domain)
   let nleft = new Array(ne).fill(0); // Robin boundary condition flag (elements at the left side of the domain)
   let nright = new Array(ne).fill(0); // Robin boundary condition flag (elements at the right side of the domain)
-  let ncod = new Array(np).fill(0); // Dirichlet boundary condition flag
-  let bc = new Array(np).fill(0); // Dirichlet boundary condition value
+  let dirCondFlag = new Array(np).fill(0); // Dirichlet boundary condition flag
+  let dirCondVal = new Array(np).fill(0); // Dirichlet boundary condition value
   let ngl = []; // Local nodal numbering
   let gp = []; // Gauss points
   let wgp = []; // Gauss weights
@@ -105,22 +105,6 @@ export function createSolidHeatMat2D(compuMesh, boundCond) {
        nright[i] = 1;
 	 }
   }
-
-  // Check for elements to impose Robin boundary conditions (alternative -easier-to-read- method)
-  // for (let i = 0; i < ne; i++) {
-  //   if (aypt[nop[i][8]] == ylast) { // Check if element is at the top side of the domain (y = ylast)
-  //     ntop[i] = +1;
-  //   }
-  //   if (aypt[nop[i][0]] == yfirst) { // Check if element is at the bottom side of the domain (y = yfirst)
-  //     nbottom[i] = +1;
-  //   }
-  //   if (axpt[nop[i][0]] == xfirst) { // Check if element is at the left side of the domain (x  = xfirst)
-  //     nleft[i] = +1;
-  //   }
-  //   if (axpt[nop[i][6]] == xlast) { // Check if element is at the right side of the domain (x =xlast)
-  //     nright[i] = +1;
-  //   }
-  //  }
 
   // Matrix assembly
   for (let i = 0; i < ne; i++) {
@@ -240,55 +224,35 @@ export function createSolidHeatMat2D(compuMesh, boundCond) {
   }
 
   // Check for elements to impose Dirichlet boundary conditions
-  for (let i = 0; i < np - nny + 1; i += nny) { // Define ncod and bc for nodes on y=yfirst (bottom side of the domain)
+  for (let i = 0; i < np - nny + 1; i += nny) { // Define dirCondFlag and dirCondVal for nodes on y=yfirst (bottom side of the domain)
     if (dirichletBottom) {
-      ncod[i] = 1;
-      bc[i] = dirichletValueBottom;
+      dirCondFlag[i] = 1;
+      dirCondVal[i] = dirichletValueBottom;
     }
   }
-  for (let i = 0; i < nny; i++) { // Define ncod and bc for nodes on x=xfirst (left side of the domain)
+  for (let i = 0; i < nny; i++) { // Define dirCondFlag and dirCondVal for nodes on x=xfirst (left side of the domain)
     if (dirichletLeft) {
-      ncod[i] = 1;
-      bc[i] = dirichletValueLeft;
+      dirCondFlag[i] = 1;
+      dirCondVal[i] = dirichletValueLeft;
     }
   }
-  for (let i = nny - 1; i < np; i += nny) { // Define ncod and bc for nodes on y=ylast (top side of the domain)
+  for (let i = nny - 1; i < np; i += nny) { // Define dirCondFlag and dirCondVal for nodes on y=ylast (top side of the domain)
     if (dirichletTop) {
-      ncod[i] = 1;
-      bc[i] = dirichletValueTop;
+      dirCondFlag[i] = 1;
+      dirCondVal[i] = dirichletValueTop;
     }
   } 
-  for (let i = np - nny; i < np; i++) { // Define ncod and bc for nodes on x=xlast (right side of the domain)
+  for (let i = np - nny; i < np; i++) { // Define dirCondFlag and dirCondVal for nodes on x=xlast (right side of the domain)
     if (dirichletRight) {
-      ncod[i] = 1;
-      bc[i] = dirichletValueRight;
+      dirCondFlag[i] = 1;
+      dirCondVal[i] = dirichletValueRight;
     }
   }
-
-  // Check for elements to impose Dirichlet boundary conditions (alternative -easier-to-read- method)
-  // for (let i = 0; i < np; i++) {
-  //   if (aypt[i] == yfirst) { // Check if node is at the bottom side of the domain
-  //     ncod[i] = 1;
-  //     bc[i] = 1; // Assign a value or a function to the node's unknown field
-  //   }
-  //   if (aypt[i] == ylast) { // Check if node is at the top side of the domain
-  //     ncod[i] = 1;
-  //     bc[i] = 1; // Assign a value or a function to the node's unknown field
-  //   }
-  //   if (axpt[i] == xfirst) { // Check if node is at the left side of the domain
-  //     ncod[i] = 1;
-  //     bc[i] = 1; // Assign a value or a function to the node's unknown field
-  //   }
-  //   if (axpt[i] == xlast) { // Check if node is at the right side of the domain
-  //     ncod[i] = 1;
-  //     bc[i] = 1; // Assign a value or a function to the node's unknown field
-  //   }
-  // }
 
   // Impose Dirichlet boundary conditions
   for (let i = 0; i < np; i++) {
-    if (ncod[i] == 1) {
-      res[i] = bc[i]; // Set the residual vector to the Dirichlet value
+    if (dirCondFlag[i] == 1) {
+      res[i] = dirCondVal[i]; // Set the residual vector to the Dirichlet value
       for (let j = 0; j < np; j++) {
         jac[i][j] = 0; // Set the Jacobian matrix to zero
         jac[i][i] = 1; // Set the diagonal entry to one

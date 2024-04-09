@@ -116,9 +116,9 @@ export function chkSolidHeatBoundCond(boundaryConditions) {
   }
 
   if (multipleCount > 0) {
-    console.log(`chkSolidHeatBoundCond: More than one boundary condition is applied on the following side(s): ${moreThanOneBoundaryCondition}`);
+    console.log(`chkSolidHeatBoundCond: Fail - More than one boundary condition is applied on the following side(s): ${moreThanOneBoundaryCondition}`);
   } else {
-    console.log('chkSolidHeatBoundCond: Only one boundary condition is applied on each side');
+    console.log('chkSolidHeatBoundCond: Success - Only one boundary condition is applied on each side');
   }
 }
 
@@ -126,5 +126,5 @@ export function chkSolidHeatBoundCond(boundaryConditions) {
  * Print the CFDScript version
  */
 export function CFDScriptVersion() {
-  console.log("CFDscript alpha");
+  console.log("CFDscript version: alpha", new Date().getFullYear());
 }
