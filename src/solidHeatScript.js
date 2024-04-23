@@ -36,10 +36,10 @@ export function createSolidHeatMat2D(compuMesh, boundCond) {
   // Initialize variables for matrix assembly
   const ne = nex * ney; // Total number of elements
   const np = nnx * nny; // Total number of nodes
-  let ntop = new Array(ne).fill(0); // Robin boundary condition flag (elements at the top side of the domain)
-  let nbottom = new Array(ne).fill(0); // Robin boundary condition flag (elements at the bottom side of the domain)
-  let nleft = new Array(ne).fill(0); // Robin boundary condition flag (elements at the left side of the domain)
-  let nright = new Array(ne).fill(0); // Robin boundary condition flag (elements at the right side of the domain)
+  let RobCondFlagTop = new Array(ne).fill(0); // Robin boundary condition flag (elements at the top side of the domain)
+  let RobCondFlagBottom = new Array(ne).fill(0); // Robin boundary condition flag (elements at the bottom side of the domain)
+  let RobCondFlagLeft = new Array(ne).fill(0); // Robin boundary condition flag (elements at the left side of the domain)
+  let RobCondFlagRight = new Array(ne).fill(0); // Robin boundary condition flag (elements at the right side of the domain)
   let dirCondFlag = new Array(np).fill(0); // Dirichlet boundary condition flag
   let dirCondVal = new Array(np).fill(0); // Dirichlet boundary condition value
   let ngl = []; // Local nodal numbering
@@ -68,41 +68,33 @@ export function createSolidHeatMat2D(compuMesh, boundCond) {
 
   // Extract boundary conditions from the configuration object
   const {
-    robinTop,
-    robinBottom,
-    robinLeft,
-    robinRight,
+    topBound,
+    bottomBound,
+    leftBound,
+    rightBound,
     robinHeatTranfCoeff,
-    robinExtTemp,
-    dirichletTop,
-    dirichletBottom,
-    dirichletLeft,
-    dirichletRight,
-    dirichletValueTop,
-    dirichletValueBottom,
-    dirichletValueLeft,
-    dirichletValueRight,
+    robinExtTemp
   } = boundCond;
 
   // Check for elements to impose Robin boundary conditions
-  for (let i = 0; i < ne - ney; i += ney) { // Define ntop for elements along y=yfirst (bottom side of the domain)
-     if (robinBottom) {
-       nbottom[i] = 1;
+  for (let i = 0; i < ne - ney; i += ney) { // Elements along y=yfirst (bottom side of the domain)
+     if (bottomBound[0] == "robin") {
+       RobCondFlagBottom[i] = 1;
 	 }
   }
-  for (let i = 0; i < ney; i++) { // Define ntop for elements along x=xfirst (left side of the domain)
-     if (robinLeft) {
-       nleft[i] = 1;
+  for (let i = 0; i < ney; i++) { // Elements along x=xfirst (left side of the domain)
+     if (leftBound[0] == "robin") {
+       RobCondFlagLeft[i] = 1;
 	 }
   }
-  for (let i = ney - 1; i < ne; i += ney) { // Define ntop for elements along y=ylast (top side of the domain)
-     if (robinTop) {
-       ntop[i] = 1;
+  for (let i = ney - 1; i < ne; i += ney) { // Elements along y=ylast (top side of the domain)
+     if (topBound[0] == "robin") {
+       RobCondFlagTop[i] = 1;
 	 }
   }
-  for (let i = ne - ney; i < ne; i++) { // Define ntop for elements along x=xlast (right side of the domain)
-     if (robinRight) {
-       nright[i] = 1;
+  for (let i = ne - ney; i < ne; i++) { // Elements along x=xlast (right side of the domain)
+     if (rightBound[0] == "robin") {
+       RobCondFlagRight[i] = 1;
 	 }
   }
 
@@ -171,32 +163,32 @@ export function createSolidHeatMat2D(compuMesh, boundCond) {
 
     */
    
-    if (ntop[i] == 1 || nbottom[i] == 1 || nleft[i] == 1 || nright[i] == 1) {
+    if (RobCondFlagTop[i] == 1 || RobCondFlagBottom[i] == 1 || RobCondFlagLeft[i] == 1 || RobCondFlagRight[i] == 1) {
       for (let l = 0; l < 3; l++) {
         let gp1, gp2, firstNode, finalNode, nodeIncr;
         // Set gp1 and gp2 based on boundary conditions
-        if (ntop[i] == 1) {
+        if (RobCondFlagTop[i] == 1) {
           // Set gp1 and gp2 for elements at the top side of the domain (nodes 2, 5, 8)
           gp1 = gp[l];
           gp2 = 1;
           firstNode = 2;
           finalNode = 9; // final node minus one
           nodeIncr = 3;
-        } else if (nbottom[i] == 1) {
+        } else if (RobCondFlagBottom[i] == 1) {
           // Set gp1 and gp2 for elements at the bottom side of the domain (nodes 0, 3, 6)
           gp1 = gp[l];
           gp2 = 0;
           firstNode = 0;
           finalNode = 7;
           nodeIncr = 3;
-        } else if (nleft[i] == 1) {
+        } else if (RobCondFlagLeft[i] == 1) {
           // Set gp1 and gp2 for elements at the left side of the domain (nodes 0, 1, 2)
           gp1 = 0;
           gp2 = gp[l];
           firstNode = 0;
           finalNode = 3;
           nodeIncr = 1;
-        } else if (nright[i] == 1) {
+        } else if (RobCondFlagRight[i] == 1) {
           // Set gp1 and gp2 for elements at the right side of the domain (nodes 6, 7, 8)
           gp1 = 1;
           gp2 = gp[l];
@@ -225,27 +217,27 @@ export function createSolidHeatMat2D(compuMesh, boundCond) {
 
   // Check for elements to impose Dirichlet boundary conditions
   for (let i = 0; i < np - nny + 1; i += nny) { // Define dirCondFlag and dirCondVal for nodes on y=yfirst (bottom side of the domain)
-    if (dirichletBottom) {
+    if (bottomBound[0] == "dirichlet") {
       dirCondFlag[i] = 1;
-      dirCondVal[i] = dirichletValueBottom;
+      dirCondVal[i] = bottomBound[1];
     }
   }
   for (let i = 0; i < nny; i++) { // Define dirCondFlag and dirCondVal for nodes on x=xfirst (left side of the domain)
-    if (dirichletLeft) {
+    if (leftBound[0] == "dirichlet") {
       dirCondFlag[i] = 1;
-      dirCondVal[i] = dirichletValueLeft;
+      dirCondVal[i] = leftBound[1];
     }
   }
   for (let i = nny - 1; i < np; i += nny) { // Define dirCondFlag and dirCondVal for nodes on y=ylast (top side of the domain)
-    if (dirichletTop) {
+    if (topBound[0] == "dirichlet") {
       dirCondFlag[i] = 1;
-      dirCondVal[i] = dirichletValueTop;
+      dirCondVal[i] = topBound[1];
     }
   } 
   for (let i = np - nny; i < np; i++) { // Define dirCondFlag and dirCondVal for nodes on x=xlast (right side of the domain)
-    if (dirichletRight) {
+    if (rightBound[0] == "dirichlet") {
       dirCondFlag[i] = 1;
-      dirCondVal[i] = dirichletValueRight;
+      dirCondVal[i] = rightBound[1];
     }
   }
 
