@@ -9,7 +9,6 @@
 //   Website:  www.cfdscript.com                                    \ __\  //
 
 import { createSolidHeatMat2D } from './solidHeatScript.js';
-import { gaussElim } from './auxFunScript.js';
 
 /**
  * Partial Differential Equations (PDE) solver using the Finite Element Method (FEM)
