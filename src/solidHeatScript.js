@@ -12,7 +12,7 @@ import { genStructMesh2D, nodNumStruct2D } from './genMeshScript.js';
 import { basisFunQuad2D } from './basisFunScript.js';
 
 /**
- * Generate the matrix and the residual vector for the Finite Element Method in two dimensions
+ * Generate the matrix and the residual vector for the Finite Element Method for heat conduction problems in two dimensions
  * @param {*} compuMesh - Object containing computational mesh details
  * @param {*} boundCond - Object containing boundary conditions
  * @returns 
@@ -23,12 +23,12 @@ export function createSolidHeatMat2D(compuMesh, boundCond) {
   const {
       nex, // Number of elements in x-direction
       ney, // Number of elements in y-direction
-      xlast, // Max x-coordinate (m) of the domain
-      ylast, // Max y-coordinate (m) of the domain
+      xLast, // Max x-coordinate (m) of the domain
+      yLast, // Max y-coordinate (m) of the domain
   } = compuMesh;
 
   // Generate x-y coordinates using genStructMesh2D function
-  let { axpt, aypt, nnx, nny } = genStructMesh2D(nex, ney, xlast, ylast);
+  let { axpt, aypt, nnx, nny } = genStructMesh2D(nex, ney, xLast, yLast);
 
   // Generate nop array
   let nop = nodNumStruct2D(nex, ney, nnx, nny);
@@ -77,22 +77,22 @@ export function createSolidHeatMat2D(compuMesh, boundCond) {
   } = boundCond;
 
   // Check for elements to impose Robin boundary conditions
-  for (let i = 0; i < ne - ney; i += ney) { // Elements along y=yfirst (bottom side of the domain)
+  for (let i = 0; i < ne - ney; i += ney) { // Elements along y=yFirst (bottom side of the domain)
      if (bottomBound[0] == "robin") {
        RobCondFlagBottom[i] = 1;
 	 }
   }
-  for (let i = 0; i < ney; i++) { // Elements along x=xfirst (left side of the domain)
+  for (let i = 0; i < ney; i++) { // Elements along x=xFirst (left side of the domain)
      if (leftBound[0] == "robin") {
        RobCondFlagLeft[i] = 1;
 	 }
   }
-  for (let i = ney - 1; i < ne; i += ney) { // Elements along y=ylast (top side of the domain)
+  for (let i = ney - 1; i < ne; i += ney) { // Elements along y=yLast (top side of the domain)
      if (topBound[0] == "robin") {
        RobCondFlagTop[i] = 1;
 	 }
   }
-  for (let i = ne - ney; i < ne; i++) { // Elements along x=xlast (right side of the domain)
+  for (let i = ne - ney; i < ne; i++) { // Elements along x=xLast (right side of the domain)
      if (rightBound[0] == "robin") {
        RobCondFlagRight[i] = 1;
 	 }
@@ -216,25 +216,25 @@ export function createSolidHeatMat2D(compuMesh, boundCond) {
   }
 
   // Check for elements to impose Dirichlet boundary conditions
-  for (let i = 0; i < np - nny + 1; i += nny) { // Define dirCondFlag and dirCondVal for nodes on y=yfirst (bottom side of the domain)
+  for (let i = 0; i < np - nny + 1; i += nny) { // Define dirCondFlag and dirCondVal for nodes on y=yFirst (bottom side of the domain)
     if (bottomBound[0] == "dirichlet") {
       dirCondFlag[i] = 1;
       dirCondVal[i] = bottomBound[1];
     }
   }
-  for (let i = 0; i < nny; i++) { // Define dirCondFlag and dirCondVal for nodes on x=xfirst (left side of the domain)
+  for (let i = 0; i < nny; i++) { // Define dirCondFlag and dirCondVal for nodes on x=xFirst (left side of the domain)
     if (leftBound[0] == "dirichlet") {
       dirCondFlag[i] = 1;
       dirCondVal[i] = leftBound[1];
     }
   }
-  for (let i = nny - 1; i < np; i += nny) { // Define dirCondFlag and dirCondVal for nodes on y=ylast (top side of the domain)
+  for (let i = nny - 1; i < np; i += nny) { // Define dirCondFlag and dirCondVal for nodes on y=yLast (top side of the domain)
     if (topBound[0] == "dirichlet") {
       dirCondFlag[i] = 1;
       dirCondVal[i] = topBound[1];
     }
   } 
-  for (let i = np - nny; i < np; i++) { // Define dirCondFlag and dirCondVal for nodes on x=xlast (right side of the domain)
+  for (let i = np - nny; i < np; i++) { // Define dirCondFlag and dirCondVal for nodes on x=xLast (right side of the domain)
     if (rightBound[0] == "dirichlet") {
       dirCondFlag[i] = 1;
       dirCondVal[i] = rightBound[1];

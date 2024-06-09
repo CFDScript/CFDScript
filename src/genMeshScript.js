@@ -11,19 +11,19 @@
 /**
  * Generate one-dimensional mesh
  * @param {*} nex - Number of elements along the x-axis
- * @param {*} xlast - Last x-coordinate of the mesh
+ * @param {*} xLast - Last x-coordinate of the mesh
  * @returns 
  */
-export function genMesh1D(nex, xlast) {
+export function genMesh1D(nex, xLast) {
 
   // Initialize arrays and variables
   let axpt = []; // Array to store x-coordinates (global) of nodes
-  const xfirst = 0; // Starting x-coordinate
+  const xFirst = 0; // Starting x-coordinate
   let nnx = 2 * nex + 1; // Total number of nodes along x-axis
-  const deltax = (xlast - xfirst) / nex; // Spacing between nodes along x-axis
+  const deltax = (xLast - xFirst) / nex; // Spacing between nodes along x-axis
 
     // Calculate x coordinates of nodes
-    axpt[0] = xfirst;
+    axpt[0] = xFirst;
     for (let i = 1; i < nnx; i++) {
       axpt[i] = axpt[i-1] + deltax;
     }
@@ -36,25 +36,25 @@ export function genMesh1D(nex, xlast) {
  * Generate two-dimensional structured mesh
  * @param {*} nex - Number of elements along the x-axis
  * @param {*} ney - Number of elements along the y-axis
- * @param {*} xlast - Last x-coordinate of the mesh
- * @param {*} ylast - Last y-coordinate of the mesh
+ * @param {*} xLast - Last x-coordinate of the mesh
+ * @param {*} yLast - Last y-coordinate of the mesh
  * @returns 
  */
-export function genStructMesh2D(nex, ney, xlast, ylast) {
+export function genStructMesh2D(nex, ney, xLast, yLast) {
 
   // Initialize arrays and variables
   let axpt = []; // Array to store x-coordinates of nodes (local numbering)
   let aypt = []; // Array to store y-coordinates of nodes (local numbering)
-  const xfirst = 0; // Starting x-coordinate
-  const yfirst = 0; // Starting y-coordinate
+  const xFirst = 0; // Starting x-coordinate
+  const yFirst = 0; // Starting y-coordinate
   let nnx = 2 * nex + 1; // Total number of nodes along x-axis
   let nny = 2 * ney + 1; // Total number of nodes along y-axis
-  const deltax = (xlast - xfirst) / nex; // Spacing between nodes along x-axis
-  const deltay = (ylast - yfirst) / ney; // Spacing between nodes along y-axis
+  const deltax = (xLast - xFirst) / nex; // Spacing between nodes along x-axis
+  const deltay = (yLast - yFirst) / ney; // Spacing between nodes along y-axis
 
   // Calculate x-y global coordinates of nodes
-  axpt[0] = xfirst;
-  aypt[0] = yfirst;
+  axpt[0] = xFirst;
+  aypt[0] = yFirst;
   for (let i = 1; i < nny; i++) {
     axpt[i] = axpt[0];
     aypt[i] = aypt[0] + i * deltay / 2;
@@ -116,9 +116,9 @@ export function nodNumStruct2D(nex, ney, nnx, nny) {
  * Generate two-dimensional elliptic mesh
  * @param {*} nex - Number of elements along the x-axis
  * @param {*} ney - Number of elements along the y-axis
- * @param {*} xlast - Total number of nodes along the x-axis
- * @param {*} ylast - Total number of nodes along the y-axis
+ * @param {*} xLast - Total number of nodes along the x-axis
+ * @param {*} yLast - Total number of nodes along the y-axis
  */
-export function genElliMesh2D(nex, ney, xlast, ylast) {
+export function genElliMesh2D(nex, ney, xLast, yLast) {
 
 }
