@@ -18,12 +18,12 @@ export function basisFunLin1D(x) {
   let phd = [];
 
   // Evaluate basis function
-  ph[0]= 1 - x;
-  ph[1]= x;
+  ph[0]= 1 - x
+  ph[1]= x
 
   // Evaluate the derivative of basis function
-  phd[0]= -1;
-  phd[1]= 1;
+  phd[0]= -1
+  phd[1]= 1
 
   // Return the evaluated basis function and derivatives
   return { ph, phd };

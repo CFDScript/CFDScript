@@ -37,9 +37,11 @@ export function CFDScript(solverScript, compuMesh, boundCond) {
   let ny = nny; // Assign the value of nny to ny
 
   // System solving
-  console.time('solvingTime');
+  console.time('systemSolving');
   u = math.lusolve(jac, res); // Solve the system of linear equations using LU decomposition
-  console.timeEnd('solvingTime');
+  // Alternatively, you can use the Gaussian Elimination method to solve the system of equations: 
+  //u = gaussElim(jac, res);
+  console.timeEnd('systemSolving');
 
   // Debugger;
   //console.log(x); // Log the solution to the console
