@@ -10,36 +10,36 @@
 
 /**
  * Return the linear basis functions for one-dimensional elements
- * @param {*} x 
+ * @param {*} ksi - Coordinate (ksi) in natural coordinates
  */
-export function basisFunLin1D(x) {
+export function basisFunLin1D(ksi) {
 
-  let ph = [];
-  let phd = [];
+  let basisFunction = [];
+  let basisFunctionDerivative = [];
 
   // Evaluate basis function
-  ph[0]= 1 - x
-  ph[1]= x
+  basisFunction[0]= 1 - ksi;
+  basisFunction[1]= ksi;
 
   // Evaluate the derivative of basis function
-  phd[0]= -1
-  phd[1]= 1
+  basisFunctionDerivative[0]= -1;
+  basisFunctionDerivative[1]= 1;
 
   // Return the evaluated basis function and derivatives
-  return { ph, phd };
+  return { basisFunction, basisFunctionDerivative };
 }
 
 /**
  * Return the quadratic basis functions for rectangular elements
- * @param {*} x - First coordinate (ksi) in natural coordinates
- * @param {*} y - Second coordinate (eta) in natural coordinates
+ * @param {*} ksi - First coordinate (ksi) in natural coordinates
+ * @param {*} eta - Second coordinate (eta) in natural coordinates
  * @returns
  */
-export function basisFunQuad2D(x, y) {
+export function basisFunQuad2D(ksi, eta) {
 
-  let ph = [];
-  let phic = [];
-  let phie = [];
+  let basisFunction = [];
+  let basisFunctionDerivKsi = [];
+  let basisFunctionDerivEta = [];
 
   function l1(c){
     return 2 * c ** 2 - 3 * c + 1;
@@ -61,38 +61,38 @@ export function basisFunQuad2D(x, y) {
   }
   
   // Evaluate basis functions
-  ph[0] = l1(x) * l1(y);
-  ph[1] = l1(x) * l2(y);
-  ph[2] = l1(x) * l3(y);
-  ph[3] = l2(x) * l1(y);
-  ph[4] = l2(x) * l2(y);
-  ph[5] = l2(x) * l3(y);
-  ph[6] = l3(x) * l1(y);
-  ph[7] = l3(x) * l2(y);
-  ph[8] = l3(x) * l3(y);
+  basisFunction[0] = l1(ksi) * l1(eta);
+  basisFunction[1] = l1(ksi) * l2(eta);
+  basisFunction[2] = l1(ksi) * l3(eta);
+  basisFunction[3] = l2(ksi) * l1(eta);
+  basisFunction[4] = l2(ksi) * l2(eta);
+  basisFunction[5] = l2(ksi) * l3(eta);
+  basisFunction[6] = l3(ksi) * l1(eta);
+  basisFunction[7] = l3(ksi) * l2(eta);
+  basisFunction[8] = l3(ksi) * l3(eta);
   
-  // Evaluate x-derivative of basis functions
-  phic[0] = l1(y) * dl1(x);
-  phic[1] = l2(y) * dl1(x);
-  phic[2] = l3(y) * dl1(x);
-  phic[3] = l1(y) * dl2(x);
-  phic[4] = l2(y) * dl2(x);
-  phic[5] = l3(y) * dl2(x);
-  phic[6] = l1(y) * dl3(x);
-  phic[7] = l2(y) * dl3(x);
-  phic[8] = l3(y) * dl3(x);
+  // Evaluate ksi-derivative of basis functions
+  basisFunctionDerivKsi[0] = l1(eta) * dl1(ksi);
+  basisFunctionDerivKsi[1] = l2(eta) * dl1(ksi);
+  basisFunctionDerivKsi[2] = l3(eta) * dl1(ksi);
+  basisFunctionDerivKsi[3] = l1(eta) * dl2(ksi);
+  basisFunctionDerivKsi[4] = l2(eta) * dl2(ksi);
+  basisFunctionDerivKsi[5] = l3(eta) * dl2(ksi);
+  basisFunctionDerivKsi[6] = l1(eta) * dl3(ksi);
+  basisFunctionDerivKsi[7] = l2(eta) * dl3(ksi);
+  basisFunctionDerivKsi[8] = l3(eta) * dl3(ksi);
   
-  // Evaluate y-derivative of basis functions
-  phie[0] = l1(x) * dl1(y);
-  phie[1] = l1(x) * dl2(y);
-  phie[2] = l1(x) * dl3(y);
-  phie[3] = l2(x) * dl1(y);
-  phie[4] = l2(x) * dl2(y);
-  phie[5] = l2(x) * dl3(y);
-  phie[6] = l3(x) * dl1(y);
-  phie[7] = l3(x) * dl2(y);
-  phie[8] = l3(x) * dl3(y);
+  // Evaluate eta-derivative of basis functions
+  basisFunctionDerivEta[0] = l1(ksi) * dl1(eta);
+  basisFunctionDerivEta[1] = l1(ksi) * dl2(eta);
+  basisFunctionDerivEta[2] = l1(ksi) * dl3(eta);
+  basisFunctionDerivEta[3] = l2(ksi) * dl1(eta);
+  basisFunctionDerivEta[4] = l2(ksi) * dl2(eta);
+  basisFunctionDerivEta[5] = l2(ksi) * dl3(eta);
+  basisFunctionDerivEta[6] = l3(ksi) * dl1(eta);
+  basisFunctionDerivEta[7] = l3(ksi) * dl2(eta);
+  basisFunctionDerivEta[8] = l3(ksi) * dl3(eta);
   
   // Return the evaluated basis functions and derivatives
-  return { ph, phic, phie };
+  return { basisFunction, basisFunctionDerivKsi, basisFunctionDerivEta };
 }

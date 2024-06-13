@@ -12,48 +12,48 @@ import { CFDScript } from './CFDScript.js';
 
 /**
  * Create contour plot of the two-dimensional solution vector
- * @param {*} u - Solution vector
- * @param {*} nx - Number of nodes along the x-axis
- * @param {*} ny - Number of nodes along the y-axis
- * @param {*} axpt - Array of x-coordinates of nodes
- * @param {*} aypt - Array of y-coordinates of nodes
+ * @param {*} solutionVector - Solution vector
+ * @param {*} numNodesX - Number of nodes along the x-axis
+ * @param {*} numNodesY - Number of nodes along the y-axis
+ * @param {*} nodeXCoordinates - Array of x-coordinates of nodes
+ * @param {*} nodeYCoordinates - Array of y-coordinates of nodes
  */
-export function plotSol2D(u, nx, ny, axpt, aypt) {   
-  // Reshape the axpt and aypt arrays to match the grid dimensions
-  let reshapedAxpt = math.reshape(Array.from(axpt), [nx, ny]);
-  let reshapedAypt = math.reshape(Array.from(aypt), [nx, ny]);
+export function plotSolution2D(solutionVector, numNodesX, numNodesY, nodeXCoordinates, nodeYCoordinates) {   
+  // Reshape the nodeXCoordinates and nodeYCoordinates arrays to match the grid dimensions
+  let reshapedXCoordinates = math.reshape(Array.from(nodeXCoordinates), [numNodesX, numNodesY]);
+  let reshapedYCoordinates = math.reshape(Array.from(nodeYCoordinates), [numNodesX, numNodesY]);
 
   // Reshape the solution array to match the grid dimensions
-  let reshapedU = math.reshape(Array.from(u), [nx, ny]);
+  let reshapedSolution = math.reshape(Array.from(solutionVector), [numNodesX, numNodesY]);
 
   // Transpose the reshapedX array to get column-wise data
-  let transposedReshapedU = math.transpose(reshapedU);
+  let transposedSolution = math.transpose(reshapedSolution);
 
   // Create x array for the contour plot
   let reshapedXForPlot = [];
-  for (let i = 0; i < nx * ny; i += ny) {
-    let xValue = axpt[i];
+  for (let i = 0; i < numNodesX * numNodesY; i += numNodesY) {
+    let xValue = nodeXCoordinates[i];
     reshapedXForPlot.push(xValue);
   }
 
   // Create the contour plot data
   let data = [{
-    z: transposedReshapedU,
+    z: transposedSolution,
     type: 'contour',
     contours: {
       coloring: 'heatmap'
     },
     x: reshapedXForPlot,
-    y: reshapedAypt[0]
+    y: reshapedYCoordinates[0]
   }];
 
   // Plot resizing
   let maxWindowWidth = 700 // Maximum Width of the plot (it depends on the available space on the webpage)
-  let maxReshapedXForPlot = Math.max(...reshapedXForPlot);
-  let maxReshapedAypt = Math.max(...reshapedAypt[0]);
-  let zoomParameter = maxWindowWidth/maxReshapedXForPlot;
-  let plotWidth = zoomParameter * maxReshapedXForPlot;
-  let plotHeight = zoomParameter * maxReshapedAypt;
+  let maxPlotWidth = Math.max(...reshapedXForPlot);
+  let maxPlotHeight = Math.max(...reshapedYCoordinates[0]);
+  let zoomFactor = maxWindowWidth/maxPlotWidth;
+  let plotWidth = zoomFactor * maxPlotWidth;
+  let plotHeight = zoomFactor * maxPlotHeight;
   // Debugger; 
   //console.log("plotWidth", plotWidth);  
 
