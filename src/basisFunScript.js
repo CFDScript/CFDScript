@@ -12,7 +12,8 @@
  * Return the linear basis functions for one-dimensional elements
  * @param {*} ksi - Coordinate (ksi) in natural coordinates
  */
-export function basisFunLin1D(ksi) {
+export function basisFunLin1D(ksi) 
+{
 
   let basisFunction = [];
   let basisFunctionDerivative = [];
@@ -35,28 +36,35 @@ export function basisFunLin1D(ksi) {
  * @param {*} eta - Second coordinate (eta) in natural coordinates
  * @returns
  */
-export function basisFunQuad2D(ksi, eta) {
+export function basisFunQuad2D(ksi, eta) 
+{
 
   let basisFunction = [];
   let basisFunctionDerivKsi = [];
   let basisFunctionDerivEta = [];
 
-  function l1(c){
+  function l1(c)
+  {
     return 2 * c ** 2 - 3 * c + 1;
   }
-  function l2(c){
+  function l2(c)
+  {
     return - 4 * c ** 2 + 4 * c;
   }
-  function l3(c){
+  function l3(c)
+  {
     return 2 * c ** 2 - c;
   }
-  function dl1(c){
+  function dl1(c)
+  {
     return 4 * c - 3;
   }
-  function dl2(c){
+  function dl2(c)
+  {
     return - 8 * c + 4;
   }
-  function dl3(c){
+  function dl3(c)
+  {
     return 4 * c - 1;
   }
   

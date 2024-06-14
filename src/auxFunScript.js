@@ -12,8 +12,10 @@
  * Check if only one boundary conditions is applied to each side of the domain for the solidHeatScript solver
  * @param {Object} boundaryConditions - An object representing the applied boundary conditions
  */
-export function chkSolidHeatboundaryConditions(boundaryConditions) {
-  const boundaryConditionCounts = {
+export function chkSolidHeatboundaryConditions(boundaryConditions) 
+{
+  const boundaryConditionCounts = 
+  {
     top: 0,
     bottom: 0,
     left: 0,
@@ -32,16 +34,21 @@ export function chkSolidHeatboundaryConditions(boundaryConditions) {
   let moreThanOneBoundaryCondition = '';
   let multipleCount = 0;
 
-  for (const side in boundaryConditionCounts) {
-    if (boundaryConditionCounts[side] > 1) {
+  for (const side in boundaryConditionCounts) 
+  {
+    if (boundaryConditionCounts[side] > 1) 
+    {
       moreThanOneBoundaryCondition += `${side} `;
       multipleCount++;
     }
   }
 
-  if (multipleCount > 0) {
+  if (multipleCount > 0) 
+  {
     console.log(`chkSolidHeatboundaryConditions: Fail - More than one boundary condition is applied on the following side(s): ${moreThanOneBoundaryCondition}`);
-  } else {
+  } 
+  else 
+  {
     console.log('chkSolidHeatboundaryConditions: Success - Only one boundary condition is applied on each side');
   }
 }
@@ -49,6 +56,7 @@ export function chkSolidHeatboundaryConditions(boundaryConditions) {
 /**
  * Print the CFDScript version
  */
-export function CFDScriptVersion() {
+export function CFDScriptVersion() 
+{
   console.log("CFDscript version: alpha", new Date().getFullYear());
 }

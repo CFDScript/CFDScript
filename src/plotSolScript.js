@@ -31,21 +31,26 @@ export function plotSolution2D(solutionVector, numNodesX, numNodesY, nodeXCoordi
 
   // Create x array for the contour plot
   let reshapedXForPlot = [];
-  for (let i = 0; i < numNodesX * numNodesY; i += numNodesY) {
+  for (let i = 0; i < numNodesX * numNodesY; i += numNodesY) 
+  {
     let xValue = nodeXCoordinates[i];
     reshapedXForPlot.push(xValue);
   }
 
   // Create the contour plot data
-  let data = [{
-    z: transposedSolution,
-    type: 'contour',
-    contours: {
-      coloring: 'heatmap'
-    },
-    x: reshapedXForPlot,
-    y: reshapedYCoordinates[0]
-  }];
+  let data = 
+  [
+    {
+      z: transposedSolution,
+      type: 'contour',
+      contours: 
+      {
+        coloring: 'heatmap'
+      },
+      x: reshapedXForPlot,
+      y: reshapedYCoordinates[0]
+    }
+  ];
 
   // Plot resizing
   let maxWindowWidth = 700 // Maximum Width of the plot (it depends on the available space on the webpage)
@@ -58,7 +63,8 @@ export function plotSolution2D(solutionVector, numNodesX, numNodesY, nodeXCoordi
   //console.log("plotWidth", plotWidth);  
 
   // Set the layout for the contour plot
-  let layout = {
+  let layout = 
+  {
     title: 'Solution vector',
     width: plotWidth,
     height: plotHeight,

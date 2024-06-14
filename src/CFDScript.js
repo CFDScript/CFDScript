@@ -17,7 +17,8 @@ import { createSolidHeatMat2D } from './solidHeatScript.js';
  * @param {*} boundaryConditions - Object containing boundary conditions
  * @returns 
  */
-export function CFDScript(solverScript, meshConfig, boundaryConditions) {
+export function CFDScript(solverScript, meshConfig, boundaryConditions) 
+{
   let jacobianMatrix = []; // Jacobian matrix
   let residualVector = []; // Galerkin residuals
   let totalNodesX; // Total number of nodes along x-axis
@@ -28,7 +29,8 @@ export function CFDScript(solverScript, meshConfig, boundaryConditions) {
 
   // Assembly matrices
   console.time('assemblyMatrices');
-  if (solverScript === 'solidHeatScript') {
+  if (solverScript === 'solidHeatScript') 
+  {
     console.log("Solver:", solverScript);
     ({ jacobianMatrix, residualVector, totalNodesX, totalNodesY, nodeXCoordinates, nodeYCoordinates } = createSolidHeatMat2D(meshConfig, boundaryConditions));
   }
