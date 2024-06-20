@@ -1,5 +1,5 @@
-    CFDScript Software
-    Copyright (C) 2023-2024 amphiFlow Engineering  
+    CFDScript
+    Copyright (C) 2023-2024 amphiFlow
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License as published by
@@ -16,4 +16,3 @@
 
 ---                                                                                
 CFDScript software may contain third-party code, which may be subject to its own license(s).
-
