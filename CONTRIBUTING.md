@@ -8,7 +8,7 @@ By contributing to this project you agree to the Developer Certificate of
 Origin (DCO). This document is a simple statement that you, as a contributor, 
 have the legal right to make the contribution. See the [DCO](DCO) file for details.
 
-### Contribution Guidelines
+## Contribution Guidelines
 
 1. **Fork the Repository**: Begin by forking the repository to your own GitHub account.
 
