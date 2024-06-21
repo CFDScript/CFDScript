@@ -1,10 +1,12 @@
-# Contributing to CFDScript
+## Contributing to CFDScript
 
 Thank you for your interest in contributing to CFDScript! To ensure a smooth and collaborative development process, please review and follow the guidelines outlined in this document.
 
-## Contributor License Agreement
-
-By contributing to this project, you agree to assign copyright of your contributions to the copyright holder, amphiFlow. This ensures that the project can maintain a consistent licensing structure and allows for effective management of the project under the GNU Affero General Public License (AGPL) version 3.
+### Certificate of Origin
+ 
+By contributing to this project you agree to the Developer Certificate of
+Origin (DCO). This document is a simple statement that you, as a contributor, 
+have the legal right to make the contribution. See the [DCO](DCO) file for details.
 
 ## Contribution Guidelines
 
