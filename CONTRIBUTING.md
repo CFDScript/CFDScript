@@ -4,7 +4,7 @@ Thank you for your interest in contributing to CFDScript! To ensure a smooth and
 
 ## Contributor License Agreement
 
-By contributing to this project, you agree to assign copyright of your contributions to the main author, amphiFlow. This ensures that the project can maintain a consistent licensing structure and allows for effective management of the project under the GNU Affero General Public License (AGPL) version 3.
+By contributing to this project, you agree to assign copyright of your contributions to the copyright holder, amphiFlow. This ensures that the project can maintain a consistent licensing structure and allows for effective management of the project under the GNU Affero General Public License (AGPL) version 3.
 
 ## Contribution Guidelines
 
