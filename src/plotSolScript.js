@@ -8,7 +8,7 @@
 //                                                        |_|       | |_   //
 //   Website:  www.cfdscript.com                                    \ __\  //
 
-import { CFDScript } from './CFDScript.js';
+import { CFDScript } from "./CFDScript.js";
 
 /**
  * Create contour plot of the two-dimensional solution vector
@@ -18,63 +18,74 @@ import { CFDScript } from './CFDScript.js';
  * @param {*} nodeXCoordinates - Array of x-coordinates of nodes
  * @param {*} nodeYCoordinates - Array of y-coordinates of nodes
  */
-export function plotSolution2D(solutionVector, numNodesX, numNodesY, nodeXCoordinates, nodeYCoordinates) {   
+export function plotSolution2D(
+  solutionVector,
+  numNodesX,
+  numNodesY,
+  nodeXCoordinates,
+  nodeYCoordinates
+) {
   // Reshape the nodeXCoordinates and nodeYCoordinates arrays to match the grid dimensions
-  let reshapedXCoordinates = math.reshape(Array.from(nodeXCoordinates), [numNodesX, numNodesY]);
-  let reshapedYCoordinates = math.reshape(Array.from(nodeYCoordinates), [numNodesX, numNodesY]);
+  let reshapedXCoordinates = math.reshape(Array.from(nodeXCoordinates), [
+    numNodesX,
+    numNodesY,
+  ]);
+  let reshapedYCoordinates = math.reshape(Array.from(nodeYCoordinates), [
+    numNodesX,
+    numNodesY,
+  ]);
 
   // Reshape the solution array to match the grid dimensions
-  let reshapedSolution = math.reshape(Array.from(solutionVector), [numNodesX, numNodesY]);
+  let reshapedSolution = math.reshape(Array.from(solutionVector), [
+    numNodesX,
+    numNodesY,
+  ]);
 
   // Transpose the reshapedX array to get column-wise data
   let transposedSolution = math.transpose(reshapedSolution);
 
   // Create x array for the contour plot
   let reshapedXForPlot = [];
-  for (let i = 0; i < numNodesX * numNodesY; i += numNodesY) 
-  {
+  for (let i = 0; i < numNodesX * numNodesY; i += numNodesY) {
     let xValue = nodeXCoordinates[i];
     reshapedXForPlot.push(xValue);
   }
 
   // Create the contour plot data
-  let data = 
-  [
+  let data = [
     {
       z: transposedSolution,
-      type: 'contour',
-      contours: 
-      {
-        coloring: 'heatmap'
+      type: "contour",
+      contours: {
+        coloring: "heatmap",
       },
       x: reshapedXForPlot,
-      y: reshapedYCoordinates[0]
-    }
+      y: reshapedYCoordinates[0],
+    },
   ];
 
   // Plot resizing
-  let maxWindowWidth = 700 // Maximum Width of the plot (it depends on the available space on the webpage)
+  let maxWindowWidth = 700; // Maximum Width of the plot (it depends on the available space on the webpage)
   let maxPlotWidth = Math.max(...reshapedXForPlot);
   let maxPlotHeight = Math.max(...reshapedYCoordinates[0]);
-  let zoomFactor = maxWindowWidth/maxPlotWidth;
+  let zoomFactor = maxWindowWidth / maxPlotWidth;
   let plotWidth = zoomFactor * maxPlotWidth;
   let plotHeight = zoomFactor * maxPlotHeight;
-  // Debugger; 
-  //console.log("plotWidth", plotWidth);  
+  // Debugger;
+  //console.log("plotWidth", plotWidth);
 
   // Set the layout for the contour plot
-  let layout = 
-  {
-    title: 'Solution vector',
+  let layout = {
+    title: "Solution vector",
     width: plotWidth,
     height: plotHeight,
     // Set constant plot width and height (for testing only)
     //width: 500,
     //height: 500,
-    xaxis: { title: 'x' },
-    yaxis: { title: 'y' }
+    xaxis: { title: "x" },
+    yaxis: { title: "y" },
   };
 
   // Create the contour plot
-  Plotly.newPlot('plot', data, layout);   
+  Plotly.newPlot("plot", data, layout);
 }
