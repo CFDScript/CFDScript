@@ -2,11 +2,11 @@
 
 Thank you for your interest in contributing to CFDScript! To ensure a smooth and collaborative development process, please review and follow the guidelines outlined in this document.
 
-### Certificate of Origin
+## Certificate of Origin
  
 By contributing to this project you agree to the Developer Certificate of
 Origin (DCO). This document is a simple statement that you, as a contributor, 
-have the legal right to make the contribution. See the [DCO](DCO) file for details.
+have the legal right to make the contribution. See the <a href="./DCO" target="_blank">DCO</a> file for details.
 
 ## Contribution Guidelines
 
