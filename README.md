@@ -11,7 +11,7 @@ CFDScript is still under development and new features and improvements are const
 We are actively seeking developers to help evolve CFDScript. Please refer to <a href="./CONTRIBUTING.md" target="_blank">CONTRIBUTING.md</a> for instructions on how to contribute.
 
 # License
-CFDScript is distributed under the terms of the <a href="./LICENSE" target="_blank">MIT license</a>. &#169; 2024 amphiFlow.
+CFDScript is distributed under the terms of the <a href="./LICENSE" target="_blank">MIT license</a>. &#169; 2024 CFDScript.
 
 <!-- ## Start here 
 See the 
