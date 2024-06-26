@@ -64,15 +64,18 @@ export function plotSolution2D(
     },
   ];
 
-  // Plot resizing
-  let maxWindowWidth = 700; // Maximum Width of the plot (it depends on the available space on the webpage)
+  // Get the width of the user's screen
+  //let maxWindowWidth = window.innerWidth; 
+
+  // Calculate plot dimensions
+  let maxWindowWidth = 700; 
   let maxPlotWidth = Math.max(...reshapedXForPlot);
   let maxPlotHeight = Math.max(...reshapedYCoordinates[0]);
   let zoomFactor = maxWindowWidth / maxPlotWidth;
   let plotWidth = zoomFactor * maxPlotWidth;
   let plotHeight = zoomFactor * maxPlotHeight;
   // Debugger;
-  //console.log("plotWidth", plotWidth);
+  console.log("plotWidth", plotWidth, "plotHeight", plotHeight);
 
   // Set the layout for the contour plot
   let layout = {
