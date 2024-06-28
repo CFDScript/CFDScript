@@ -2,12 +2,6 @@
 
 Thank you for your interest in contributing to CFDScript! To ensure a smooth and collaborative development process, please review and follow the guidelines outlined in this document.
 
-## Certificate of Origin
- 
-By contributing to this project you agree to the Developer Certificate of
-Origin (DCO). This document is a simple statement that you, as a contributor, 
-have the legal right to make the contribution. See the <a href="./DCO" target="_blank">DCO</a> file for details.
-
 ## Contribution Guidelines
 
 1. **Fork the Repository**: Begin by forking the repository to your own GitHub account.
@@ -16,9 +10,9 @@ have the legal right to make the contribution. See the <a href="./DCO" target="_
    ```bash
    git checkout -b feature/your-feature-name
 
-3. **Write Tests**: If applicable, write tests for your contributions to ensure the functionality works as expected.
+3. **Make Changes**: Implement your changes in the codebase.
 
-4. **Make Changes**: Implement your changes in the codebase.
+4. **Format your code**: We recommend using Visual Studio Code with the Prettier plugin for automatic code formatting. You can download Visual Studio Code from <a href="https://code.visualstudio.com/" target="_blank">here</a> and install the Prettier plugin via the Extensions sidebar.
 
 5. **Commit Changes**: Commit your changes with clear and descriptive commit messages.
    ```bash
