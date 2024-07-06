@@ -11,7 +11,7 @@
 import { createSolidHeatMat2D } from "./solidHeatScript.js";
 
 /**
- * Partial Differential Equations (PDE) solver using the Finite Element Method (FEM)
+ * Differential equations solver using the finite element method
  * @param {*} solverScript - Parameter specifying the type of solver
  * @param {*} meshConfig - Object containing computational mesh details
  * @param {*} boundaryConditions - Object containing boundary conditions
