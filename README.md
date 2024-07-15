@@ -4,7 +4,7 @@
 <a href="https://www.cfdscript.com/" target="_blank">CFDScript</a> is an open-source JavaScript library for solving differential equations using the finite element method. It allows you to create and run browser-based simulations of physics and engineering problems.
 <br>
 </br>
-CFDScript is still under development and new features and improvements are constantly being added.
+CFDScript is in early-development and new features and improvements are constantly being added.
 <!-- <img src="https://cfdscript.github.io/CFDScript-website/images/example1.png" width="400" > -->
 
 ## Contributing
