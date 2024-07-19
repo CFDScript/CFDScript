@@ -1,7 +1,7 @@
 ## Contributing to CFDScript
 
 Thank you for your interest in contributing!</br>
-CFDScript is in early under development with continuous addition of new features and improvements. To ensure a smooth and collaborative development process, please review and follow the guidelines.
+CFDScript is in early development with continuous addition of new features and improvements. To ensure a smooth and collaborative development process, please review and follow the guidelines.
 
 ## Contribution Guidelines
 
