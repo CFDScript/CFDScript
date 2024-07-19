@@ -8,8 +8,8 @@
 //                                                        |_|       | |_   //
 //   Website:  www.cfdscript.com                                    \ __\  //
 
-import { genStructMesh2D, nodNumStruct2D } from "./genMeshScript.js";
-import { basisFunQuad2D } from "./basisFunScript.js";
+import { genStructMesh2D, nodNumStruct2D } from "../mesh/genMeshScript.js";
+import { basisFunQuad2D } from "../mesh/basisFunScript.js";
 
 /**
  * Generate the matrix and the residual vector for the Finite Element Method in two dimensions

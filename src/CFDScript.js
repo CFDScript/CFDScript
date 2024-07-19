@@ -8,7 +8,7 @@
 //                                                        |_|       | |_   //
 //   Website:  www.cfdscript.com                                    \ __\  //
 
-import { createSolidHeatMat2D } from "./solidHeatScript.js";
+import { createSolidHeatMat2D } from "./solvers/solidHeatScript.js";
 
 /**
  * Differential equations solver using the finite element method
@@ -29,7 +29,7 @@ export function CFDScript(solverScript, meshConfig, boundaryConditions) {
   // Assembly matrices
   console.time("assemblyMatrices");
   if (solverScript === "solidHeatScript") {
-    console.log("Solver:", solverScript);
+    console.log("solverScript:", solverScript);
     ({
       jacobianMatrix,
       residualVector,

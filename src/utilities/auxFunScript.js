@@ -54,5 +54,5 @@ export function chkSolidHeatboundaryConditions(boundaryConditions) {
  * Print the CFDScript version
  */
 export function CFDScriptVersion() {
-  console.log("CFDscript version: alpha", new Date().getFullYear());
+  console.log("CFDscript version:", new Date().getFullYear());
 }

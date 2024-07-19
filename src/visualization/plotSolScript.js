@@ -8,7 +8,7 @@
 //                                                        |_|       | |_   //
 //   Website:  www.cfdscript.com                                    \ __\  //
 
-import { CFDScript } from "./CFDScript.js";
+import { CFDScript } from "../CFDScript.js";
 
 /**
  * Create contour plot of the two-dimensional solution vector
@@ -75,7 +75,7 @@ export function plotSolution2D(
   let plotWidth = zoomFactor * maxPlotWidth;
   let plotHeight = zoomFactor * maxPlotHeight;
   // Debugger;
-  console.log("plotWidth", plotWidth, "plotHeight", plotHeight);
+  //console.log("plotWidth", plotWidth, "plotHeight", plotHeight);
 
   // Set the layout for the contour plot
   let layout = {
