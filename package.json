@@ -39,24 +39,24 @@
   "author": "Nikolaos Chamakos <nikoscham@gmail.com> (https://www.npmjs.com/~nikoscham)",
   "contributors": [
     {
-      "name": "sridhar-mani",
-      "url": "https://www.npmjs.com/~sridhar-mani"
+      "name": "Akhilesh Tiwari",
+      "url": "https://github.com/silky-x0"
+    },
+    {
+      "name": "Edoardo R",
+      "url": "https://github.com/Ed6003"
     },
     {
       "name": "Felipe Ferrari",
       "url": "https://github.com/ferrari212"
     },
     {
-      "name": "Akhilesh Tiwari",
-      "url": "https://github.com/silky-x0"
-    },
-    {
       "name": "Priyank Bansal",
       "url": "https://github.com/Stu-ops"
     },
     {
-      "name": "Edoardo R",
-      "url": "https://github.com/Ed6003"
+      "name": "sridhar-mani",
+      "url": "https://github.com/sridhar-mani"
     }
   ],
   "license": "MIT",

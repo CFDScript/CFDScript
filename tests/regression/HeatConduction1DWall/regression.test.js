@@ -16,13 +16,8 @@
  * Run: node tests/regression/HeatConduction1DWall/regression.test.js (or npm test)
  */
 
-import * as mathjs from "mathjs";
 import { FEAScriptModel } from "../../../src/FEAScript.js";
 import { basicLog, errorLog } from "../../../src/utilities/logging.js";
-
-// FEAScript.js references `math` as a global (loaded via CDN in browser).
-// Set it here before any solve() call.
-globalThis.math = mathjs;
 
 const EXPECTED_T0 = 10.29412;
 const TOLERANCE = 1e-4;

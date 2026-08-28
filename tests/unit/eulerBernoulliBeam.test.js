@@ -19,9 +19,6 @@
  * Run: node tests/unit/eulerBernoulliBeam.test.js (or npm test)
  */
 
-import * as mathjs from "mathjs";
-globalThis.math = mathjs;
-
 import { assembleEulerBernoulliBeamMat } from "../../src/models/eulerBernoulliBeam.js";
 import { prepareMesh } from "../../src/mesh/meshUtils.js";
 import { solveLinearSystem } from "../../src/methods/linearSystemSolver.js";
@@ -69,9 +66,7 @@ function maxAbsDiff(A, B) {
 }
 
 basicLog("");
-basicLog(
-  "[1] Single-element stiffness matrix vs. closed-form Hermite beam matrix"
-);
+basicLog("[1] Single-element stiffness matrix vs. closed-form Hermite beam matrix");
 
 for (const [EI, L] of [
   [2.0e6, 5],
@@ -83,16 +78,9 @@ for (const [EI, L] of [
     numElementsX: 1,
     maxX: L,
   });
-  const { jacobianMatrix } = assembleEulerBernoulliBeamMat(
-    meshData,
-    {},
-    { EI: () => EI }
-  );
+  const { jacobianMatrix } = assembleEulerBernoulliBeamMat(meshData, {}, { EI: () => EI });
   const diff = maxAbsDiff(jacobianMatrix, closedFormBeamStiffness(EI, L));
-  assert(
-    diff < 1e-6,
-    `Element stiffness matches closed-form matrix for EI=${EI}, L=${L} (diff=${diff})`
-  );
+  assert(diff < 1e-6, `Element stiffness matches closed-form matrix for EI=${EI}, L=${L} (diff=${diff})`);
 }
 
 basicLog("");
@@ -111,33 +99,26 @@ const meshData = prepareMesh({
 const { jacobianMatrix, residualVector } = assembleEulerBernoulliBeamMat(
   meshData,
   { 1: [["fixed"]], 2: [["force", P]] },
-  { EI: () => EI }
+  { EI: () => EI },
 );
-const { solutionVector } = solveLinearSystem(
-  "lusolve",
-  jacobianMatrix,
-  residualVector
-);
-const flatSolution = solutionVector.map((entry) =>
-  Array.isArray(entry) ? entry[0] : entry
-);
+const { solutionVector } = solveLinearSystem("lusolve", jacobianMatrix, residualVector);
+const flatSolution = solutionVector.map((entry) => (Array.isArray(entry) ? entry[0] : entry));
 
 const wExact = (P * L ** 3) / (3 * EI);
 const thetaExact = (P * L ** 2) / (2 * EI);
 const tolerance = 1e-9;
 
 assert(
-  Math.abs(flatSolution[0]) < tolerance &&
-    Math.abs(flatSolution[1]) < tolerance,
-  "Clamped end has zero deflection and rotation"
+  Math.abs(flatSolution[0]) < tolerance && Math.abs(flatSolution[1]) < tolerance,
+  "Clamped end has zero deflection and rotation",
 );
 assert(
   Math.abs(flatSolution[2] - wExact) < tolerance,
-  `Tip deflection matches closed form (got ${flatSolution[2]}, expected ${wExact})`
+  `Tip deflection matches closed form (got ${flatSolution[2]}, expected ${wExact})`,
 );
 assert(
   Math.abs(flatSolution[3] - thetaExact) < tolerance,
-  `Tip rotation matches closed form (got ${flatSolution[3]}, expected ${thetaExact})`
+  `Tip rotation matches closed form (got ${flatSolution[3]}, expected ${thetaExact})`,
 );
 
 basicLog("");

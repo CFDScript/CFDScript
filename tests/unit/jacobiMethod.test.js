@@ -17,7 +17,7 @@
  * Run: node tests/unit/jacobiMethod.test.js (or npm test)
  */
 
-import { jacobiSolver } from "../../src/methods/jacobiSolver.js";
+import { jacobiSolver } from "../../src/base/solvers/index.js";
 import { basicLog, errorLog } from "../../src/utilities/logging.js";
 
 basicLog("");
@@ -60,14 +60,8 @@ assert(result.iterations > 0, "At least one iteration was performed");
 assert(result.iterations <= 500, "Converges within configured iteration limit");
 
 const tolerance = 1e-6;
-assert(
-  Math.abs(result.solutionVector[0] - 1) < tolerance,
-  `x ~= 1 (got ${result.solutionVector[0]})`
-);
-assert(
-  Math.abs(result.solutionVector[1] - 1) < tolerance,
-  `y ~= 1 (got ${result.solutionVector[1]})`
-);
+assert(Math.abs(result.solutionVector[0] - 1) < tolerance, `x ~= 1 (got ${result.solutionVector[0]})`);
+assert(Math.abs(result.solutionVector[1] - 1) < tolerance, `y ~= 1 (got ${result.solutionVector[1]})`);
 
 basicLog("");
 basicLog("[2] Non-convergence case");
@@ -77,18 +71,9 @@ const hardResult = jacobiSolver(A, b, x0, {
   tolerance: 1e-20,
 });
 
-assert(
-  hardResult.converged === false,
-  "Method reports non-convergence with too few iterations"
-);
-assert(
-  hardResult.iterations === 1,
-  "Method reports the configured iteration cap"
-);
-assert(
-  hardResult.solutionVector.length === 2,
-  "Returns a solution vector of expected size"
-);
+assert(hardResult.converged === false, "Method reports non-convergence with too few iterations");
+assert(hardResult.iterations === 1, "Method reports the configured iteration cap");
+assert(hardResult.solutionVector.length === 2, "Returns a solution vector of expected size");
 
 basicLog("");
 if (failed > 0) {

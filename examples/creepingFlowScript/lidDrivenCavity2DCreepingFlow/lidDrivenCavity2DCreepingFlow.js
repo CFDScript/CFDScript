@@ -7,10 +7,6 @@
  * ════════════════════════════════════════════════════════════════
  */
 
-// Import Math.js
-import * as math from "mathjs";
-global.math = math;
-
 // Import FEAScript library
 import { FEAScriptModel, printVersion } from "feascript";
 

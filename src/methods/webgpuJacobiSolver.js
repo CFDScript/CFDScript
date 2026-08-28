@@ -45,42 +45,56 @@ export class WebGPUComputeEngine {
 
   /**
    * Function to solve a system of linear equations using the Jacobi iterative method (GPU asynchronous version)
-   * @param {number[][]} A - The system matrix (dense, n×n)
-   * @param {number[]} b - The right-hand side vector (length n)
-   * @param {number[]} x0 - Initial guess for solution vector (length n)
-   * @param {number} maxIter - Maximum number of iterations
-   * @param {number} tol - Convergence tolerance for the residual norm
+   * @param {array} systemMatrix - The system matrix
+   * @param {array} rightHandSideVector - The right-hand side vector
+   * @param {array} initialGuess - Initial guess for solution vector
+   * @param {object} [options] - Optional parameters for the solver, such as `maxIterations` and `tolerance`
    * @returns {Promise<object>} Result object containing the solution, iteration count, and convergence flag
    */
-  async webgpuJacobiSolver(A, b, x0, maxIter, tol) {
+  async webgpuJacobiSolver(systemMatrix, rightHandSideVector, initialGuess, options = {}) {
     await this.initialize();
-    const n = b.length;
-    const flatA = A.flat();
+    const { maxIterations, tolerance } = options;
+    const n = rightHandSideVector.length;
+    const flatSystemMatrix = systemMatrix.flat();
 
     if (!this.fields || this.cachedSize !== n) {
       this.fields = {
-        AField: ti.field(ti.f32, [n * n]),
-        bField: ti.field(ti.f32, [n]),
-        xField: ti.field(ti.f32, [n]),
-        xNewField: ti.field(ti.f32, [n]),
+        systemMatrixField: ti.field(ti.f32, [n * n]),
+        rightHandSideField: ti.field(ti.f32, [n]),
+        solutionField: ti.field(ti.f32, [n]),
+        updatedSolutionField: ti.field(ti.f32, [n]),
         diagField: ti.field(ti.f32, [n]),
         maxResidualField: ti.field(ti.f32, [1]),
       };
       this.cachedSize = n;
     }
 
-    const { AField, bField, xField, xNewField, diagField, maxResidualField } = this.fields;
+    const {
+      systemMatrixField,
+      rightHandSideField,
+      solutionField,
+      updatedSolutionField,
+      diagField,
+      maxResidualField,
+    } = this.fields;
 
-    AField.fromArray(flatA);
-    bField.fromArray(b);
-    xField.fromArray(x0);
-    xNewField.fromArray(x0);
+    systemMatrixField.fromArray(flatSystemMatrix);
+    rightHandSideField.fromArray(rightHandSideVector);
+    solutionField.fromArray(initialGuess);
+    updatedSolutionField.fromArray(initialGuess);
 
-    ti.addToKernelScope({ AField, bField, xField, xNewField, diagField, maxResidualField });
+    ti.addToKernelScope({
+      systemMatrixField,
+      rightHandSideField,
+      solutionField,
+      updatedSolutionField,
+      diagField,
+      maxResidualField,
+    });
     if (!this.extractDiagonalKernel) {
       this.extractDiagonalKernel = ti.kernel((size) => {
         for (let i of ti.ndrange(size)) {
-          diagField[i] = AField[ti.i32(i) * ti.i32(size) + ti.i32(i)];
+          diagField[i] = systemMatrixField[ti.i32(i) * ti.i32(size) + ti.i32(i)];
         }
       });
 
@@ -89,32 +103,32 @@ export class WebGPUComputeEngine {
         for (let i of ti.ndrange(size)) {
           let sum = 0.0;
           for (let j of ti.ndrange(size)) {
-            sum += AField[ti.i32(i) * ti.i32(size) + ti.i32(j)] * xField[j];
+            sum += systemMatrixField[ti.i32(i) * ti.i32(size) + ti.i32(j)] * solutionField[j];
           }
-          const residual = bField[i] - sum;
-          xNewField[i] = xField[i] + residual / diagField[i];
+          const residual = rightHandSideField[i] - sum;
+          updatedSolutionField[i] = solutionField[i] + residual / diagField[i];
           ti.atomicMax(maxResidualField[0], ti.abs(residual));
         }
       });
 
       this.swapSolutionKernel = ti.kernel((size) => {
         for (let i of ti.ndrange(size)) {
-          xField[i] = xNewField[i];
+          solutionField[i] = updatedSolutionField[i];
         }
       });
     }
 
     this.extractDiagonalKernel(n);
 
-    const residualCheckInterval = Math.max(1, Math.min(10, Math.floor(maxIter / 4) || 1));
-    let iterations = maxIter;
+    const residualCheckInterval = Math.max(1, Math.min(10, Math.floor(maxIterations / 4) || 1));
+    let iterations = maxIterations;
     let converged = false;
 
-    for (let iter = 0; iter < maxIter; iter++) {
+    for (let iter = 0; iter < maxIterations; iter++) {
       this.jacobiStepKernel(n);
       this.swapSolutionKernel(n);
 
-      const shouldCheckResidual = (iter + 1) % residualCheckInterval === 0 || iter === maxIter - 1;
+      const shouldCheckResidual = (iter + 1) % residualCheckInterval === 0 || iter === maxIterations - 1;
       if (!shouldCheckResidual) {
         continue;
       }
@@ -122,17 +136,21 @@ export class WebGPUComputeEngine {
       const rnorm = (await maxResidualField.toArray())[0];
       iterations = iter + 1;
       debugLog(`Jacobi: Iteration ${iterations}, residual norm: ${rnorm}`);
-      if (rnorm < tol) {
+      if (rnorm < tolerance) {
         converged = true;
         break;
       }
     }
 
     if (!converged) {
-      errorLog(`Jacobi: Did not converge in ${maxIter} iterations`);
+      errorLog(`Jacobi: Did not converge in ${maxIterations} iterations`);
     }
 
-    return { solutionVector: await xField.toArray(), iterations, converged };
+    return {
+      solutionVector: await solutionField.toArray(),
+      iterations,
+      converged,
+    };
   }
 
   /**

@@ -47,16 +47,15 @@ class webgpuFEAScriptWorker {
 
   /**
    * Function to solve a linear system using the Jacobi method
-   * @param {array} A - The system matrix
-   * @param {array} b - The right-hand side vector
-   * @param {array} x0 - The initial guess
+   * @param {array} systemMatrix - The system matrix
+   * @param {array} rightHandSideVector - The right-hand side vector
+   * @param {array} initialGuess - The initial guess
    * @param {object} [options] - Optional parameters for the solver, such as `maxIterations` and `tolerance`
    * @returns {Promise<object>} An object containing the solution vector, iterations, and convergence status
    */
-  async webgpuJacobiSolver(A, b, x0, options = {}) {
+  async webgpuJacobiSolver(systemMatrix, rightHandSideVector, initialGuess, options = {}) {
     await this.initialize();
-    const { maxIterations, tolerance } = options;
-    return this.computeEngine.webgpuJacobiSolver(A, b, x0, maxIterations, tolerance);
+    return this.computeEngine.webgpuJacobiSolver(systemMatrix, rightHandSideVector, initialGuess, options);
   }
 
   /**

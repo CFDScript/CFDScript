@@ -24,13 +24,8 @@
  * Run: node tests/verification/benchmark/heatConduction2DNafemsT4/benchmark.test.js (or npm test)
  */
 
-import * as mathjs from "mathjs";
 import { FEAScriptModel } from "../../../../src/FEAScript.js";
 import { basicLog, errorLog } from "../../../../src/utilities/logging.js";
-
-// FEAScript.js references `math` as a global (loaded via CDN in browser).
-// Set it here before any solve() call.
-globalThis.math = mathjs;
 
 const POINT_E = { x: 0.6, y: 0.2 };
 const NAFEMS_TARGET_T = 18.3;

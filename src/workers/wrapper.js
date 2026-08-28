@@ -8,15 +8,10 @@
  */
 
 // External imports
-import { create, all } from "mathjs";
 import * as Comlink from "../vendor/comlink.mjs";
 
 // Internal imports
 import { FEAScriptModel } from "../FEAScript.js";
-
-const math = create(all);
-
-globalThis.math = math;
 
 /**
  * Class to wrap the FEAScriptModel for use in a web worker context
