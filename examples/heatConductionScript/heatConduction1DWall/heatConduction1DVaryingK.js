@@ -19,10 +19,6 @@
  *   - Right (x = 0.15): constant temperature, T = 20 °C
  */
 
-// Import Math.js
-import * as math from "mathjs";
-global.math = math;
-
 // Import FEAScript library
 import { FEAScriptModel, printVersion } from "feascript";
 

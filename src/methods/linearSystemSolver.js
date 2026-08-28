@@ -8,7 +8,7 @@
  */
 
 // Internal imports
-import { jacobiSolver } from "./jacobiSolver.js";
+import { jacobiSolver, mathjsLUSolver } from "../base/solvers/index.js";
 import { basicLog, debugLog, errorLog } from "../utilities/logging.js";
 import * as Comlink from "../vendor/comlink.mjs";
 
@@ -37,11 +37,8 @@ export function solveLinearSystem(solverMethod, jacobianMatrix, residualVector, 
 
   if (solverMethod === "lusolve") {
     // Use LU decomposition method
-    const jacobianMatrixSparse = math.sparse(jacobianMatrix);
-    const luFactorization = math.slu(jacobianMatrixSparse, 1, 1); // order=1, threshold=1 for pivoting
-    let solutionMatrix = math.lusolve(luFactorization, residualVector);
-    solutionVector = math.squeeze(solutionMatrix).valueOf();
-    //solutionVector = math.lusolve(jacobianMatrix, residualVector); // In the case of a dense matrix
+    const luSolverResult = mathjsLUSolver(jacobianMatrix, residualVector, { matrixType: "sparse" });
+    solutionVector = luSolverResult.solutionVector;
   } else if (solverMethod === "jacobi") {
     // Use Jacobi method
     const initialGuess = new Array(residualVector.length).fill(0);
@@ -102,8 +99,12 @@ export async function solveLinearSystemAsync(solverMethod, jacobianMatrix, resid
   console.time("systemSolving");
 
   // Normalize inputs
-  const A = Array.isArray(jacobianMatrix) ? jacobianMatrix : (jacobianMatrix?.toArray?.() ?? jacobianMatrix);
-  const b = Array.isArray(residualVector) ? residualVector : (residualVector?.toArray?.() ?? residualVector);
+  const systemMatrix = Array.isArray(jacobianMatrix)
+    ? jacobianMatrix
+    : jacobianMatrix?.toArray?.() ?? jacobianMatrix;
+  const rightHandSideVector = Array.isArray(residualVector)
+    ? residualVector
+    : residualVector?.toArray?.() ?? residualVector;
 
   let created = null;
   let computeEngine = null;
@@ -117,10 +118,13 @@ export async function solveLinearSystemAsync(solverMethod, jacobianMatrix, resid
     created = await createDefaultComputeEngine();
     computeEngine = created.computeEngine;
 
-    const x0 = new Array(b.length).fill(0);
+    const initialGuess = new Array(rightHandSideVector.length).fill(0);
     let result;
 
-    result = await computeEngine.webgpuJacobiSolver(A, b, x0, { maxIterations, tolerance });
+    result = await computeEngine.webgpuJacobiSolver(systemMatrix, rightHandSideVector, initialGuess, {
+      maxIterations,
+      tolerance,
+    });
     solutionVector = result.solutionVector;
     converged = result.converged;
     iterations = result.iterations;

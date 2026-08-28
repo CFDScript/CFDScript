@@ -12,10 +12,6 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 
-// Import Math.js
-import * as math from "mathjs";
-global.math = math;
-
 // Import FEAScript library
 import { FEAScriptModel, importGmshMesh, printVersion } from "feascript";
 

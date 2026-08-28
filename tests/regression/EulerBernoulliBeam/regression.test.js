@@ -23,14 +23,9 @@
  * Run: node tests/regression/EulerBernoulliBeam/regression.test.js (or npm test)
  */
 
-import * as mathjs from "mathjs";
 import { FEAScriptModel } from "../../../src/FEAScript.js";
 import { assembleEulerBernoulliBeamMat } from "../../../src/models/eulerBernoulliBeam.js";
 import { basicLog, errorLog } from "../../../src/utilities/logging.js";
-
-// FEAScript.js references `math` as a global (loaded via CDN in browser).
-// Set it here before any solve() call.
-globalThis.math = mathjs;
 
 // Baseline values (see README.md for derivation and verification)
 const EXPECTED = {
