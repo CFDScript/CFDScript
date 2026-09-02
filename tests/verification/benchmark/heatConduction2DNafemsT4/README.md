@@ -3,13 +3,12 @@
 ## Purpose
 
 This test replicates the NAFEMS T4 benchmark, also documented as a DIANA FEA tutorial
-([2DHeatTransferConvection.pdf](https://tutorials.dianafea.com/2DHeatTransferConvection.pdf))
-and by [Altair](https://help.altair.com/hwsolvers/os/topics/solvers/os/nafems_test_problem_t4_r.htm),
+([2DHeatTransferConvection.pdf](https://tutorials.dianafea.com/2DHeatTransferConvection.pdf)),
 and checks that `heatConductionScript` reproduces the published target temperature for a 2D
 steady-state conduction problem with a convective (Robin) boundary condition.
 
 This is an independent reproduction of the NAFEMS T4 problem and is not sponsored, endorsed, or
-affiliated with NAFEMS.
+affiliated with NAFEMS or DIANA FEA BV.
 
 ## Problem setup
 
