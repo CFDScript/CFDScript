@@ -2,15 +2,11 @@
 
 ## Our Pledge
 
-FEAScript is both a software project and a community. We are committed to providing a friendly, safe, welcoming, and inclusive environment for everyone, regardless of experience level, gender identity or expression, sexual orientation, disability, personal appearance, body size, race, ethnicity, age, religion, nationality, or other personal characteristic.
-
-We value the different perspectives that make open source projects stronger. Technical disagreement is normal and welcome when it is expressed professionally and constructively.
+FEAScript is both a software project and a community. We are committed to providing a friendly, safe, welcoming, and inclusive environment for everyone, regardless of experience level, gender identity or expression, sexual orientation, disability, personal appearance, body size, race, ethnicity, age, religion, nationality, or other personal characteristic. We value the different perspectives that make open source projects stronger. Technical disagreement is normal and welcome when it is expressed professionally and constructively.
 
 ## Scope
 
-This Code of Conduct applies to all project participants, including contributors, users, maintainers, sponsors, and affiliated members. It applies in all FEAScript community spaces, including GitHub repositories, issues, pull requests, discussions, project websites, social media, events, and private communications related to the project.
-
-It also applies when an individual represents FEAScript in public spaces, such as through an official project account or at an online or in-person event. Behavior outside these spaces may be addressed when it has the potential to adversely affect the safety or well-being of community members.
+This Code of Conduct applies to all project participants, including contributors, users, maintainers, sponsors, and affiliated members. It applies in all FEAScript community spaces, including GitHub repositories, issues, pull requests, discussions, project websites, social media, events, and private communications related to the project. It also applies when an individual represents FEAScript in public spaces, such as through an official project account or at an online or in-person event.
 
 ## Expected Behavior
 
@@ -45,8 +41,8 @@ FEAScript is used to build engineering simulations, and the results people obtai
 
 - Develop and share this technology for the benefit of people and the natural environment
 - Consider the wider impact of the work and avoid contributing toward harmful goals
-- Be honest about the assumptions, limitations, and accuracy of methods and results
-- Keep growing as problem solvers, and help others in the community do the same
+- Be honest about the assumptions, limitations and accuracy of methods and results
+- Keep growing as problem solvers and help others in the community do the same
 
 ## Maintainer Responsibilities
 
@@ -62,10 +58,6 @@ Reports will be handled with discretion and as confidentially as possible. A mai
 
 Maintainers may remove, edit, or reject contributions; issue warnings; temporarily restrict participation; or permanently remove access when behavior violates this Code of Conduct. Decisions will be made in good faith and in proportion to the circumstances.
 
-## Changes
-
-This is a living document and may be updated as the FEAScript community evolves.
-
 ## Attribution
 
-This Code of Conduct borrows heavily from the [stdlib Code of Conduct](https://github.com/stdlib-js/stdlib/blob/develop/CODE_OF_CONDUCT.md), the [Open Code of Conduct](https://github.com/todogroup/opencodeofconduct/blob/gh-pages/codeofconduct_redo.md), and the [Linux Kernel Code of Conduct](https://docs.kernel.org/process/code-of-conduct.html). The Engineering Responsibility section is inspired by the [Archimedean Oath](https://www.ilry.fi/en/students/graduation/oath-archimedes/).
+This Code of Conduct borrows heavily from the [stdlib Code of Conduct](https://github.com/stdlib-js/stdlib/blob/develop/CODE_OF_CONDUCT.md), the [TODO Group Open Code of Conduct](https://github.com/todogroup/opencodeofconduct/tree/gh-pages) and the [Linux Kernel Code of Conduct](https://docs.kernel.org/process/code-of-conduct.html). The Engineering Responsibility section is inspired by the [Archimedean Oath](https://www.ilry.fi/en/students/graduation/oath-archimedes/).
