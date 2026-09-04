@@ -1,9 +1,6 @@
 # Dependencies
-/node_modules
-node_modules
 node_modules/
 
-# Example dependencies
+# Local install artifacts from testing examples against the published package
 examples/**/package.json
 examples/**/package-lock.json
-examples/**/node_modules/
