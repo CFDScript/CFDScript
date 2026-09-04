@@ -19,6 +19,15 @@ style="vertical-align: middle; margin-right: 5px; height: 1em; width: auto"
 
 > 🚧 **FEAScript is currently under heavy development.** Its functionality and interfaces may change rapidly as new features and enhancements are introduced. <a href="https://github.com/sponsors/FEAScript">Donations</a> help accelerate the next generation of FEAScript's solvers, performance, documentation and tutorials.
 
+## Contents
+
+- [Features](#features)
+- [How to Use FEAScript](#how-to-use-feascript)
+- [Examples](#examples)
+- [Help FEAScript Grow](#help-feascript-grow)
+- [Contributing](#contributing)
+- [License](#license)
+
 ## Features
 
 - <b>Physics models:</b> creeping (Stokes) flow, Euler-Bernoulli beam bending, front propagation, heat conduction, general form PDE (linear and nonlinear)
@@ -27,15 +36,6 @@ style="vertical-align: middle; margin-right: 5px; height: 1em; width: auto"
 - <b>Spatially varying coefficients:</b> `thermalConductivity(x, y)` and `heatSource(x, y)` can be scalars or functions, evaluated at each Gauss point
 - <b>Performance:</b> web worker support for multi-threaded computation
 - <b>Visualization:</b> interactive rendering with vtk.js and Plotly
-
-<!-- ## Contents
-
-- [How to Use FEAScript](#ways-to-use-feascript)
-- [Features](#features)
-- [Examples](#examples)
-- [Support FEAScript](#support-feascript)
-- [Contributing](#contributing)
-- [License](#license) -->
 
 ## How to Use FEAScript
 
